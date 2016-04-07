@@ -1,18 +1,20 @@
 {% extends "outside.html" %}
 
+{% block head %}<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/inside.css') }}"/>{% endblock %}
+
 {% block navbar %}
                 <div class="container">
                     <nav class="nbd-indigo hide-on-med-and-down">
                         <ul class="bold">
                             <li {% block dashboard %}{% endblock %}><a href="{{ url_for('dashboard') }}">My&nbsp;Dashboard</a></li>
-                            <li>Accounts</li>
-                            <li>Cards</li>
-                            <li>Loans</li>
+                            <li><a>Accounts</a></li>
+                            <li><a>Cards</a></li>
+                            <li><a>Loans</a></li>
                             <li {% block transfer %}{% endblock %}><a href="{{ url_for('transfer') }}">Transfers</a></li>
-                            <li>Payments</li>
-                            <li>Insurance</li>
-                            <li>Investments</li>
-                            <li>Contact&nbsp;Us</li>
+                            <li><a>Payments</a></li>
+                            <li><a>Insurance</a></li>
+                            <li><a>Investments</a></li>
+                            <li><a>Contact&nbsp;Us</a></li>
                         </ul>
                     </nav>
                 </div>

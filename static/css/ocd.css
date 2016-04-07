@@ -1,0 +1,40 @@
+#ocd {
+    font-family: "Roboto";
+}
+
+.tabs {
+    margin-top: 1rem;
+}
+
+.tabs .indicator {
+    background-color: #0a2964;
+}
+
+.tabs .tab a {
+    color: #08276a;
+}
+
+.tabs .tab a:hover {
+    color: #305388;
+}
+
+.determinate {
+    width: 75%;
+}
+
+.filled {
+    border-bottom: 1px solid #26a69a !important;
+    box-shadow: 0 1px 0 0 #26a69a !important;
+}
+
+.gold {
+    background-color: #ffd700;
+}
+
+.silver {
+    background-color: #c0c0c0;
+}
+
+.bronze {
+    background-color: #cd7f32;
+}

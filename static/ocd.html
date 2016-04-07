@@ -1,5 +1,8 @@
 {% extends "inside.html" %}
 
+{% block head %}{{ super() }}
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/ocd.css') }}"/>{% endblock %}
+
 {% block title %}One Click Donation{% endblock %}
 
 {% block dashboard %}class="active"{% endblock %}

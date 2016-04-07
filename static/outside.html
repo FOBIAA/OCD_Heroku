@@ -5,8 +5,9 @@
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.css') }}"/>
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}" media="screen,projection"/>
-        <!--Import my styles.css-->
-        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
+        <!--Import my css styles-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/outside.css') }}"/>
+        {% block head %}{% endblock %}
 
         <!--Import jquery-2.2.2.js-->
         <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.2.2.js') }}"></script>
@@ -41,7 +42,7 @@
                 </div>
             </div>
             <div id="nav-bar" class="nbd-indigo">
-                {% block navbar %}<div class="row"></div>{% endblock %}
+                {% block navbar %}<div class="row hide-on-med-and-down"></div>{% endblock %}
             </div>
         </div>
         

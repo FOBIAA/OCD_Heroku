@@ -1,0 +1,65 @@
+#dashboard > * {
+    background-color: white;
+}
+
+#status-bars {
+    background-color: #fdf5fb;
+    padding: 0 8px;
+    color: #1d1a5a;
+}
+
+#status-title {
+    padding-top: 8px;
+    margin-bottom: -12px;
+}
+
+#status-bars > div.row {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    border-style: solid;
+    border-color: #ccc;
+    border-width: 1px 1px 3px 1px;
+    background: white;
+    background: -webkit-linear-gradient(left, white, white, #dff2fb, #bde4f4, #b5e1f3, #aedef1);
+    background: -o-linear-gradient(right, white, white, #dff2fb, #bde4f4, #b5e1f3, #aedef1);
+    background: -moz-linear-gradient(right, white, white, #dff2fb, #bde4f4, #b5e1f3, #aedef1);
+    background: linear-gradient(to right, white, white, #dff2fb, #bde4f4, #b5e1f3, #aedef1);
+}
+
+#status-bars img {
+    vertical-align: middle;
+    padding: 4px 12px 8px 0;
+}
+
+#text1, #text2 {
+    margin-top: -20px;
+    padding-top: 16px;
+    padding-bottom: 20px;
+}
+
+#text1 p {
+    line-height: 1.5;
+    font-size: 95%;
+}
+
+#text2 img {
+    float: right;
+}
+
+#text2 h5 {
+    color: #08276a;
+}
+
+#divider {
+    border-right: 3px double #bbb;
+}
+
+@media only screen and (max-width: 600px) {
+    #divider {
+        border-right: 0;
+    }
+}
+
+hr {
+    border-color: #ffc000;
+}
