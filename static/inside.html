@@ -1,0 +1,51 @@
+{% extends "outside.html" %}
+
+{% block navbar %}
+                <div class="container">
+                    <nav class="nbd-indigo hide-on-med-and-down">
+                        <ul class="bold">
+                            <li {% block dashboard %}{% endblock %}>My&nbsp;Dashboard</li>
+                            <li>Accounts</li>
+                            <li>Cards</li>
+                            <li>Loans</li>
+                            <li {% block transfer %}{% endblock %}>Transfers</li>
+                            <li>Payments</li>
+                            <li>Insurance</li>
+                            <li>Investments</li>
+                            <li>Contact&nbsp;Us</li>
+                        </ul>
+                    </nav>
+                </div>
+{% endblock %}
+
+{% block body %}
+        <div id="welcome-bar" class="row">
+            <div class="col m3 offset-m2 s12 bold">
+                <span>{% block welcome %}{% endblock %}</span>
+            </div>
+        </div>
+
+        <div id="main" class="row">
+            <div id="side-bar" class="col m2 s12">
+                <ul>
+                    {% block sidebar %}{% endblock %}
+                </ul>
+            </div>
+            {% block main %}{% endblock %}
+            <div id="quick-links" class="col m2 s12">
+                <p class="bold">Quick Links</p>
+                <ul>
+                    <li><a>Purchase Foreign Currency Cash</a></li>
+                    <li><a>Etisalat Payment</a></li>
+                    <li><a>Own Account Transfer</a></li>
+                    <li><a>Transfer to Other Emirates NBD Account</a></li>
+                    <li><a>Local Transfer (UAE)</a></li>
+                    <li><a>International Transfer</a></li>
+                    <li><a>DU Payment</a></li>
+                    <li><a>Credit Card Payment</a></li>
+                </ul>
+                <p class="bold">Promotions</p>
+                <img src="{{ url_for('static', filename='img/ad.png') }}">
+            </div>
+        </div>
+{% endblock %}

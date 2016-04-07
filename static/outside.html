@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Import font-awesome.css-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.css') }}"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}" media="screen,projection"/>
+        <!--Import my styles.css-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
+
+        <!--Import jquery-2.2.2.js-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.2.2.js') }}"></script>
+        <!--Import materialize.js-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+        <!--Import my scripts.js-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--Set other details of the website-->
+        <meta name="description" content="A demo of FOBIAA team idea for EmiratesNBD bank">
+        <meta name="keywords" content="FOBIAA, One Click Donation">
+        <meta name="author" content="Omar Einea">
+        <meta charset="utf-8">
+
+        <!--Set page icon-->
+        <link href="{{ url_for('static', filename='img/icon.png') }}" type="image/png" rel="shortcut icon" />
+        <!--Set page title-->
+        <title>{% block title %}{% endblock %} - FOBIAA</title>
+    </head>
+
+    <body>
+        <div id="header">
+            <div class="section nbd-indigo">
+                <div class="row hide-on-med-and-down"></div>
+            </div>
+            <div id="logo-bar" class="nbd-yellow">
+                <div class="container valign-wrapper nbd-blue-text">
+                    <img width="215" src="{{ url_for('static', filename='img/fobiaademo.png') }}">
+                    <span>Online Banking</span>
+                </div>
+            </div>
+            <div id="nav-bar" class="nbd-indigo">
+                {% block navbar %}<div class="row"></div>{% endblock %}
+            </div>
+        </div>
+        
+        {% block body %}{% endblock %}
+        
+        <footer class="page-footer nbd-indigo white-text">
+            <div class="row"></div>
+            <div class="row">
+                <div class="col m1 offset-m2 s4">
+                    <img src="{{ url_for('static', filename='img/careers.png') }}">
+                </div>
+                <div class="col m4 s8">
+                    <p><br>Take a next step in your career<br><b>Work with Emirates NBD</b></p>
+                </div>
+                <div class="row hide-on-med-and-up"></div>
+                <div class="row hide-on-med-and-up"></div>
+                <div class="col m1 s4">
+                    <img src="{{ url_for('static', filename='img/mobile-app.png') }}">
+                </div>
+                <div class="col m4 s8">
+                    <p>Download the<br><b>Emirates NBD</b><br>Mobile Banking App</p>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="footer-copyright">
+                <div class="row">
+                    <div class="col m4 offset-m2 s12">
+                        Copyright © 2016 FOBIAA TEAM
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
