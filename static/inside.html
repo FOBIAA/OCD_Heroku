@@ -4,11 +4,11 @@
                 <div class="container">
                     <nav class="nbd-indigo hide-on-med-and-down">
                         <ul class="bold">
-                            <li {% block dashboard %}{% endblock %}>My&nbsp;Dashboard</li>
+                            <li {% block dashboard %}{% endblock %}><a href="{{ url_for('dashboard') }}">My&nbsp;Dashboard</a></li>
                             <li>Accounts</li>
                             <li>Cards</li>
                             <li>Loans</li>
-                            <li {% block transfer %}{% endblock %}>Transfers</li>
+                            <li {% block transfer %}{% endblock %}><a href="{{ url_for('transfer') }}">Transfers</a></li>
                             <li>Payments</li>
                             <li>Insurance</li>
                             <li>Investments</li>

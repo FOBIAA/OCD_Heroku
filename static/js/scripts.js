@@ -1,40 +1,4 @@
 $(document).ready(function() {
-    $("#nav-dashboard").click(function() {
-        $("#nav-dashboard").addClass("active");
-        $(".dashboard").show();
-        
-        $("#nav-transfer").removeClass("active");
-        $(".transfer").hide();
-        
-        $("#nbd-summary a").trigger("click");
-    });
-    
-    $("#nav-transfer").click(function() {
-        $("#nav-transfer").addClass("active");
-        $(".transfer").show();
-        
-        $("#nav-dashboard").removeClass("active");
-        $(".dashboard").hide();
-    });
-    
-    //Logic for dashboard buttons
-    $("#nbd-summary a").click(function() {
-        $("#nbd-summary").addClass("nbd-yellow");
-        $("#nbd").show();
-        
-        $("#ocd-donate").removeClass("nbd-yellow");
-        $("#ocd").hide();
-    });
-    
-    $("#ocd-donate a").click(function() {
-        $("#ocd-donate").addClass("nbd-yellow");
-        $("#ocd").show();
-        
-        $("#nbd-summary").removeClass("nbd-yellow");
-        $("#nbd").hide();
-        
-        $("#percent-btn").trigger("click");
-    });
         
     //Logic for donation types buttons
     $("#percent-btn").click(function() {
@@ -101,7 +65,7 @@ $(document).ready(function() {
         Materialize.toast("Wow, you'll donate " + $(this).next("label").text() + " !", 3000);
     });
     
-    $("#nav-dashboard").trigger("click");
+    $("#percent-btn").trigger("click");
 
     $(".modal-trigger").leanModal();
 });

@@ -118,7 +118,7 @@ footer b {
     background: linear-gradient(#a5cbe1, #d1e4ee, #f0f0f0);
 }
 
-#side-bar > *, #quick-links > *, #nbd > *, #transfer > * {
+#side-bar > *, #quick-links > *, #dashboard > *, #transfer > * {
     background-color: white;
 }
 

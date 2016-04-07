@@ -9,8 +9,18 @@ app = Flask(__name__, template_folder="static")
 
 # handle url requests
 @app.route("/")
-def index():
-    return render_template("index.html")
+@app.route("/dashboard/")
+def dashboard():
+    return render_template("dashboard.html")
+
+@app.route("/transfer/")
+def transfer():
+    return render_template("transfer.html")
+
+@app.route("/donation/")
+@app.route("/ocd/")
+def ocd():
+    return render_template("ocd.html")
 
 # finalize configurations and run the app
 if __name__ == "__main__":
