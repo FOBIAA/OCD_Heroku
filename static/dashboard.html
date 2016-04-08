@@ -1,8 +1,10 @@
 {% extends "inside.html" %}
 
-{% block head %}{{ super() }}
+{% block head -%}
+        {{ super() }}
         <!--Import dashboard styles-->
-        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}"/>{% endblock %}
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}"/>
+{%- endblock %}
 
 {% block title %}Dashboard{% endblock %}
 
@@ -10,7 +12,7 @@
 
 {% block welcome %}Good Evening FOBIAA{% endblock %}
 
-{% block sidebar %}
+{% block sidebar -%}
                     <li class="nbd-yellow"><a href="{{ url_for('dashboard') }}">Financial Summary</a></li>
                     <li><a>My e-Statements/Advices</a></li>
                     <li><a>My E-Mails</a></li>
@@ -22,9 +24,9 @@
                     <li><a>Rates</a></li>
                     <li><a>Social Banking</a></li>
                     <li><a href="{{ url_for('ocd') }}">My Donations</a></li>
-{% endblock %}
+{%- endblock %}
 
-{% block main %}
+{% block main -%}
             <div id="dashboard" class="col m8 s12">
                 <div id="status-bars" class="row bold">
                     <p id="status-title">Financial Summary</p>
@@ -85,4 +87,4 @@
                     </div>
                 </div>
             </div>
-{% endblock %}
+{%- endblock %}

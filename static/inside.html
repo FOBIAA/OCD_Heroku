@@ -1,9 +1,11 @@
 {% extends "outside.html" %}
 
-{% block head %}<!--Import inner styles-->
-        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/inside.css') }}"/>{% endblock %}
+{% block head -%}
+        <!--Import inner styles-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/inside.css') }}"/>
+{%- endblock %}
 
-{% block navbar %}
+{% block navbar -%}
                 <div class="container">
                     <nav class="nbd-indigo hide-on-med-and-down">
                         <ul class="bold">
@@ -28,9 +30,9 @@
                         $(location).attr("href", "{{ url_for('transfer') }}");
                     });
                 </script>
-{% endblock %}
+{%- endblock %}
 
-{% block body %}
+{% block body -%}
         <div id="welcome-bar" class="row">
             <div class="col m3 offset-m2 s12 bold">
                 <span>{% block welcome %}{% endblock %}</span>
@@ -60,4 +62,4 @@
                 <img src="{{ url_for('static', filename='img/ad.png') }}">
             </div>
         </div>
-{% endblock %}
+{%- endblock %}

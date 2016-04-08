@@ -4,8 +4,6 @@ $(document).ready(function() {
     $("#percent-btn").click(function() {
         $("#percent").show();
         $("#fixed").hide();
-        
-        $("input[name='percentage']").prop("checked", false);
     });
     
     $("#fixed-btn").click(function() {
@@ -13,56 +11,57 @@ $(document).ready(function() {
         $("#percent").hide();
     });
     
-    //Logic for percentage radio buttons
-    $("#other-percentage").click(function() {
-        $("input[name='percentage']").prop("checked", false);
-    });
-    
-    $("#other-percentage").blur(function() {
-        var percentage = $("#other-percentage").val();
-        
-        if(percentage == "") {
-            $("#p1").trigger("click");
-            $("#other-percentage").removeClass("filled");
-        } else if(percentage == -998) {
-            $("#other-percentage").val("");
-            $("#other-percentage").removeClass("filled");
-        } else {
-            $("#other-percentage").addClass("filled");
-            Materialize.toast("Wow, you'll donate " + percentage + "% !", 3000);
-        }
-    });
-    
-    $("input[name='percentage']").click(function(event) {
-        $("#other-percentage").val(-998);
-        $("#other-percentage").trigger("blur");
-        Materialize.toast("Wow, you'll donate " + $(this).next("label").text() + " !", 3000);
+    //Logic for configurations
+    $("#other-amount, #other-percentage").click(function() {
+        $("input[name='amount'], input[name='percentage']").prop("checked", false);
     });
 
-    //Logic for fixed amount radio buttons
-    $("#other-amount").click(function() {
-        $("input[name='amount']").prop("checked", false);
-    });
+    function reset(field) {
+        $(field).val(-998);
+        $(field).trigger("blur");
+    }
+
+    var data = {"other-percentage": ["#p1", "#other-amount", "%"],
+                "other-amount": ["#a1", "#other-percentage", "AED"]};
     
-    $("#other-amount").blur(function() {
-        var percentage = $("#other-amount").val();
+    $("#other-percentage, #other-amount").blur(function() {
+        var amount = $(this).val();
+        var index = $(this).attr("id");
         
-        if(percentage == "") {
-            $("#a1").trigger("click");
-            $("#other-amount").removeClass("filled");
-        } else if(percentage == -998) {
-            $("#other-amount").val("");
-            $("#other-amount").removeClass("filled");
+        //If field is click but left empty
+        if(amount == "") {
+            $(data[index][0]).trigger("click");
+            $(this).removeClass("filled");
+        //If other field is click (which sends -998)
+        } else if(amount == -998) {
+            $(this).val("");
+            $(this).removeClass("filled");
+        //Otherwise if field was filled
         } else {
-            $("#other-amount").addClass("filled");
-            Materialize.toast("Wow, you'll donate " + percentage + "AED !", 3000);
+            $(this).addClass("filled");
+            reset(data[index][1]);
+            Materialize.toast("Wow, you'll donate " + amount + data[index][2] + " !", 2500);
         }
     });
     
-    $("input[name='amount']").click(function(event) {
-        $("#other-amount").val(-998);
-        $("#other-amount").trigger("blur");
-        Materialize.toast("Wow, you'll donate " + $(this).next("label").text() + " !", 3000);
+    //Toast message for selected donation
+    $("input[name='amount'], input[name='percentage']").click(function() {
+        for (var key in data) { reset("#" + key); $("#" + key).trigger("click"); }
+        $(this).prop("checked", true);
+        
+        var amount = $(this).next("label").text();
+        var message;
+
+        switch(amount) {
+            case "2.5%": case "5AED":
+                message = "Nice"; break;
+            case "5.0%": case "10AED":
+                message = "Great"; break;
+            case "10.0%": case "20AED":
+                message = "Amazing"; break;
+        }
+
+        Materialize.toast(message + ", you'll donate " + amount + " !", 2500);
     });
     
     $("#percent-btn").trigger("click");

@@ -1,11 +1,11 @@
-{% macro scripts() %}
+{% macro scripts() -%}
         <!--Import config styles-->
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/config.css') }}"/>
         <!--Import config scripts-->
         <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
-{% endmacro %}
+{%- endmacro %}
 
-{% macro type() %}
+{% macro type() -%}
                                         <span class="title">Choose the way you like to donate</span>
                                         <p><br><a id="percent-btn" class="btn tooltipped" data-position="left" data-delay="50" data-tooltip="With transactions">Percentage</a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="fixed-btn" class="btn tooltipped" data-position="right" data-delay="50" data-tooltip="Every period of time">Fixed amount</a>
@@ -51,11 +51,11 @@
                                                 </div>
                                                 <div class="input-field col s1">
                                                     <input class="with-gap" name="amount" type="radio" id="a2"/>
-                                                    <label for="a2">15AED</label>
+                                                    <label for="a2">10AED</label>
                                                 </div>
                                                 <div class="input-field col s3">
                                                     <input class="with-gap" name="amount" type="radio" id="a3"  />
-                                                    <label for="a3">30AED</label>
+                                                    <label for="a3">20AED</label>
                                                 </div>
                                                 <div class="input-field col s2">
                                                     <input id="other-amount" type="text">
@@ -78,9 +78,9 @@
                                                 </div>
                                             </div>
                                         </div>
-{% endmacro %}
+{%- endmacro %}
 
-{% macro charity() %}
+{% macro charity() -%}
                                         <span class="title">Where your donation goes</span><br><br>
                                         <p>
                                             <img class="circle" src="http://cdn.emiratesnbd.com/en/assets/Image/CSR_NoorDubai.jpg">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -89,4 +89,4 @@
                                             <img class="circle" src="http://cdn.emiratesnbd.com/en/assets/Image/CSR_daralber.jpg">&nbsp;&nbsp;&nbsp;&nbsp;
                                             <img class="circle" src="http://cdn.emiratesnbd.com/en/assets/Image/CSR_Duabicares.jpg">
                                         </p>
-{% endmacro %}
+{%- endmacro %}
