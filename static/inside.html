@@ -1,23 +1,33 @@
 {% extends "outside.html" %}
 
-{% block head %}<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/inside.css') }}"/>{% endblock %}
+{% block head %}<!--Import inner styles-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/inside.css') }}"/>{% endblock %}
 
 {% block navbar %}
                 <div class="container">
                     <nav class="nbd-indigo hide-on-med-and-down">
                         <ul class="bold">
-                            <li {% block dashboard %}{% endblock %}><a href="{{ url_for('dashboard') }}">My&nbsp;Dashboard</a></li>
-                            <li><a>Accounts</a></li>
-                            <li><a>Cards</a></li>
-                            <li><a>Loans</a></li>
-                            <li {% block transfer %}{% endblock %}><a href="{{ url_for('transfer') }}">Transfers</a></li>
-                            <li><a>Payments</a></li>
-                            <li><a>Insurance</a></li>
-                            <li><a>Investments</a></li>
-                            <li><a>Contact&nbsp;Us</a></li>
+                            <li id="nav-dashboard" {% block dashboard %}{% endblock %}>My&nbsp;Dashboard</li>
+                            <li>Accounts</li>
+                            <li>Cards</li>
+                            <li>Loans</li>
+                            <li id="nav-transfer" {% block transfer %}{% endblock %}>Transfers</li>
+                            <li>Payments</li>
+                            <li>Insurance</li>
+                            <li>Investments</li>
+                            <li>Contact&nbsp;Us</li>
                         </ul>
                     </nav>
                 </div>
+                <script type="text/javascript">
+                    $("#nav-dashboard").click(function() {
+                        $(location).attr("href", "{{ url_for('dashboard') }}");
+                    });
+
+                    $("#nav-transfer").click(function() {
+                        $(location).attr("href", "{{ url_for('transfer') }}");
+                    });
+                </script>
 {% endblock %}
 
 {% block body %}

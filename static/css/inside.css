@@ -10,22 +10,16 @@ nav ul li {
     border-color: #194086;
     border-width: 1px 1px 1px 0;
     background-color: #0a2964;
-    cursor: pointer;
-}
-
-nav ul li, nav ul li a {
     font-size: .9rem;
+    cursor: pointer;
 }
 
 nav ul li.active, #nav-bar {
     border-color: #ffc000;
 }
 
-nav ul li.active a, nav ul li:hover a {
-    color: #112655;
-}
-
 nav ul li.active {
+    color: #112655;
     background: #ffc000;
     background: -webkit-linear-gradient(#ffd204, #fdb300);
     background: -o-linear-gradient(#ffd204, #fdb300);
@@ -33,7 +27,8 @@ nav ul li.active {
     background: linear-gradient(#ffd204, #fdb300);
 }
 
-nav ul li:hover, nav ul a:hover {
+nav ul li:hover {
+    color: #112655;
     border-color: #e4a300;
     background: #e4a300;
     background: -webkit-linear-gradient(#e5b504, #e29600);

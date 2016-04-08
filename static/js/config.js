@@ -1,5 +1,5 @@
 $(document).ready(function() {
-        
+
     //Logic for donation types buttons
     $("#percent-btn").click(function() {
         $("#percent").show();
@@ -66,16 +66,4 @@ $(document).ready(function() {
     });
     
     $("#percent-btn").trigger("click");
-
-    $(".modal-trigger").leanModal();
 });
-
-function percent() {
-    document.getElementById("percent1").style.display = "block";
-    document.getElementById("fixed1").style.display = "none";
-}
-
-function fixed() {
-    document.getElementById("fixed1").style.display = "block";
-    document.getElementById("percent1").style.display = "none";
-}

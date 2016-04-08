@@ -1,7 +1,10 @@
 {% extends "inside.html" %}
+{% import "config.html" as config %}
 
 {% block head %}{{ super() }}
-        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/transfer.css') }}"/>{% endblock %}
+        <!--Import transfer styles-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/transfer.css') }}"/>
+        {{ config.scripts() }}{% endblock %}
 
 {% block title %}Transfer{% endblock %}
 
@@ -134,82 +137,11 @@
             <!-- Modal Structure -->
             <div id="modal1" class="modal">
                 <div class="modal-content center">
-                    <span class="card-title" style="font-size: 24px">Choose the way you like to donate</span>
-                    <br><br><br><div class="row"><a onclick="percent()" class="btn">Percentage</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="fixed()" class="btn">Fixed amount</a></div>
-                    <div id="percent1">
-                        <br><span class="card-subtitle">Percentage to be dontated with transactions</span>
-                        <div class="row">
-                            <div class="input-field col s2 offset-s2">
-                                <input class="with-gap" name="group1" type="radio" id="r1"  />
-                                <label for="r1">2.5%</label>
-                            </div>
-                            <div class="input-field col s1">
-                                <input class="with-gap" name="group1" type="radio" id="r2"/>
-                                <label for="r2">5.0%</label>
-                            </div>
-                            <div class="input-field col s3">
-                                <input class="with-gap" name="group1" type="radio" id="r3"  />
-                                <label for="r3">10.0%</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <input id="other" type="text">
-                                <label for="other">Other: (%)</label>
-                            </div>
-                        </div>
-                        <span class="card-subtitle">Frequency of Donating</span>
-                        <div class="row">
-                            <div class="input-field col s3 offset-s2">
-                                <input class="with-gap" name="group1" type="radio" id="c1"  />
-                                <label for="c1">Every Transaction</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <input class="with-gap" name="group1" type="radio" id="c2"/>
-                                <label for="c2">Every Other Transaction</label>
-                            </div>
-                        </div><div class="row" style="margin-bottom: 35px;"></div>
-                    </div>
-                    <div id="fixed1" style="display: none">
-                        <br><span class="card-subtitle">Fixed amount to be regularly donated</span>
-                        <div class="row">
-                            <div class="input-field col s2 offset-s2">
-                                <input class="with-gap" name="group1" type="radio" id="fr1"  />
-                                <label for="fr1">5$</label>
-                            </div>
-                            <div class="input-field col s1">
-                                <input class="with-gap" name="group1" type="radio" id="fr2"/>
-                                <label for="fr2">15$</label>
-                            </div>
-                            <div class="input-field col s3">
-                                <input class="with-gap" name="group1" type="radio" id="fr3"  />
-                                <label for="fr3">30$</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <input id="fother" type="text">
-                                <label for="fother">Other: ($)</label>
-                            </div>
-                        </div>
-                        <span class="card-subtitle">Frequency of Donating</span>
-                        <div class="row">
-                            <div class="input-field col s2 offset-s2">
-                                <input class="with-gap" name="group1" type="radio" id="fc1"  />
-                                <label for="fc1">Weekly</label>
-                            </div>
-                            <div class="input-field col s1">
-                                <input class="with-gap" name="group1" type="radio" id="fc2"/>
-                                <label for="fc2">Monthly</label>
-                            </div>
-                            <div class="input-field col s3">
-                                <input class="with-gap" name="group1" type="radio" id="fc3"/>
-                                <label for="fc3">Annually</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <input id="foother" type="text">
-                                <label for="foother">Other: (days)</label>
-                            </div>
-                        </div>
-                    </div>
+                    {{ config.type() }}
+                    <br>
+                    {{ config.charity() }}
                     <a class="btn" href="#" onclick="$('#modal1').closeModal();">Done</a>
                 </div>
             </div>
+            <script type="text/javascript">$(".modal-trigger").leanModal();</script>
 {% endblock %}
