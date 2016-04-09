@@ -4,8 +4,9 @@
 import os
 from flask import Flask, render_template
 
-# initialize with template folder in /
+# initialize with template folder in /static
 app = Flask(__name__, template_folder="static")
+
 
 # handle url requests
 @app.route("/")
@@ -13,14 +14,26 @@ app = Flask(__name__, template_folder="static")
 def dashboard():
     return render_template("dashboard.html")
 
+
 @app.route("/transfer/")
 def transfer():
     return render_template("transfer.html")
+
 
 @app.route("/donation/")
 @app.route("/ocd/")
 def ocd():
     return render_template("ocd.html")
+
+
+@app.route("/login/", methods=["GET", "POST"])
+def login():
+    return render_template("login.html")
+
+
+@app.route("/register/", methods=["GET", "POST"])
+def register():
+    return render_template("register.html")
 
 # finalize configurations and run the app
 if __name__ == "__main__":

@@ -1,0 +1,91 @@
+{% extends "outside.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block head -%}
+        <!--Import login styles-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}"/>
+{%- endblock %}
+
+{% block body -%}
+        <div class="container">
+            <div class="row"></div>
+            <div class="row">
+                <div class="col s12 text-color">
+                    <h4 class="bold">Online Banking</h4>
+                    <p>Welcome to Emirates NBD Online Banking where you can enjoy a wide range of additional features.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m3">
+                    <div class="card">
+                        <form method="post" class="card-content">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="fa fa-user prefix"></i>
+                                    <input id="username" type="text" class="validate">
+                                    <label for="username">Username</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="fa fa-key prefix"></i>
+                                    <input id="password" type="password" class="validate">
+                                    <label for="password">Password</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="valign-wrapper">
+                                    <button type="submit" name="login"></button>
+                                    <span>New? <a href="{{ url_for('register') }}">Register</a></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col s12 m5">
+                    <div class="card">
+                        <div class="card-content text-color">
+                            <h5 class="bold">Your Bank in Your Pocket</h5>
+                            <img src="{{ url_for('static', filename='img/devices.png') }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div id="links" class="row text-color">
+                <div class="col s2">
+                    <span>Download the Emirates NBD Mobile Banking App</span>
+                    <img src="{{ url_for('static', filename='img/ad2.jpg') }}">
+                    <p>Our mobile banking app can help you carry out all your transactions...</p>
+                    <a>More</a>                    
+                </div>
+                <div class="col s2">
+                    <span>How to Reset Your online Banking Password</span>
+                    <img src="{{ url_for('static', filename='img/ad3.jpg') }}">
+                    <p>What information would we require from you so reset your password...</p>
+                    <a>More</a>                    
+                </div>
+                <div class="col s2">
+                    <span>Activating Online Banking for Cardholders</span>
+                    <img src="{{ url_for('static', filename='img/ad4.jpg') }}">
+                    <p>Register through Online Banking through any out of 4 channels and...</p>
+                    <a>More</a>                    
+                </div>
+                <div class="col s2">
+                    <span>Retrieve your Online Banking ID</span>
+                    <img src="{{ url_for('static', filename='img/ad5.jpg') }}">
+                    <p>Can't remember your Online Banking ID? No need to worry...</p>
+                    <a>More</a>                    
+                </div>
+                <div class="col s2">
+                    <span>How to ensure online security</span>
+                    <img src="{{ url_for('static', filename='img/ad6.jpg') }}">
+                    <p>Having Knowledge about online security and how it can be ensured...</p>
+                    <a>More</a>                    
+                </div>
+            </div>
+            <div class="row"></div>
+        </div>
+{% endblock %}

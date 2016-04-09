@@ -7,21 +7,33 @@ a, img, footer p {
     cursor: pointer;
 }
 
+.container {
+    max-width: 1920px;
+    width: 90%;
+}
+
 #header * {
     box-shadow: none;
 }
 
 #logo-bar > div {
     height: 24px;
+    width: 94%;
 }
 
 #logo-bar > div > img {
     position: absolute;
-    margin: -16px 0 0 -36px;
+    margin-top: -16px;
 }
 
-#logo-bar > div > span {
-    margin-left: 190px;
+#logo-bar span {
+    margin-left: calc(215px + 1rem);
+    font-size: 17px;
+}
+
+#logo-bar a {
+    margin-top: 3px;
+    float: right;
 }
 
 #nav-bar {
@@ -29,11 +41,6 @@ a, img, footer p {
     border-width: 0 0 3px 0;
     border-style: solid;
     border-color: #112655;
-}
-
-.container {
-    max-width: 1920px;
-    width: 90%;
 }
 
 .nbd-indigo {

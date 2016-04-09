@@ -1,0 +1,60 @@
+html {
+    background-color: white;
+}
+
+.text-color * {
+    color: #092869;
+}
+
+.card {
+    font-family: "Roboto";
+    background-color: #f7f9fa;
+    border-radius: 6px;
+    height: 16rem;
+}
+
+.card .row {
+    margin-top: -4px;
+    margin-bottom: 6px;
+}
+
+.card img {
+    height: 10rem;
+    width: 100%;
+}
+
+.card div.valign-wrapper {
+    margin: 1.1rem 0 0 3.75rem;
+}
+
+.card button {
+    background: url(../img/login.png) no-repeat;
+    margin-right: 2rem;
+    width: 82px;
+    height: 32px;
+    border: none;
+}
+
+#links span {
+    display: block;
+    font-size: 14px;
+    height: 3.5rem;
+    margin-bottom: 10px;
+    border-bottom: 4px solid #faac3e;
+}
+
+#links img {
+    width: 100%;
+}
+
+#links p {
+    margin: 0;
+    font-size: 12px;
+}
+
+#links a {
+    background: url('../img/bulletarrow.png') left no-repeat;
+    padding-left: 16px;
+    font-weight: bold;
+    font-size: 12px;
+}

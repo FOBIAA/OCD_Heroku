@@ -1,0 +1,19 @@
+.card {
+    height: 100%;
+}
+
+.card .row {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.card img {
+    margin-left: 3rem;
+    height: 4rem;
+    width: 10rem;
+}
+
+.card button {
+    background: url(../img/register.png) no-repeat;
+    margin: 0 1rem -1rem 0;
+}
