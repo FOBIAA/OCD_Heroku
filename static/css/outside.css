@@ -21,7 +21,7 @@ a, img, footer p {
     width: 94%;
 }
 
-#logo-bar > div > img {
+#logo-img {
     position: absolute;
     margin-top: -16px;
 }
@@ -31,7 +31,7 @@ a, img, footer p {
     font-size: 17px;
 }
 
-#logo-bar a {
+#login-btn {
     margin-top: 3px;
     float: right;
 }

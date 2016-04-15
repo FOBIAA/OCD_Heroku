@@ -3,9 +3,14 @@
 # import needed libraries
 import os
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 # initialize with template folder in /static
 app = Flask(__name__, template_folder="static")
+# configure app from object of current environment
+app.config.from_object(os.environ['APP_SETTINGS'])
+# Initialize SQLAlchemy database
+db = SQLAlchemy(app)
 
 
 # handle url requests

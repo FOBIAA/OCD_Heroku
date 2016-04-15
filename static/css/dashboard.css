@@ -20,10 +20,10 @@
     border-color: #ccc;
     border-width: 1px 1px 3px 1px;
     background: white;
-    background: -webkit-linear-gradient(left, white, white, #dff2fb, #bde4f4, #b5e1f3, #aedef1);
-    background: -o-linear-gradient(right, white, white, #dff2fb, #bde4f4, #b5e1f3, #aedef1);
-    background: -moz-linear-gradient(right, white, white, #dff2fb, #bde4f4, #b5e1f3, #aedef1);
-    background: linear-gradient(to right, white, white, #dff2fb, #bde4f4, #b5e1f3, #aedef1);
+    background: -webkit-linear-gradient(left, white 25%, #aedef1);
+    background: -o-linear-gradient(right, white 25%, #aedef1);
+    background: -moz-linear-gradient(right, white 25%, #aedef1);
+    background: linear-gradient(to right, white 25%, #aedef1);
 }
 
 #status-bars img {
