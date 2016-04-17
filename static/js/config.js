@@ -2,12 +2,18 @@ $(document).ready(function() {
 
     //Logic for donation types buttons
     $("#percent-btn").click(function() {
+        $("#percent-btn").removeClass("z-depth-0");
         $("#percent").show();
+        
+        $("#fixed-btn").addClass("z-depth-0");
         $("#fixed").hide();
     });
     
     $("#fixed-btn").click(function() {
+        $("#fixed-btn").removeClass("z-depth-0");
         $("#fixed").show();
+        
+        $("#percent-btn").addClass("z-depth-0");
         $("#percent").hide();
     });
     
@@ -66,5 +72,4 @@ $(document).ready(function() {
     
     $("#percent-btn").trigger("click");
     $(".modal-trigger").leanModal({opacity: .3});
-    $('select').material_select();
 });

@@ -72,3 +72,21 @@
     font-size: .9rem;
     padding: 3px 5px;
 }
+
+#ocd-button {
+    margin-top: 1.5rem;
+}
+
+#ocd-button .m6 {
+    padding-top: 7px;
+}
+
+span.title {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+#percent-btn.z-depth-0,
+#fixed-btn.z-depth-0 {
+    background-color: #bdbdbd;
+}

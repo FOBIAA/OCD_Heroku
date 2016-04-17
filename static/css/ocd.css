@@ -44,3 +44,13 @@ p.charity {
     padding: 0;
     -webkit-font-smoothing: antialiased;
 }
+
+.card .card-subtitle {
+    font-size: 19px;
+    font-weight: 300;
+}
+
+#percent-btn.z-depth-0,
+#fixed-btn.z-depth-0 {
+    background-color: #bdbdbd;
+}

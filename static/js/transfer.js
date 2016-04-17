@@ -12,4 +12,10 @@ $(document).ready(function() {
     $("#done").click(function() {
         $("#modal1").closeModal();
     });
+    
+    $("#customize").click(function() {
+        $('.carousel').carousel('next');
+    });
+
+    $('.carousel').carousel();
 });

@@ -1,5 +1,4 @@
 {% extends "inside.html" %}
-{% import "config.html" as config %}
 
 {% block head -%}
         {{ super() }}
@@ -7,7 +6,8 @@
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/transfer.css') }}"/>
         <!--Import transfer scripts-->
         <script type="text/javascript" src="{{ url_for('static', filename='js/transfer.js') }}"></script>
-        {{ config.scripts() }}
+        <!--Import config scripts-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
 {%- endblock %}
 
 {% block title %}Transfer{% endblock %}
@@ -118,18 +118,21 @@
                         </select>
                         <span class="col m1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
                         <div class="col m5"></div>
-                    </div><br><br>
-                    <div class="row">We help charity around the world, but there's always room for more</div>
+                    </div><br>
                     <div class="row">
+                        <h6 class="bold">We Help Charity Around The World, But There's Always Room For More!</h6>
+                    </div>
+                    <div id="ocd-button" class="row">
                         <div class="col m6">
                             <input type="checkbox" id="tick"/>
-                            <label for="tick">Donate with <input id="checkbox-input" type="text" value="2.5">% of your transaction</label>
+                            <label for="tick" class="grey-text text-darken-2">Donate with <input id="checkbox-input" type="text" value="2.5">% of your transaction</label>
                         </div>
-                        <div class="col m6">
-                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Customize</a>
+                        <div class="col m3">
+                            <a id="customize" class="waves-effect waves-light btn modal-trigger" href="#modal1">Customize</a>
                         </div>
                     </div><br><br>
-                    <p>Please note that your telex transfer message to be sent to beneficiary will consist of the <span class="red-text">"exact"</span> message content you are providing under the "Payment Details" once the request is automatically processed.</p>
+                    <p>Please note that your telex transfer message to be sent to beneficiary will consist of the <span class="red-text">"exact"</span>
+                        message content you are providing under the "Payment Details" once the request is automatically processed.</p>
                     <div class="row">
                         <div class="col m3 offset-m5">
                             <img src="{{ url_for('static', filename='img/go-back.png') }}">
@@ -141,9 +144,57 @@
             <!-- Modal Structure -->
             <div id="modal1" class="modal">
                 <div class="modal-content center">
-                    {{ config.type() }}
+                    <span class="title">Choose the way you like to donate</span><br><br>
+                    <a id="percent-btn" class="waves-effect waves-teal btn tooltipped" data-position="left" data-delay="70" data-tooltip="Of this transaction">Percentage</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a id="fixed-btn" class="waves-effect waves-teal btn tooltipped" data-position="right" data-delay="70" data-tooltip="With this transaction">Fixed amount</a>
+                    <div id="percent" class="col s12">
+                        <div class="row">
+                            <div class="input-field col s2 offset-s2">
+                                <input class="with-gap" name="percentage" type="radio" id="p1" checked />
+                                <label for="p1">2.5%</label>
+                            </div>
+                            <div class="input-field col s1">
+                                <input class="with-gap" name="percentage" type="radio" id="p2" />
+                                <label for="p2">5.0%</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input class="with-gap" name="percentage" type="radio" id="p3" />
+                                <label for="p3">10.0%</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <input id="other-percentage" type="text">
+                                <label for="other-percentage">Other: (%)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fixed" class="col s12">
+                        <div class="row">
+                            <div class="input-field col s2 offset-s2">
+                                <input class="with-gap" name="amount" type="radio" id="a1" />
+                                <label for="a1">5AED</label>
+                            </div>
+                            <div class="input-field col s1">
+                                <input class="with-gap" name="amount" type="radio" id="a2" />
+                                <label for="a2">10AED</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input class="with-gap" name="amount" type="radio" id="a3" />
+                                <label for="a3">20AED</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <input id="other-amount" type="text">
+                                <label for="other-amount">Other: (AED)</label>
+                            </div>
+                        </div>
+                    </div>
                     <br>
-                    {{ config.charity(interface) }}
+                    <span class="title">Where your donation goes</span>
+                    <div class="carousel" style="height: 220px; margin-top: -12rem">
+                        {% for charity in interface.get_charities() %}
+                        <a class="carousel-item" style="width: 120px"><img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}">{{charity.name}}</a>
+                        {% endfor %}
+                    </div>
                     <a id="done" class="btn">Done</a>
                 </div>
             </div>
