@@ -65,4 +65,6 @@ $(document).ready(function() {
     });
     
     $("#percent-btn").trigger("click");
+    $(".modal-trigger").leanModal({opacity: .3});
+    $('select').material_select();
 });

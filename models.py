@@ -14,7 +14,7 @@ class Client(db.Model):
     # Declare other client fields
     password = db.Column(db.String(16))
     email = db.Column(db.String(24))
-    balance = db.Column(db.Integer)
+    balance = db.Column(db.Float)
     rank = db.Column(db.Integer)
     score = db.Column(db.Integer)
     type = db.Column(db.String(8))

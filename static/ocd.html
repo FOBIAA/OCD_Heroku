@@ -126,9 +126,25 @@
                             <div class="col s12">
                                 <div class="card">
                                     <div class="card-content center">
-                                        {{ config.charity() }}
+                                        {{ config.charity(interface) }}
+                                        <!-- Modal Trigger -->
+                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Modal</a>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <!-- Modal Structure -->
+                        <div id="modal2" class="modal bottom-sheet">
+                            <div class="modal-content">
+                                <ul class="collection">
+                                    {% for charity in interface.get_charities() %}
+                                    <li class="collection-item avatar">
+                                        <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="circle">
+                                        <span class="title">{{ charity.name }}</span>
+                                        <p class="charity">{{ charity.description|safe }}</p>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                         </div>
                     </div>

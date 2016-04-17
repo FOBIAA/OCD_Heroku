@@ -6,7 +6,7 @@
 {%- endmacro %}
 
 {% macro type() -%}
-                                        <span class="title">Choose the way you like to donate</span>
+                                        <p class="title">Choose the way you like to donate</p>
                                         <p><br><a id="percent-btn" class="btn tooltipped" data-position="left" data-delay="50" data-tooltip="With transactions">Percentage</a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="fixed-btn" class="btn tooltipped" data-position="right" data-delay="50" data-tooltip="Every period of time">Fixed amount</a>
                                         </p>
@@ -80,13 +80,17 @@
                                         </div>
 {%- endmacro %}
 
-{% macro charity() -%}
-                                        <span class="title">Where your donation goes</span><br><br>
-                                        <p>
-                                            <img class="circle" src="http://cdn.emiratesnbd.com/en/assets/Image/CSR_NoorDubai.jpg">&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <img class="circle" src="http://cdn.emiratesnbd.com/en/assets/Image/CSR_Awqaf.jpg">&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <img class="circle" src="http://cdn.emiratesnbd.com/en/assets/Image/CSR_Beit.jpg">&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <img class="circle" src="http://cdn.emiratesnbd.com/en/assets/Image/CSR_daralber.jpg">&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <img class="circle" src="http://cdn.emiratesnbd.com/en/assets/Image/CSR_Duabicares.jpg">
-                                        </p>
+{% macro charity(interface) -%}
+                                        <p class="title">Where your donation goes</p><br><br>
+<div class="row">
+                                          <div class="input-field col s12 m6">
+                                            <select class="icons">
+                                              <option value="" disabled selected>Choose charities</option>
+                                                {% for charity in interface.get_charities() %}
+                                                <option value="" data-icon="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="left circle">{{ charity.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Images in select</label>
+                                          </div>
+    </div>
 {%- endmacro %}

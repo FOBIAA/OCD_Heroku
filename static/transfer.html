@@ -5,6 +5,8 @@
         {{ super() }}
         <!--Import transfer styles-->
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/transfer.css') }}"/>
+        <!--Import transfer scripts-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/transfer.js') }}"></script>
         {{ config.scripts() }}
 {%- endblock %}
 
@@ -42,7 +44,7 @@
                             <option>1014980276401-AED</option>
                             <option>0384980276402-AED</option>
                         </select>
-                        <p id="red-box" class="col m5 offset-m1"><span>Available Balance: <b>AED 10000000000000000 WE ARE RICH!</b></span></p>
+                        <p id="red-box" class="col m4 offset-m2"><span>Available Balance: <b>AED {{ interface.get_balance() }}</b></span></p>
                     </div>
                     <div class="row">
                         <h6 class="bold">Beneficiary Details</h6>
@@ -121,7 +123,7 @@
                     <div class="row">
                         <div class="col m6">
                             <input type="checkbox" id="tick"/>
-                            <label for="tick">Donate with 2.5% of your transaction</label>
+                            <label for="tick">Donate with <input id="checkbox-input" type="text" value="2.5">% of your transaction</label>
                         </div>
                         <div class="col m6">
                             <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Customize</a>
@@ -141,9 +143,8 @@
                 <div class="modal-content center">
                     {{ config.type() }}
                     <br>
-                    {{ config.charity() }}
-                    <a class="btn" href="#" onclick="$('#modal1').closeModal();">Done</a>
+                    {{ config.charity(interface) }}
+                    <a id="done" class="btn">Done</a>
                 </div>
             </div>
-            <script type="text/javascript">$(".modal-trigger").leanModal();</script>
 {%- endblock %}

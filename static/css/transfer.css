@@ -38,8 +38,8 @@
     padding: 4px !important;
 }
 
-#transfer input {
-    padding: 1px 0;
+#transfer input:not(#checkbox-input) {
+    padding: 1px 4px;
     margin-top: 14px;
     color: inherit;
     background-color: white;
@@ -55,6 +55,11 @@
 
 #transfer div.top {
     margin-top: 10px;
+}
+
+#checkbox-input {
+    width: 1.7rem;
+    height: 1.5rem;
 }
 
 #modal1 {

@@ -38,3 +38,9 @@
 .bronze {
     background-color: #cd7f32;
 }
+
+p.charity {
+    color: rgba(0, 0, 0, 0.71);
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}

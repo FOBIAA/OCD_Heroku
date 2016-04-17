@@ -10,7 +10,7 @@
 
 {% block dashboard %}class="active"{% endblock %}
 
-{% block welcome %}Good Evening FOBIAA{% endblock %}
+{% block welcome %}Good Evening {{ session["username"] }}{% endblock %}
 
 {% block sidebar -%}
                     <li class="nbd-yellow"><a href="{{ url_for('dashboard') }}">Financial Summary</a></li>
@@ -34,21 +34,21 @@
                         <div class="col s3"><img src="{{ url_for('static', filename='img/accounts.jpg') }}">MY ACCOUNTS</div>
                         <div class="col s2"><img src="{{ url_for('static', filename='img/rightarrow.png') }}"></div>
                         <div class="col s2">Total Balance</div>
-                        <div class="col s5 nbd-dark-text">AED 999999999<wbr>999999999 A LOT!</div>
+                        <div class="col s5 nbd-dark-text">AED {{ interface.get_balance() }}</div>
                         <img src="{{ url_for('static', filename='img/downarrow.png') }}">
                     </div>
                     <div class="row valign-wrapper">
                         <div class="col s3"><img src="{{ url_for('static', filename='img/cards.jpg') }}">MY CARDS</div>
                         <div class="col s2"><img src="{{ url_for('static', filename='img/rightarrow.png') }}"></div>
                         <div class="col s2">Total Payable</div>
-                        <div class="col s5 nbd-dark-text">COME ON!!</div>
+                        <div class="col s5 nbd-dark-text">AED {{ interface.get_balance() * 0.98 }}</div>
                          <img src="{{ url_for('static', filename='img/downarrow.png') }}">
                     </div>
                     <div class="row valign-wrapper">
                         <div class="col s3"><img src="{{ url_for('static', filename='img/loans.jpg') }}">MY LOANS</div>
                         <div class="col s2"><img src="{{ url_for('static', filename='img/rightarrow.png') }}"></div>
                         <div class="col s2">Total Loan</div>
-                        <div class="col s5 nbd-dark-text">AED 0</div>
+                        <div class="col s5 nbd-dark-text">AED {{ interface.get_balance() * 0.02 }}</div>
                         <img src="{{ url_for('static', filename='img/downarrow.png') }}">
                     </div>
                     <div class="row valign-wrapper">
