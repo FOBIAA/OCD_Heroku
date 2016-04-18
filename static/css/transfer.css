@@ -57,20 +57,21 @@
     margin-top: 10px;
 }
 
-#checkbox-input {
-    width: 1.7rem;
-    height: 1.5rem;
-}
-
-#modal1 {
-    font-family: "Roboto";
-}
-
 #red-box > span {
     background-color: #ffe4ca;
     border: 1px solid #ffc2a7;
     font-size: .9rem;
     padding: 3px 5px;
+}
+
+#checkbox-input {
+    width: 1.7rem;
+    height: 1.5rem;
+}
+
+#ocd-modal .modal-content{
+    font-family: "Roboto";
+    padding: 18px 12px 8px 12px;
 }
 
 #ocd-button {
@@ -87,6 +88,16 @@ span.title {
 }
 
 #percent-btn.z-depth-0,
-#fixed-btn.z-depth-0 {
-    background-color: #bdbdbd;
+#fixed-btn.z-depth-0,
+#hide-it.z-depth-0,
+#regular.z-depth-0 {
+    background-color: #bdbdbd !important;
 }
+/*
+#hide-it.z-depth-0 {
+    background-color: #ef9a9a ;
+}
+
+#regular.z-depth-0 {
+    background-color: #a5d6a7 !important;
+}*/

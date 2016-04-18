@@ -48,6 +48,12 @@
         
         {% block body %}{% endblock %}
         
+        <!--Flash messages logic start-->
+        {% for message in get_flashed_messages() %}
+            <script>Materialize.toast({{ message|tojson }}, 5000)</script>
+        {% endfor %}
+        <!--Flash messages logic end-->
+        
         <footer class="page-footer nbd-indigo white-text">
             <div class="row"></div>
             <div class="row">

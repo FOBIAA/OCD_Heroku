@@ -97,15 +97,15 @@
                                     <div class="card-content center">
                                         <span class="card-title">Choose the way you like to donate</span><br><br>
                                         <div class="row">
-                                            <a id="percent-btn" class="waves-effect waves-teal btn tooltipped" data-position="left" data-delay="70" data-tooltip="Of this transaction">Percentage</a>
+                                            <a id="percent-btn" class="waves-effect waves-teal btn" >Percentage</a>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a id="fixed-btn" class="waves-effect waves-teal btn tooltipped" data-position="right" data-delay="70" data-tooltip="With this transaction">Fixed amount</a>
+                                            <a id="fixed-btn" class="waves-effect waves-teal btn">Fixed amount</a>
                                         </div>
                                         <div id="percent">
                                             <br><span class="card-subtitle">Percentage to be dontated with transactions</span>
                                             <div class="row">
                                                 <div class="input-field col s2 offset-s2">
-                                                    <input class="with-gap" name="percentage" type="radio" id="p1" checked />
+                                                    <input class="with-gap" name="percentage" type="radio" id="p1" checked="checked" />
                                                     <label for="p1">2.5%</label>
                                                 </div>
                                                 <div class="input-field col s1">
@@ -201,14 +201,15 @@
                                     <div class="card-content center">
                                         <span class="card-title">Where your donation goes</span><br><br>
                                         <!-- Modal Trigger -->
-                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Choose Charity</a>
+                                        <a class="waves-effect waves-light btn modal-trigger" href="#charity-modal">Choose Charity</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal Structure -->
-                        <div id="modal2" class="modal bottom-sheet">
+                        <div id="charity-modal" class="modal bottom-sheet">
                             <div class="modal-content">
+                                <h4>Supported Charities</h4>
                                 <ul class="collection">
                                     {% for charity in interface.get_charities() %}
                                     <li class="collection-item avatar">

@@ -22,6 +22,5 @@ class Interface:
             self.charities = Charity.query
         return self.charities
 
-
     def refresh(self):
         self.balance = None

@@ -2,10 +2,11 @@
 
 # import needed libraries
 import os
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, flash, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from interface import Interface
 from functools import wraps
+from models import *
 
 # initialize with template folder in /static
 app = Flask(__name__, template_folder="static")
@@ -48,13 +49,22 @@ def ocd():
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
-    session.pop("username")
-    interface.refresh()
+    if request.method == "POST":
+        interface.refresh()
+        session["username"] = request.form["username"]
+        flash("Welcome to your bank " + session["username"])
+        return redirect(url_for("dashboard"))
     return render_template("login.html")
 
 
 @app.route("/register/", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        db.session.add(Client(session["username"], request.form["password"],
+                              request.form["email"], request.form["balance"]))
+        db.session.commit()
+        # Send code 307 to preserve the post request
+        return redirect(url_for("login"), code=307)
     return render_template("register.html")
 
 # finalize configurations and run the app

@@ -119,7 +119,7 @@
                         <span class="col m1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
                         <div class="col m5"></div>
                     </div><br>
-                    <div class="row">
+                    <div id="ocd-title" class="row">
                         <h6 class="bold">We Help Charity Around The World, But There's Always Room For More!</h6>
                     </div>
                     <div id="ocd-button" class="row">
@@ -128,7 +128,7 @@
                             <label for="tick" class="grey-text text-darken-2">Donate with <input id="checkbox-input" type="text" value="2.5">% of your transaction</label>
                         </div>
                         <div class="col m3">
-                            <a id="customize" class="waves-effect waves-light btn modal-trigger" href="#modal1">Customize</a>
+                            <a id="customize" class="waves-effect waves-light btn modal-trigger" href="#ocd-modal">Customize</a>
                         </div>
                     </div><br><br>
                     <p>Please note that your telex transfer message to be sent to beneficiary will consist of the <span class="red-text">"exact"</span>
@@ -142,16 +142,18 @@
                 </div>
             </div>
             <!-- Modal Structure -->
-            <div id="modal1" class="modal">
+            <div id="ocd-modal" class="modal">
                 <div class="modal-content center">
                     <span class="title">Choose the way you like to donate</span><br><br>
-                    <a id="percent-btn" class="waves-effect waves-teal btn tooltipped" data-position="left" data-delay="70" data-tooltip="Of this transaction">Percentage</a>
+                    <a id="percent-btn" class="waves-effect waves-teal btn tooltipped" data-position="left"
+                       data-delay="200" data-tooltip="Of this transaction">Percentage</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a id="fixed-btn" class="waves-effect waves-teal btn tooltipped" data-position="right" data-delay="70" data-tooltip="With this transaction">Fixed amount</a>
+                    <a id="fixed-btn" class="waves-effect waves-teal btn tooltipped" data-position="right"
+                       data-delay="200" data-tooltip="With this transaction">Fixed amount</a>
                     <div id="percent" class="col s12">
                         <div class="row">
                             <div class="input-field col s2 offset-s2">
-                                <input class="with-gap" name="percentage" type="radio" id="p1" checked />
+                                <input class="with-gap" name="percentage" type="radio" id="p1" checked="checked" />
                                 <label for="p1">2.5%</label>
                             </div>
                             <div class="input-field col s1">
@@ -195,7 +197,13 @@
                         <a class="carousel-item" style="width: 120px"><img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}">{{charity.name}}</a>
                         {% endfor %}
                     </div>
-                    <a id="done" class="btn">Done</a>
+                    <div class="modal-footer">
+                        <button id="hide-it" value="false" class="waves-effect waves-light red lighten-1 btn tooltipped left z-depth-0"
+                                 data-position="top" data-delay="250" data-tooltip="And Hide Donation Checkbox">Don't Ever Donate</button>
+                        <a id="done" class="waves-effect waves-teal btn" style="float: none">Done</a>
+                        <button id="regular" value="false" class="waves-effect waves-light green lighten-1 tooltipped btn z-depth-0"
+                                 data-position="top" data-delay="250" data-tooltip="And Enable Donation Configs">Donate Regularly</button>
+                    </div>
                 </div>
             </div>
 {%- endblock %}

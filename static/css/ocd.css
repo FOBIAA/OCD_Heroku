@@ -54,3 +54,12 @@ p.charity {
 #fixed-btn.z-depth-0 {
     background-color: #bdbdbd;
 }
+
+.collection .collection-item.avatar .circle {
+  width: 64px;
+  height: 64px;
+}
+
+.collection .collection-item.avatar {
+    padding-left: 86px;
+}
