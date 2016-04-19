@@ -13,7 +13,7 @@ class Interface:
     def get_balance(self):
         if self.balance is None:
             from models import Client
-            self.balance = Client.query.filter_by(username=session["username"]).first().balance
+            self.balance = Client.query.get(session["username"]).balance
         return self.balance
 
     def get_charities(self):

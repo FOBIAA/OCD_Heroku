@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # import needed libraries
-import os
+import os, sqlalchemy
 from flask import Flask, render_template, session, flash, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from interface import Interface
@@ -50,22 +50,43 @@ def ocd():
 @app.route("/login/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        interface.refresh()
-        session["username"] = request.form["username"]
-        flash("Welcome to your bank " + session["username"])
-        return redirect(url_for("dashboard"))
+        client = Client.query.get(request.form["username"])
+        if client is not None:
+            if client.password == request.form["password"]:
+                interface.refresh()
+                session["username"] = request.form["username"]
+                flash("Welcome to Your Bank " + session["username"])
+                return redirect(url_for("dashboard"))
+            else:
+                flash("Wrong Password, Try Again")
+                return redirect(url_for("login"))
+        else:
+            flash("The User Doesn't Exist")
+            return redirect(url_for("login"))
     return render_template("login.html")
 
 
 @app.route("/register/", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        db.session.add(Client(session["username"], request.form["password"],
-                              request.form["email"], request.form["balance"]))
-        db.session.commit()
+        try:
+            db.session.add(Client(request.form["username"], request.form["password"],
+                                  request.form["email"], request.form["balance"]))
+            db.session.commit()
+        except sqlalchemy.exc.SQLAlchemyError:
+            flash(request.form["username"] + " is Already Taken")
+            return redirect(url_for("register"))
         # Send code 307 to preserve the post request
         return redirect(url_for("login"), code=307)
     return render_template("register.html")
+
+
+@app.route("/logout/")
+def logout():
+    interface.refresh()
+    session.clear()
+    return redirect(url_for("login"))
+
 
 # finalize configurations and run the app
 if __name__ == "__main__":

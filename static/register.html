@@ -7,19 +7,24 @@
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}"/>
         <!--Import register styles-->
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}"/>
+        <!--Import register scripts-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/register.js') }}"></script>
 {%- endblock %}
 
 {% block body -%}
-        <script type="text/javascript">
-            function check() {
-                if($("#captcha").val() == "TByEK") {
-                    return true;
-                } else {
-                    $("#captcha").addClass("invalid");
-                    return false;
-                }
-            }
-        </script>
+<script type="text/javascript">
+    function check() {
+        if($("#captcha").val() != "TByEK")
+            $("#captcha").addClass("invalid");
+        
+        if($("input").hasClass("invalid")) {
+            Materialize.toast("Some Fields Are Invalid!", 2000);
+            return false;
+        }
+        return true;
+    }
+</script>
+
         <div class="container">
             <div class="row"></div>
             <div class="row">
@@ -35,31 +40,31 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <i class="fa fa-user-plus prefix"></i>
-                                    <input id="username" name="username" type="text" class="validate">
+                                    <input id="username" name="username" type="text" length="16" class="validate" required >
                                     <label for="username">Username</label>
                                 </div>
                                 <div class="input-field col s6">
                                     <i class="fa fa-key prefix"></i>
-                                    <input id="password" name="password" type="password" class="validate">
+                                    <input id="password" name="password" type="password" length="16" class="validate" required >
                                     <label for="password">Password</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
                                     <i class="fa fa-credit-card prefix"></i>
-                                    <input id="balance" name="balance" type="text" class="validate">
+                                    <input id="balance" name="balance" type="number" class="validate" required >
                                     <label for="balance">Account Balance (AED)</label>
                                 </div>
                                 <div class="input-field col s6">
                                     <i class="fa fa-envelope prefix"></i>
-                                    <input id="email" name="email" type="email" class="validate">
+                                    <input id="email" name="email" type="email" length="36" class="validate" required >
                                     <label for="email">Email Address</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
                                     <i class="fa fa-picture-o prefix"></i>
-                                    <input id="captcha" type="text" class="validate">
+                                    <input id="captcha" type="text" class="validate" required >
                                     <label for="captcha">Enter text from image</label>
                                 </div>
                                 <div class="col s6">
