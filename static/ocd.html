@@ -6,6 +6,42 @@
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/ocd.css') }}"/>
         <!--Import config scripts-->
         <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
+        <!--Import charts handling scripts-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/charts-loader.js') }}"></script>
+        <!--Import chart scripts-->
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = new google.visualization.DataTable();
+
+                // Declare columns
+                data.addColumn("date", "Day");
+                data.addColumn("number", "Amount");
+
+                data.addRows([
+                    {% for donation in interface.get_donations() %}
+                    [new Date({{donation.date.year}}, {{donation.date.month - 1}}, {{donation.date.day}}), {{donation.amount}}],
+                    {%- endfor %}
+                ]);
+
+                var options = {
+                    title: "Donations History",
+                    hAxis: { title: "Month", titleTextStyle: { color: "#333" }},
+                    vAxis: { title: "Money", format: "# AED", titleTextStyle: { color: "#333" }, minValue: 0 },
+                    legend: "none",
+                    colors: ["#15A0C8"],
+                    lineWidth: 3,
+                    pointSize: 8,
+                    pointShape: "circle",
+                    width: 1000,
+                    height: 500
+                };
+
+                var chart = new google.visualization.AreaChart(document.getElementById("chart"));
+                chart.draw(data, options);
+            }
+        </script>
 {%- endblock %}
 
 {% block title %}One Click Donation{% endblock %}
@@ -29,6 +65,7 @@
 {%- endblock %}
 
 {% block main -%}
+
             <div id="ocd" class="col m8 s12">
                 <ul class="tabs z-depth-1">
                     <li class="tab col s4"><a href="#ocd-summary" class="active">Summary</a></li>
@@ -222,7 +259,17 @@
                             </div>
                         </div>
                     </div>
-                    <div id="ocd-history" class="center"><img width="90%" src="{{ url_for('static', filename='img/history.png') }}"></div>
+                    <div id="ocd-history" class="center">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div id="chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 {%- endblock %}

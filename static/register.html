@@ -12,19 +12,18 @@
 {%- endblock %}
 
 {% block body -%}
-<script type="text/javascript">
-    function check() {
-        if($("#captcha").val() != "TByEK")
-            $("#captcha").addClass("invalid");
-        
-        if($("input").hasClass("invalid")) {
-            Materialize.toast("Some Fields Are Invalid!", 2000);
-            return false;
-        }
-        return true;
-    }
-</script>
+        <script type="text/javascript">
+            function check() {
+                if($("#captcha").val() != "TByEK")
+                    $("#captcha").addClass("invalid");
 
+                if($("input").hasClass("invalid")) {
+                    Materialize.toast("Some Fields Are Invalid!", 2000);
+                    return false;
+                }
+                return true;
+            }
+        </script>
         <div class="container">
             <div class="row"></div>
             <div class="row">
