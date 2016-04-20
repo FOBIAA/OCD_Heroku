@@ -41,9 +41,17 @@ def transfer():
     return render_template("transfer.html", interface=interface)
 
 
-@app.route("/donation/")
-@app.route("/ocd/")
+@app.route("/ocd/", methods=["GET", "POST"])
 def ocd():
+    if request.method == "POST":
+        client = Client.query.get(session["username"])
+        client.type = request.form["type"]
+        client.amount = float(request.form["amount"])
+        # client.frequency = request.form["frequency"]
+        # client.rank = (0, None)[request.form["reveal"] == "true"]
+        db.session.commit()
+        flash(request.form["charity"])
+        return redirect(url_for("dashboard"))
     return render_template("ocd.html", interface=interface)
 
 

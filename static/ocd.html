@@ -4,15 +4,19 @@
         {{ super() }}
         <!--Import ocd styles-->
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/ocd.css') }}"/>
+        <!--Import ocd scripts-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/ocd.js') }}"></script>
         <!--Import config scripts-->
         <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
         <!--Import charts handling scripts-->
         <script type="text/javascript" src="{{ url_for('static', filename='js/charts-loader.js') }}"></script>
-        <!--Import chart scripts-->
+
+        <!--Chart scripts-->
         <script type="text/javascript">
             google.charts.load("current", {packages:["corechart"]});
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
+                var chart = new google.visualization.AreaChart(document.getElementById("chart"));
                 var data = new google.visualization.DataTable();
 
                 // Declare columns
@@ -20,7 +24,7 @@
                 data.addColumn("number", "Amount");
 
                 data.addRows([
-                    {% for donation in interface.get_donations() %}
+                    {%- for donation in interface.get_donations() %}
                     [new Date({{donation.date.year}}, {{donation.date.month - 1}}, {{donation.date.day}}), {{donation.amount}}],
                     {%- endfor %}
                 ]);
@@ -31,15 +35,22 @@
                     vAxis: { title: "Money", format: "# AED", titleTextStyle: { color: "#333" }, minValue: 0 },
                     legend: "none",
                     colors: ["#15A0C8"],
+                    chartArea: { left: 120 },
                     lineWidth: 3,
                     pointSize: 8,
                     pointShape: "circle",
-                    width: 1000,
-                    height: 500
+                    width: 900
                 };
 
-                var chart = new google.visualization.AreaChart(document.getElementById("chart"));
-                chart.draw(data, options);
+                $("#history").click(function() {
+                    options.width = $("#space").width() -62;
+                    chart.draw(data, options);
+                });
+
+                $(window).resize(function(){
+                    options.width = $("#space").width() -62;
+                    chart.draw(data, options);
+                });
             }
         </script>
 {%- endblock %}
@@ -65,15 +76,14 @@
 {%- endblock %}
 
 {% block main -%}
-
             <div id="ocd" class="col m8 s12">
                 <ul class="tabs z-depth-1">
                     <li class="tab col s4"><a href="#ocd-summary" class="active">Summary</a></li>
                     <li class="tab col s4"><a href="#ocd-config">Configurations</a></li>
-                    <li class="tab col s4"><a href="#ocd-history">Awards &amp History</a></li>
+                    <li class="tab col s4" id="history"><a href="#ocd-history">Awards &amp History</a></li>
                 </ul>
                 <div class="container">
-                    <div class="row"></div>
+                    <div class="row" id="space"></div>
                     <div id="ocd-summary" class="col s12">
                         <div class="row">
                             <div class="col s12">
@@ -134,7 +144,7 @@
                                     <div class="card-content center">
                                         <span class="card-title">Choose the way you like to donate</span><br><br>
                                         <div class="row">
-                                            <a id="percent-btn" class="waves-effect waves-teal btn" >Percentage</a>
+                                            <a id="percent-btn" class="waves-effect waves-teal btn">Percentage</a>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <a id="fixed-btn" class="waves-effect waves-teal btn">Fixed amount</a>
                                         </div>
@@ -142,15 +152,15 @@
                                             <br><span class="card-subtitle">Percentage to be dontated with transactions</span>
                                             <div class="row">
                                                 <div class="input-field col s2 offset-s2">
-                                                    <input class="with-gap" name="percentage" type="radio" id="p1" checked="checked" />
+                                                    <input class="with-gap" name="percentage" value="2.5" type="radio" id="p1" />
                                                     <label for="p1">2.5%</label>
                                                 </div>
                                                 <div class="input-field col s1">
-                                                    <input class="with-gap" name="percentage" type="radio" id="p2" />
+                                                    <input class="with-gap" name="percentage" value="5.0" type="radio" id="p2" />
                                                     <label for="p2">5.0%</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input class="with-gap" name="percentage" type="radio" id="p3" />
+                                                    <input class="with-gap" name="percentage" value="10.0" type="radio" id="p3" />
                                                     <label for="p3">10.0%</label>
                                                 </div>
                                                 <div class="input-field col s2">
@@ -161,12 +171,12 @@
                                             <span class="card-subtitle">Frequency of Donating</span>
                                             <div class="row">
                                                 <div class="input-field col s3 offset-s3">
-                                                    <input class="with-gap" name="frequency" type="radio" id="f1" />
+                                                    <input class="with-gap" name="frequency" value="all" type="radio" id="f1" />
                                                     <label for="f1">Every Transaction</label>
                                                 </div>
                                                 <div class="input-field col s4">
-                                                    <input class="with-gap" name="frequency" type="radio" id="f2" />
-                                                    <label for="f2">Every Other Transaction</label>
+                                                    <input class="with-gap" name="frequency" value="two" type="radio" id="f2" />
+                                                    <label for="f2">Every two Transactions</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,15 +184,15 @@
                                             <br><span class="card-subtitle">Fixed amount to be regularly donated</span>
                                             <div class="row">
                                                 <div class="input-field col s2 offset-s2">
-                                                    <input class="with-gap" name="amount" type="radio" id="a1" />
+                                                    <input class="with-gap" name="amount" value="5" type="radio" id="a1" />
                                                     <label for="a1">5AED</label>
                                                 </div>
                                                 <div class="input-field col s1">
-                                                    <input class="with-gap" name="amount" type="radio" id="a2" />
+                                                    <input class="with-gap" name="amount" value="10" type="radio" id="a2" />
                                                     <label for="a2">10AED</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input class="with-gap" name="amount" type="radio" id="a3" />
+                                                    <input class="with-gap" name="amount" value="20" type="radio" id="a3" />
                                                     <label for="a3">20AED</label>
                                                 </div>
                                                 <div class="input-field col s2">
@@ -193,15 +203,15 @@
                                             <span class="card-subtitle">Frequency of Donating</span>
                                             <div class="row">
                                                 <div class="input-field col s2 offset-s3">
-                                                    <input class="with-gap" name="period" type="radio" id="d1" />
+                                                    <input class="with-gap" name="period" value="week" type="radio" id="d1" />
                                                     <label for="d1">Weekly</label>
                                                 </div>
                                                 <div class="input-field col s1">
-                                                    <input class="with-gap" name="period" type="radio" id="d2" />
+                                                    <input class="with-gap" name="period" value="month" type="radio" id="d2" />
                                                     <label for="d2">Monthly</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input class="with-gap" name="period" type="radio" id="d3" />
+                                                    <input class="with-gap" name="period" value="year" type="radio" id="d3" />
                                                     <label for="d3">Annually</label>
                                                 </div>
                                             </div>
@@ -218,14 +228,14 @@
                                         <span class="card-title">Reveal the hero?</span>
                                         <div class="row">
                                             <div class="input-field col s8 offset-s2">
-                                                <input class="with-gap" name="group1" type="radio" id="r1"  />
-                                                <label for="r1">Keep my donations anonymous &amp unknow through out the site</label>
+                                                <input class="with-gap" name="reveal" value="false" type="radio" id="r1" />
+                                                <label for="r1">Keep my information and donations anonymous</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s8 offset-s2">
-                                                <input class="with-gap" name="group1" type="radio" id="r2"/>
-                                                <label for="r2">Show others your name and compete entering the leaderboard</label>
+                                                <input class="with-gap" name="reveal" value="true" type="radio" id="r2" />
+                                                <label for="r2">Show my details and enter the leaderboard</label>
                                             </div>
                                         </div>
                                     </div>
@@ -237,14 +247,15 @@
                                 <div class="card">
                                     <div class="card-content center">
                                         <span class="card-title">Where your donation goes</span><br><br>
-                                        <!-- Modal Trigger -->
-                                        <a class="waves-effect waves-light btn modal-trigger" href="#charity-modal">Choose Charity</a>
+                                        <div class="row"></div>
+                                        <a class="waves-effect btn modal-trigger" href="#charity-modal">Choose Charities</a>
+                                        <a id="save" class="waves-effect btn">Save Settings</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal Structure -->
-                        <div id="charity-modal" class="modal bottom-sheet">
+                        <div id="charity-modal" class="modal">
                             <div class="modal-content">
                                 <h4>Supported Charities</h4>
                                 <ul class="collection">
@@ -253,9 +264,11 @@
                                         <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="circle">
                                         <span class="title">{{ charity.name }}</span>
                                         <p class="charity">{{ charity.description|safe }}</p>
+                                        <a class="secondary-content"><input type="checkbox" id="{{ charity.image }}"><label for="{{ charity.image }}"></label></a>
                                     </li>
                                     {% endfor %}
                                 </ul>
+                                <a class="waves-effect waves-light btn modal-trigger" href="#">Request A Charity</a>
                             </div>
                         </div>
                     </div>

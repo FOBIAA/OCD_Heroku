@@ -66,3 +66,7 @@ a, img, footer p {
 .bold {
     font-weight: bold;
 }
+
+.page-footer b {
+    color: #ffc000;
+}

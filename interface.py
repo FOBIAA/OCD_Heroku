@@ -1,21 +1,20 @@
 #!/usr/bin/env python
 
-# from info import *
 from flask import session
 
 
 class Interface:
     # Initialize basic class variables
     def __init__(self):
-        self.balance = None
+        self.client = None
         self.charities = None
         self.donations = None
 
-    def get_balance(self):
-        if self.balance is None:
+    def get_client(self):
+        if self.client is None:
             from models import Client
-            self.balance = Client.query.get(session["username"]).balance
-        return self.balance
+            self.client = Client.query.get(session["username"])
+        return self.client
 
     def get_charities(self):
         if self.charities is None:
@@ -30,6 +29,6 @@ class Interface:
         return self.donations
 
     def refresh(self):
-        self.balance = None
+        self.client = None
         self.charities = None
         self.donations = None

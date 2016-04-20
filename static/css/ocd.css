@@ -42,7 +42,7 @@
 p.charity {
     color: rgba(0, 0, 0, 0.71);
     padding: 0;
-    -webkit-font-smoothing: antialiased;
+    margin-right: 4rem !important;
 }
 
 .card .card-subtitle {
@@ -61,5 +61,9 @@ p.charity {
 }
 
 .collection .collection-item.avatar {
-    padding-left: 86px;
+    padding-left: 96px;
+}
+
+.secondary-content label {
+    padding-left: 22px;
 }

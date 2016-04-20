@@ -25,6 +25,7 @@
 {%- endblock %}
 
 {% block main -%}
+            {%- set client = interface.get_client() -%}
             <div id="transfer" class="col m8 s12 transfer">
                 <div class="row">
                     <div class="row">
@@ -44,7 +45,7 @@
                             <option>1014980276401-AED</option>
                             <option>0384980276402-AED</option>
                         </select>
-                        <p id="red-box" class="col m4 offset-m2"><span>Available Balance: <b>AED {{ interface.get_balance() }}</b></span></p>
+                        <p id="red-box" class="col m4 offset-m2"><span>Available Balance: <b>AED {{ client.balance | round(2) }}</b></span></p>
                     </div>
                     <div class="row">
                         <h6 class="bold">Beneficiary Details</h6>
