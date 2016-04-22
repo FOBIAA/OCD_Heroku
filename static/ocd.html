@@ -254,7 +254,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal Structure -->
+                        <!--Modal Structure -->
                         <div id="charity-modal" class="modal">
                             <div class="modal-content">
                                 <h4>Supported Charities</h4>
@@ -269,6 +269,32 @@
                                     {% endfor %}
                                 </ul>
                                 <a class="waves-effect waves-light btn modal-trigger" href="#">Request A Charity</a>
+                            </div>
+                        </div>
+                        <!-- Modal Structure -->
+                        <div id="request-modal" class="modal">
+                            <div class="modal-content">
+                                <h4 class="center">Request a charity organisation  to be added</h4>
+                                <div class="row" style="width: 96%">
+                                    <div class="input-field col s12">
+                                        <i class="fa fa-building prefix" aria-hidden="true"></i>
+                                        <input id="name" type="text" class="validate">
+                                        <label for="name">Name of organization</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <i class="fa fa-pencil prefix" aria-hidden="true"></i>
+                                        <input id="reason" type="text" class="validate">
+                                        <label for="reason">Reason behind the choice</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <i class="fa fa-comments prefix" aria-hidden="true"></i>
+                                        <textarea id="textarea" class="materialize-textarea"></textarea>
+                                        <label for="textarea">Comments</label>
+                                    </div>
+                                    <div class="input-field col s2 offset-s9">
+                                        <a class="waves-effect waves-light btn">submit</a>
+                                    </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
