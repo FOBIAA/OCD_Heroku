@@ -76,6 +76,7 @@
 {%- endblock %}
 
 {% block main -%}
+            {% set charities = interface.get_charities() %}
             <div id="ocd" class="col m8 s12">
                 <ul class="tabs z-depth-1">
                     <li class="tab col s4"><a href="#ocd-summary" class="active">Summary</a></li>
@@ -145,7 +146,6 @@
                                         <span class="card-title">Choose the way you like to donate</span><br><br>
                                         <div class="row">
                                             <a id="percent-btn" class="waves-effect waves-teal btn">Percentage</a>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <a id="fixed-btn" class="waves-effect waves-teal btn">Fixed amount</a>
                                         </div>
                                         <div id="percent">
@@ -246,20 +246,39 @@
                             <div class="col s12">
                                 <div class="card">
                                     <div class="card-content center">
-                                        <span class="card-title">Where your donation goes</span><br><br>
-                                        <div class="row"></div>
+                                        <span class="card-title">Where your donation goes</span>
+                                        <div class="row">
+                                            <h4 class="grey-text text-lighten-1">You Haven't Choosing any Charity Yet!</h4>
+                                            {%- for charity in charities %}
+                                            <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="charity-img hide">
+                                            {%- endfor %}
+                                        </div>
                                         <a class="waves-effect btn modal-trigger" href="#charity-modal">Choose Charities</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card">
+                                    <div class="card-content center">
+                                        <span class="card-title">Save Configs, Disable &amp; Hide</span>
+                                        <div class="row"></div>
+                                        <div class="row" id="btns-row">
+                                            <button id="hide-ocd" value="show" class="waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox</button>
+                                            <button id="disable" value="enable" class="waves-effect waves-light red lighten-1 btn z-depth-0 left">Disable This Application</button>
+                                        </div>
                                         <a id="save" class="waves-effect btn">Save Settings</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--Modal Structure -->
+                        <!--Charity Modal Structure -->
                         <div id="charity-modal" class="modal">
                             <div class="modal-content">
-                                <h4>Supported Charities</h4>
+                                <h4 class="grey-text text-darken-1">Supported Charities</h4>
                                 <ul class="collection">
-                                    {% for charity in interface.get_charities() %}
+                                    {% for charity in charities %}
                                     <li class="collection-item avatar">
                                         <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="circle">
                                         <span class="title">{{ charity.name }}</span>
@@ -268,32 +287,31 @@
                                     </li>
                                     {% endfor %}
                                 </ul>
-                                <a class="waves-effect waves-light btn modal-trigger" href="#">Request A Charity</a>
+                                <a class="waves-effect waves-light btn modal-trigger" href="#request-modal">Request A Charity</a>
+                                <a id="done" class="waves-effect waves-light btn right">Done</a>
                             </div>
                         </div>
-                        <!-- Modal Structure -->
+                        <!--Request Modal Structure -->
                         <div id="request-modal" class="modal">
                             <div class="modal-content">
-                                <h4 class="center">Request a charity organisation  to be added</h4>
-                                <div class="row" style="width: 96%">
+                                <h4 class="center">Request a Charity Organisation to be Added</h4>
+                                <div class="row">
                                     <div class="input-field col s12">
                                         <i class="fa fa-building prefix" aria-hidden="true"></i>
                                         <input id="name" type="text" class="validate">
-                                        <label for="name">Name of organization</label>
+                                        <label for="name">Name of Organization</label>
                                     </div>
                                     <div class="input-field col s12">
                                         <i class="fa fa-pencil prefix" aria-hidden="true"></i>
                                         <input id="reason" type="text" class="validate">
-                                        <label for="reason">Reason behind the choice</label>
+                                        <label for="reason">Reason Behind the Choice</label>
                                     </div>
                                     <div class="input-field col s12">
                                         <i class="fa fa-comments prefix" aria-hidden="true"></i>
                                         <textarea id="textarea" class="materialize-textarea"></textarea>
                                         <label for="textarea">Comments</label>
                                     </div>
-                                    <div class="input-field col s2 offset-s9">
-                                        <a class="waves-effect waves-light btn">submit</a>
-                                    </div> 
+                                    <a class="waves-effect waves-light btn right">submit</a>
                                 </div>
                             </div>
                         </div>

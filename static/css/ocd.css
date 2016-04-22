@@ -45,14 +45,25 @@ p.charity {
     margin-right: 4rem !important;
 }
 
+.charity-img {
+    width: 10rem;
+    height: 10rem;
+}
+
 .card .card-subtitle {
     font-size: 19px;
     font-weight: 300;
 }
 
+#percent-btn {
+    margin-right: 1.4rem;
+}
+
 #percent-btn.z-depth-0,
-#fixed-btn.z-depth-0 {
-    background-color: #bdbdbd;
+#fixed-btn.z-depth-0,
+#hide-ocd.z-depth-0,
+#disable.z-depth-0 {
+    background-color: #bdbdbd !important;
 }
 
 .collection .collection-item.avatar .circle {
@@ -66,4 +77,20 @@ p.charity {
 
 .secondary-content label {
     padding-left: 22px;
+}
+
+#request-modal .row {
+    width: 96%;
+}
+
+#request-modal a {
+    margin-right: 12px;
+}
+
+h4.text-lighten-1 {
+    font-weight: 300;
+}
+
+#btns-row {
+    margin: 0 0 20px 0;
 }

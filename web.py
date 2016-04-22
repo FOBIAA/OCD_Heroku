@@ -46,11 +46,18 @@ def ocd():
     if request.method == "POST":
         client = Client.query.get(session["username"])
         client.type = request.form["type"]
-        client.amount = float(request.form["amount"])
+        try:
+            client.amount = float(request.form["amount"])
+        except ValueError:
+            client.amount = None
         client.frequency = request.form["frequency"]
         client.reveal = request.form["reveal"]
+        DonatesTo.query.filter_by(client=session["username"]).delete()
+        for image in request.form["charity"].split():
+            db.session.add(DonatesTo(session["username"], image))
+        client.checkbox = request.form["checkbox"]
+        client.app = request.form["app"]
         db.session.commit()
-        flash(request.form["charity"])
         return redirect(url_for("dashboard"))
     return render_template("ocd.html", interface=interface)
 

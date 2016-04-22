@@ -31,9 +31,41 @@ $(document).ready(function() {
         form.append($("<input/>").prop({ name: "frequency", value: frequency }));
         form.append($("<input/>").prop({ name: "reveal", value: $("input[name='reveal']:checked").val() }));
         form.append($("<input/>").prop({ name: "charity", value: charities }));
+        form.append($("<input/>").prop({ name: "checkbox", value: $("#hide-ocd").val() }));
+        form.append($("<input/>").prop({ name: "app", value: $("#disable").val() }));
 
         $(document.body).append(form);
         form.submit();
+    });
+
+    $("#done").click(function() {
+        $("#charity-modal").closeModal();
+    });
+
+    $("#request-modal a").click(function() {
+        $("#request-modal").closeModal();
+    });
+
+    // hide checkbox logic
+    $("#hide-ocd").click(function() {
+        if($(this).val() == "show") {
+            $(this).removeClass("z-depth-0");
+            $(this).val("hide");
+        } else if($(this).val() == "hide") {
+            $(this).addClass("z-depth-0");
+            $(this).val("show");
+        }
+    });
+
+    //Disable app logic
+    $("#disable").click(function() {
+        if($(this).val() == "enable") {
+            $(this).removeClass("z-depth-0");
+            $(this).val("disable");
+        } else if($(this).val() == "disable") {
+            $(this).addClass("z-depth-0");
+            $(this).val("enable");
+        }
     });
 
     $(".modal-trigger").leanModal({opacity: .3});

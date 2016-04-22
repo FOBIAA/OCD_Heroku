@@ -49,7 +49,6 @@ $(document).ready(function() {
                 $(other).addClass("z-depth-0");
                 $(other).val("false");
             }
-            
         } else if($(this).val() == "true") {
             $(this).addClass("z-depth-0");
             $(this).val("false");

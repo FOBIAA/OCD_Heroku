@@ -93,3 +93,7 @@ span.title {
 #regular.z-depth-0 {
     background-color: #bdbdbd !important;
 }
+
+#done {
+    float: none;
+}

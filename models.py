@@ -35,7 +35,7 @@ class Client(db.Model):
         self.amount = None
         self.frequency = None
         self.checkbox = "show"
-        self.app = "hide"
+        self.app = "disable"
 
     # Print class as < username >
     def __repr__(self):
@@ -48,7 +48,7 @@ class DonatesTo(db.Model):
 
     # Declare client's username and charity's name as primary key
     client = db.Column(db.String(16), db.ForeignKey("client.username"), primary_key=True)
-    charity = db.Column(db.String(36), db.ForeignKey("charity.name"), primary_key=True)
+    charity = db.Column(db.String(16), db.ForeignKey("charity.image"), primary_key=True)
 
     # Initialize class with client and charity
     def __init__(self, client, charity):
@@ -63,7 +63,7 @@ class Charity(db.Model):
     # Declare charity's name as primary key
     name = db.Column(db.String(36), primary_key=True)
     # Declare other charity fields
-    image = db.Column(db.String(16))
+    image = db.Column(db.String(16), unique=True)
     description = db.Column(db.Text)
     investment = db.Column(db.Text)
 
@@ -85,7 +85,7 @@ class Achieved(db.Model):
 
     # Declare client's username and award's name as primary key
     client = db.Column(db.String(16), db.ForeignKey("client.username"), primary_key=True)
-    award = db.Column(db.String(36), db.ForeignKey("award.name"), primary_key=True)
+    award = db.Column(db.String(16), db.ForeignKey("award.image"), primary_key=True)
 
     # Initialize class with client and award
     def __init__(self, client, award):
@@ -100,7 +100,7 @@ class Award(db.Model):
     # Declare award's name as primary key
     name = db.Column(db.String(36), primary_key=True)
     # Declare other award fields
-    image = db.Column(db.String(16))
+    image = db.Column(db.String(16), unique=True)
     description = db.Column(db.Text)
 
     # Initialize class with basic info
