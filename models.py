@@ -15,11 +15,13 @@ class Client(db.Model):
     password = db.Column(db.String(16))
     email = db.Column(db.String(24))
     balance = db.Column(db.Float)
-    rank = db.Column(db.Integer)
-    score = db.Column(db.Integer)
+    reveal = db.Column(db.String(8))
+    score = db.Column(db.Float)
     type = db.Column(db.String(8))
     amount = db.Column(db.Float)
-    frequency = db.Column(db.Integer)
+    frequency = db.Column(db.String(8))
+    checkbox = db.Column(db.String(8))
+    app = db.Column(db.String(8))
 
     # Initialize class with basic info
     def __init__(self, username, password, email, balance):
@@ -28,10 +30,12 @@ class Client(db.Model):
         self.email = email
         self.balance = balance
         self.score = 0
-        self.rank = None
-        self.type = None
+        self.reveal = None
+        self.type = "percent"
         self.amount = None
         self.frequency = None
+        self.checkbox = "show"
+        self.app = "hide"
 
     # Print class as < username >
     def __repr__(self):

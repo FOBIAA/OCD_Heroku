@@ -6,7 +6,6 @@ from flask import Flask, render_template, session, flash, request, redirect, url
 from flask_sqlalchemy import SQLAlchemy
 from interface import Interface
 from functools import wraps
-from models import *
 
 # initialize with template folder in /static
 app = Flask(__name__, template_folder="static")
@@ -16,6 +15,7 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 # Instantiate an info object
 interface = Interface()
+from models import *
 
 
 def defaults(f):
@@ -47,8 +47,8 @@ def ocd():
         client = Client.query.get(session["username"])
         client.type = request.form["type"]
         client.amount = float(request.form["amount"])
-        # client.frequency = request.form["frequency"]
-        # client.rank = (0, None)[request.form["reveal"] == "true"]
+        client.frequency = request.form["frequency"]
+        client.reveal = request.form["reveal"]
         db.session.commit()
         flash(request.form["charity"])
         return redirect(url_for("dashboard"))
