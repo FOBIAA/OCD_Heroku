@@ -8,6 +8,7 @@ class Interface:
     def __init__(self):
         self.client = None
         self.charities = None
+        self.targets = None
         self.donations = None
 
     def get_client(self):
@@ -22,6 +23,12 @@ class Interface:
             self.charities = Charity.query
         return self.charities
 
+    def get_targets(self):
+        if self.targets is None:
+            from models import DonatesTo
+            self.targets = DonatesTo.query.filter_by(client=session["username"])
+        return self.targets
+
     def get_donations(self):
         if self.donations is None:
             from models import Donation
@@ -31,4 +38,5 @@ class Interface:
     def refresh(self):
         self.client = None
         self.charities = None
+        self.targets = None
         self.donations = None

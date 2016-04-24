@@ -150,50 +150,50 @@
                        data-delay="200" data-tooltip="Of this transaction">Percentage</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a id="fixed-btn" class="waves-effect waves-teal btn tooltipped" data-position="right"
-                       data-delay="200" data-tooltip="With this transaction">Fixed amount</a>
+                       data-delay="200" data-tooltip="With this transaction">Fixed Amount</a>
                     <div id="percent" class="col s12">
                         <div class="row">
                             <div class="input-field col s2 offset-s2">
-                                <input class="with-gap" name="percentage" type="radio" id="p1" checked="checked" />
+                                <input class="with-gap" name="percent" type="radio" id="p1" checked="checked" />
                                 <label for="p1">2.5%</label>
                             </div>
                             <div class="input-field col s1">
-                                <input class="with-gap" name="percentage" type="radio" id="p2" />
+                                <input class="with-gap" name="percent" type="radio" id="p2" />
                                 <label for="p2">5.0%</label>
                             </div>
                             <div class="input-field col s3">
-                                <input class="with-gap" name="percentage" type="radio" id="p3" />
+                                <input class="with-gap" name="percent" type="radio" id="p3" />
                                 <label for="p3">10.0%</label>
                             </div>
                             <div class="input-field col s2">
-                                <input id="other-percentage" type="text">
-                                <label for="other-percentage">Other: (%)</label>
+                                <input id="other-percent" type="text">
+                                <label for="other-percent">Other: (%)</label>
                             </div>
                         </div>
                     </div>
                     <div id="fixed" class="col s12">
                         <div class="row">
                             <div class="input-field col s2 offset-s2">
-                                <input class="with-gap" name="amount" type="radio" id="a1" />
+                                <input class="with-gap" name="fixed" type="radio" id="a1" />
                                 <label for="a1">5AED</label>
                             </div>
                             <div class="input-field col s1">
-                                <input class="with-gap" name="amount" type="radio" id="a2" />
+                                <input class="with-gap" name="fixed" type="radio" id="a2" />
                                 <label for="a2">10AED</label>
                             </div>
                             <div class="input-field col s3">
-                                <input class="with-gap" name="amount" type="radio" id="a3" />
+                                <input class="with-gap" name="fixed" type="radio" id="a3" />
                                 <label for="a3">20AED</label>
                             </div>
                             <div class="input-field col s2">
-                                <input id="other-amount" type="text">
-                                <label for="other-amount">Other: (AED)</label>
+                                <input id="other-fixed" type="text">
+                                <label for="other-fixed">Other: (AED)</label>
                             </div>
                         </div>
                     </div>
                     <br>
                     <span class="title">Where your donation goes</span>
-                    <div class="carousel" style="height: 220px; margin-top: -12rem">
+                    <div class="carousel">
                         {% for charity in interface.get_charities() %}
                         <a class="carousel-item" style="width: 120px"><img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}">{{charity.name}}</a>
                         {% endfor %}

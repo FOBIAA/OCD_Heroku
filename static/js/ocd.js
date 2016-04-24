@@ -1,25 +1,25 @@
 $(document).ready(function() {
-    $("#save").click(function() {
+    $(".save").click(function() {
         var type, amount, frequency, charities = "";
         var form = $("<form></form>");
         form.prop("method", "post");
 
-        if($("#percent").is(":visible")){
-            type = "percent";
-            if($("#other-percentage").hasClass("filled")) {
-                amount = $("#other-percentage").val();
-            } else {
-                amount = $("input[name='percentage']:checked").val();
-            }
-            frequency = $("input[name='frequency']:checked").val();
-        } else if($("#fixed").is(":visible")) {
+        if($("#fixed").is(":visible")) {
             type = "fixed";
-            if($("#other-amount").hasClass("filled")) {
-                amount = $("#other-amount").val();
+            if($("#other-fixed").hasClass("filled")) {
+                amount = $("#other-fixed").val();
             } else {
-                amount = $("input[name='amount']:checked").val();
+                amount = $("input[name='fixed']:checked").val();
             }
-            frequency = $("input[name='period']:checked").val();
+            frequency = $("input[name='fixed-freq']:checked").val();
+        } else {
+            type = "percent";
+            if($("#other-percent").hasClass("filled")) {
+                amount = $("#other-percent").val();
+            } else {
+                amount = $("input[name='percent']:checked").val();
+            }
+            frequency = $("input[name='percent-freq']:checked").val();
         }
 
         $("#charity-modal input:checked").each(function() {
@@ -31,8 +31,8 @@ $(document).ready(function() {
         form.append($("<input/>").prop({ name: "frequency", value: frequency }));
         form.append($("<input/>").prop({ name: "reveal", value: $("input[name='reveal']:checked").val() }));
         form.append($("<input/>").prop({ name: "charity", value: charities }));
-        form.append($("<input/>").prop({ name: "checkbox", value: $("#hide-ocd").val() }));
-        form.append($("<input/>").prop({ name: "app", value: $("#disable").val() }));
+        form.append($("<input/>").prop({ name: "checkbox", value: $(".hide-ocd").val() }));
+        form.append($("<input/>").prop({ name: "app", value: $(".disable-ocd").val() }));
 
         $(document.body).append(form);
         form.submit();
@@ -47,7 +47,7 @@ $(document).ready(function() {
     });
 
     // hide checkbox logic
-    $("#hide-ocd").click(function() {
+    $(".hide-ocd").click(function() {
         if($(this).val() == "show") {
             $(this).removeClass("z-depth-0");
             $(this).val("hide");
@@ -58,13 +58,27 @@ $(document).ready(function() {
     });
 
     //Disable app logic
-    $("#disable").click(function() {
+    $(".disable-ocd").click(function() {
         if($(this).val() == "enable") {
             $(this).removeClass("z-depth-0");
             $(this).val("disable");
         } else if($(this).val() == "disable") {
             $(this).addClass("z-depth-0");
             $(this).val("enable");
+        }
+    });
+
+    $("#charity-modal input").click(function() {
+        var image = $("#target img[src='/static/img/charity/" + $(this).prop("id") + ".jpg']");
+        if($(this).is(":checked"))
+            $(image).removeClass("hide");
+        else
+            $(image).addClass("hide");
+
+        if($("#target img.hide").length != 10) {
+            $("#target h4").hide();
+        } else {
+            $("#target h4").show();
         }
     });
 

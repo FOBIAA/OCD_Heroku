@@ -1,4 +1,4 @@
-#ocd {
+#ocd, #welcome-ocd {
     font-family: "Roboto";
 }
 
@@ -61,8 +61,8 @@ p.charity {
 
 #percent-btn.z-depth-0,
 #fixed-btn.z-depth-0,
-#hide-ocd.z-depth-0,
-#disable.z-depth-0 {
+.hide-ocd.z-depth-0,
+.disable-ocd.z-depth-0 {
     background-color: #bdbdbd !important;
 }
 
@@ -91,6 +91,6 @@ h4.text-lighten-1 {
     font-weight: 300;
 }
 
-#btns-row {
-    margin: 0 0 20px 0;
+.btns-row {
+    margin: 0 0 20px 0 !important;
 }

@@ -97,3 +97,8 @@ span.title {
 #done {
     float: none;
 }
+
+.carousel {
+    height: 220px;
+    margin-top: -12rem;
+}

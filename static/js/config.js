@@ -18,8 +18,8 @@ $(document).ready(function() {
     });
     
     //Logic for configurations
-    $("#other-amount, #other-percentage").click(function() {
-        $("input[name='amount'], input[name='percentage']").prop("checked", false);
+    $("#other-fixed, #other-percent").click(function() {
+        $("input[name='fixed'], input[name='percent']").prop("checked", false);
     });
 
     function reset(field) {
@@ -27,10 +27,10 @@ $(document).ready(function() {
         $(field).trigger("blur");
     }
 
-    var data = {"other-percentage": ["#p1", "#other-amount", "%"],
-                "other-amount": ["#a1", "#other-percentage", "AED"]};
+    var data = {"other-percent": ["#p1", "#other-fixed", "%"],
+                "other-fixed": ["#a1", "#other-percent", "AED"]};
     
-    $("#other-percentage, #other-amount").blur(function() {
+    $("#other-percent, #other-fixed").blur(function() {
         var amount = $(this).val();
         var index = $(this).attr("id");
         
@@ -50,13 +50,11 @@ $(document).ready(function() {
     });
     
     //Toast message for selected donation
-    $("input[name='amount'], input[name='percentage']").click(function() {
+    $("input[name='fixed'], input[name='percent']").click(function() {
         for (var key in data) {
             reset("#" + key);
             $("#" + key).trigger("click");
         }
         $(this).prop("checked", true);
     });
-
-    $("#percent-btn").trigger("click");
 });

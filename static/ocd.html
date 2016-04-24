@@ -76,7 +76,35 @@
 {%- endblock %}
 
 {% block main -%}
-            {% set charities = interface.get_charities() %}
+            {%- set charities = interface.get_charities() -%}
+            {%- set client = interface.get_client() -%}
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    if("{{ client.app }}" == "disable") {
+                        $("#ocd").hide();
+                        $("#welcome-ocd").show();
+                    } else {
+                        $("#ocd").show();
+                        $("#welcome-ocd").hide();
+
+                        $("#{{ client.type }}-btn").trigger("click");
+                        if($("input[name='{{ client.type }}'][value='{{ client.amount }}']").length ==1)
+                            $("input[name='{{ client.type }}'][value='{{ client.amount }}']").trigger("click");
+                        else {
+                            $("#other-{{ client.type }}").val({{ client.amount }});
+                            $("#other-{{ client.type }}").addClass("filled");
+                        }
+                        $("input[name='{{ client.type }}-freq'][value='{{ client.frequency }}']").trigger("click");
+                        $("input[name='reveal'][value='{{ client.reveal }}']").trigger("click");
+                        {%- for target in interface.get_targets() %}
+                        $("#{{ target.charity }}").trigger("click");
+                        $("#target img[src='{{ url_for('static', filename='img/charity/' + target.charity + '.jpg') }}']").removeClass("hide");
+                        {%- endfor %}
+                        if($("#target img.hide").length != 10)
+                            $("#target h4").hide();
+                    }
+                });
+            </script>
             <div id="ocd" class="col m8 s12">
                 <ul class="tabs z-depth-1">
                     <li class="tab col s4"><a href="#ocd-summary" class="active">Summary</a></li>
@@ -146,72 +174,72 @@
                                         <span class="card-title">Choose the way you like to donate</span><br><br>
                                         <div class="row">
                                             <a id="percent-btn" class="waves-effect waves-teal btn">Percentage</a>
-                                            <a id="fixed-btn" class="waves-effect waves-teal btn">Fixed amount</a>
+                                            <a id="fixed-btn" class="waves-effect waves-teal btn">Fixed Amount</a>
                                         </div>
                                         <div id="percent">
-                                            <br><span class="card-subtitle">Percentage to be dontated with transactions</span>
+                                            <br><span class="card-subtitle">Percentage to be Dontated with Transactions</span>
                                             <div class="row">
                                                 <div class="input-field col s2 offset-s2">
-                                                    <input class="with-gap" name="percentage" value="2.5" type="radio" id="p1" />
+                                                    <input class="with-gap" name="percent" value="2.5" type="radio" id="p1" />
                                                     <label for="p1">2.5%</label>
                                                 </div>
                                                 <div class="input-field col s1">
-                                                    <input class="with-gap" name="percentage" value="5.0" type="radio" id="p2" />
+                                                    <input class="with-gap" name="percent" value="5.0" type="radio" id="p2" />
                                                     <label for="p2">5.0%</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input class="with-gap" name="percentage" value="10.0" type="radio" id="p3" />
+                                                    <input class="with-gap" name="percent" value="10.0" type="radio" id="p3" />
                                                     <label for="p3">10.0%</label>
                                                 </div>
                                                 <div class="input-field col s2">
-                                                    <input id="other-percentage" type="text">
-                                                    <label for="other-percentage">Other: (%)</label>
+                                                    <input id="other-percent" type="text">
+                                                    <label for="other-percent">Other: (%)</label>
                                                 </div>
                                             </div>
                                             <span class="card-subtitle">Frequency of Donating</span>
                                             <div class="row">
                                                 <div class="input-field col s3 offset-s3">
-                                                    <input class="with-gap" name="frequency" value="all" type="radio" id="f1" />
+                                                    <input class="with-gap" name="percent-freq" value="all" type="radio" id="f1" />
                                                     <label for="f1">Every Transaction</label>
                                                 </div>
                                                 <div class="input-field col s4">
-                                                    <input class="with-gap" name="frequency" value="two" type="radio" id="f2" />
+                                                    <input class="with-gap" name="percent-freq" value="two" type="radio" id="f2" />
                                                     <label for="f2">Every two Transactions</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="fixed">
-                                            <br><span class="card-subtitle">Fixed amount to be regularly donated</span>
+                                            <br><span class="card-subtitle">Fixed Amount to be Regularly Donated</span>
                                             <div class="row">
                                                 <div class="input-field col s2 offset-s2">
-                                                    <input class="with-gap" name="amount" value="5" type="radio" id="a1" />
+                                                    <input class="with-gap" name="fixed" value="5.0" type="radio" id="a1" />
                                                     <label for="a1">5AED</label>
                                                 </div>
                                                 <div class="input-field col s1">
-                                                    <input class="with-gap" name="amount" value="10" type="radio" id="a2" />
+                                                    <input class="with-gap" name="fixed" value="10.0" type="radio" id="a2" />
                                                     <label for="a2">10AED</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input class="with-gap" name="amount" value="20" type="radio" id="a3" />
+                                                    <input class="with-gap" name="fixed" value="20.0" type="radio" id="a3" />
                                                     <label for="a3">20AED</label>
                                                 </div>
                                                 <div class="input-field col s2">
-                                                    <input id="other-amount" type="text">
-                                                    <label for="other-amount">Other: (AED)</label>
+                                                    <input id="other-fixed" type="text">
+                                                    <label for="other-fixed">Other: (AED)</label>
                                                 </div>
                                             </div>
                                             <span class="card-subtitle">Frequency of Donating</span>
                                             <div class="row">
                                                 <div class="input-field col s2 offset-s3">
-                                                    <input class="with-gap" name="period" value="week" type="radio" id="d1" />
+                                                    <input class="with-gap" name="fixed-freq" value="week" type="radio" id="d1" />
                                                     <label for="d1">Weekly</label>
                                                 </div>
                                                 <div class="input-field col s1">
-                                                    <input class="with-gap" name="period" value="month" type="radio" id="d2" />
+                                                    <input class="with-gap" name="fixed-freq" value="month" type="radio" id="d2" />
                                                     <label for="d2">Monthly</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input class="with-gap" name="period" value="year" type="radio" id="d3" />
+                                                    <input class="with-gap" name="fixed-freq" value="year" type="radio" id="d3" />
                                                     <label for="d3">Annually</label>
                                                 </div>
                                             </div>
@@ -247,7 +275,7 @@
                                 <div class="card">
                                     <div class="card-content center">
                                         <span class="card-title">Where your donation goes</span>
-                                        <div class="row">
+                                        <div class="row" id="target">
                                             <h4 class="grey-text text-lighten-1">You Haven't Choosing any Charity Yet!</h4>
                                             {%- for charity in charities %}
                                             <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="charity-img hide">
@@ -264,11 +292,11 @@
                                     <div class="card-content center">
                                         <span class="card-title">Save Configs, Disable &amp; Hide</span>
                                         <div class="row"></div>
-                                        <div class="row" id="btns-row">
-                                            <button id="hide-ocd" value="show" class="waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox</button>
-                                            <button id="disable" value="enable" class="waves-effect waves-light red lighten-1 btn z-depth-0 left">Disable This Application</button>
+                                        <div class="row btns-row">
+                                            <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox</button>
+                                            <button value="enable" class="disable-ocd waves-effect waves-light red lighten-1 btn z-depth-0 left">Disable This Application</button>
                                         </div>
-                                        <a id="save" class="waves-effect btn">Save Settings</a>
+                                        <a class="save waves-effect btn">Save Settings</a>
                                     </div>
                                 </div>
                             </div>
@@ -324,6 +352,23 @@
                                         <div id="chart"></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="welcome-ocd" class="col m8 s12">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-content center">
+                                <span class="card-title">Welcome to Once Click Donation Application</span>
+                                <div class="row"></div>
+                                <div class="row btns-row">
+                                    <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox</button>
+                                    <button value="disable" class="disable-ocd waves-effect waves-light green lighten-1 btn left">Enable This Application</button>
+                                </div>
+                                <a class="save waves-effect btn">Save Settings</a>
                             </div>
                         </div>
                     </div>
