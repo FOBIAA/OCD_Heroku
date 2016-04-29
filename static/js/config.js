@@ -27,25 +27,18 @@ $(document).ready(function() {
         $(field).trigger("blur");
     }
 
-    var data = {"other-percent": ["#p1", "#other-fixed", "%"],
-                "other-fixed": ["#a1", "#other-percent", "AED"]};
+    var data = {"other-percent": "#other-fixed",
+                "other-fixed": "#other-percent"};
     
     $("#other-percent, #other-fixed").blur(function() {
         var amount = $(this).val();
-        var index = $(this).attr("id");
         
-        //If field is click but left empty
-        if(amount == "") {
-            $(data[index][0]).trigger("click");
-            $(this).removeClass("filled");
-        //If other field is click (which sends -998)
-        } else if(amount == -998) {
-            $(this).val("");
-            $(this).removeClass("filled");
-        //Otherwise if field was filled
-        } else {
+        //If field is click but left empty or -998
+        if(amount == "" || amount == -998)
+            $(this).val("").removeClass("filled");
+        else { //Otherwise if field was filled
             $(this).addClass("filled");
-            reset(data[index][1]);
+            reset(data[$(this).attr("id")]);
         }
     });
     

@@ -48,24 +48,18 @@ $(document).ready(function() {
 
     // hide checkbox logic
     $(".hide-ocd").click(function() {
-        if($(this).val() == "show") {
-            $(this).removeClass("z-depth-0");
-            $(this).val("hide");
-        } else if($(this).val() == "hide") {
-            $(this).addClass("z-depth-0");
-            $(this).val("show");
-        }
+        if($(this).val() == "show")
+            $(this).removeClass("z-depth-0").val("hide");
+        else if($(this).val() == "hide")
+            $(this).addClass("z-depth-0").val("show");
     });
 
     //Disable app logic
     $(".disable-ocd").click(function() {
-        if($(this).val() == "enable") {
-            $(this).removeClass("z-depth-0");
-            $(this).val("disable");
-        } else if($(this).val() == "disable") {
-            $(this).addClass("z-depth-0");
-            $(this).val("enable");
-        }
+        if($(this).val() == "enable")
+            $(this).removeClass("z-depth-0").val("disable");
+        else if($(this).val() == "disable")
+            $(this).addClass("z-depth-0").val("enable");
     });
 
     $("#charity-modal input").click(function() {

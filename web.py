@@ -58,7 +58,9 @@ def ocd():
         client.checkbox = request.form["checkbox"]
         client.app = request.form["app"]
         db.session.commit()
-        return redirect(url_for("dashboard"))
+        interface.charities = None
+        flash("Your Settings Were Saved")
+        return redirect(url_for("ocd"))
     return render_template("ocd.html", interface=interface)
 
 

@@ -53,9 +53,15 @@
         {% block body %}{% endblock %}
         
         <!--Flash messages logic start-->
-        {% for message in get_flashed_messages() %}
+        {%- for message in get_flashed_messages() %}
             <script>Materialize.toast({{ message|tojson }}, 5000)</script>
-        {% endfor %}
+            {%- if message == "Your Settings Were Saved" %}
+            <script>
+                $("#summary a").removeClass("active");
+                $("#configs a").addClass("active");
+            </script>
+            {%- endif %}
+        {%- endfor %}
         <!--Flash messages logic end-->
         
         <footer class="page-footer nbd-indigo white-text">

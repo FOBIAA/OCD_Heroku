@@ -19,8 +19,13 @@ class Interface:
 
     def get_charities(self):
         if self.charities is None:
-            from models import Charity
-            self.charities = Charity.query
+            from models import Charity, DonatesTo
+            self.charities = []
+            for target in Charity.query.join(DonatesTo).filter_by(client=session["username"]):
+                self.charities.append(target)
+            for charity in Charity.query:
+                if charity not in self.charities:
+                    self.charities.append(charity)
         return self.charities
 
     def get_targets(self):

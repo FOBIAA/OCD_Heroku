@@ -26,6 +26,34 @@
 
 {% block main -%}
             {%- set client = interface.get_client() -%}
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    if("{{ client.checkbox }}" == "hide") {
+                        $("#ocd-title, #ocd-button").hide();
+                    } else {
+                        $("#checkbox-input").val({{ client.amount }});
+                        var checkboxValue = $("#checkbox-input").val();
+
+                        $("#checkbox-input").click(function() {
+                            if($("#checkbox-input").val() == checkboxValue)
+                                $("#checkbox-input").val("");
+                        })
+                        $("#checkbox-input").blur(function() {
+                            if($("#checkbox-input").val() == "")
+                                $("#checkbox-input").val(checkboxValue);
+                        })
+
+                        if("{{ client.type }}" == "fixed") $("#currency").text("AED");
+                        $("#{{ client.type }}-btn").trigger("click");
+                        if($("input[name='{{ client.type }}'][value='{{ client.amount }}']").length == 1)
+                            $("input[name='{{ client.type }}'][value='{{ client.amount }}']").trigger("click");
+                        else
+                            $("#other-{{ client.type }}").val({{ client.amount }}).addClass("filled");
+                        if("{{ client.app }}" == "enable")
+                            $("#hide-it, #regular").hide();
+                    }
+                });
+            </script>
             <div id="transfer" class="col m8 s12 transfer">
                 <div class="row">
                     <div class="row">
@@ -45,7 +73,7 @@
                             <option>1014980276401-AED</option>
                             <option>0384980276402-AED</option>
                         </select>
-                        <p id="red-box" class="col m4 offset-m2"><span>Available Balance: <b>AED {{ client.balance | round(2) }}</b></span></p>
+                        <p id="red-box" class="col m4 offset-m2"><span>Available Balance: <b>AED {{ client.balance }}</b></span></p>
                     </div>
                     <div class="row">
                         <h6 class="bold">Beneficiary Details</h6>
@@ -126,7 +154,7 @@
                     <div id="ocd-button" class="row">
                         <div class="col m6">
                             <input type="checkbox" id="tick"/>
-                            <label for="tick" class="grey-text text-darken-2">Donate with <input id="checkbox-input" type="text" value="2.5">% of your transaction</label>
+                            <label for="tick" class="grey-text text-darken-2">Donate with <input id="checkbox-input" type="text" value="2.5"><span id="currency">%</span> of your transaction</label>
                         </div>
                         <div class="col m3">
                             <a id="customize" class="waves-effect waves-light btn modal-trigger" href="#ocd-modal">Customize</a>
@@ -148,21 +176,20 @@
                     <span class="title">Choose the way you like to donate</span><br><br>
                     <a id="percent-btn" class="waves-effect waves-teal btn tooltipped" data-position="left"
                        data-delay="200" data-tooltip="Of this transaction">Percentage</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a id="fixed-btn" class="waves-effect waves-teal btn tooltipped" data-position="right"
-                       data-delay="200" data-tooltip="With this transaction">Fixed Amount</a>
+                       data-delay="200" data-tooltip="With this transaction">Fixed Amount</a><br><br>
                     <div id="percent" class="col s12">
                         <div class="row">
                             <div class="input-field col s2 offset-s2">
-                                <input class="with-gap" name="percent" type="radio" id="p1" checked="checked" />
+                                <input class="with-gap" name="percent" value="2.5" type="radio" id="p1" />
                                 <label for="p1">2.5%</label>
                             </div>
                             <div class="input-field col s1">
-                                <input class="with-gap" name="percent" type="radio" id="p2" />
+                                <input class="with-gap" name="percent" value="5.0" type="radio" id="p2" />
                                 <label for="p2">5.0%</label>
                             </div>
                             <div class="input-field col s3">
-                                <input class="with-gap" name="percent" type="radio" id="p3" />
+                                <input class="with-gap" name="percent" value="10.0" type="radio" id="p3" />
                                 <label for="p3">10.0%</label>
                             </div>
                             <div class="input-field col s2">
@@ -174,15 +201,15 @@
                     <div id="fixed" class="col s12">
                         <div class="row">
                             <div class="input-field col s2 offset-s2">
-                                <input class="with-gap" name="fixed" type="radio" id="a1" />
+                                <input class="with-gap" name="fixed" value="5.0" type="radio" id="a1" />
                                 <label for="a1">5AED</label>
                             </div>
                             <div class="input-field col s1">
-                                <input class="with-gap" name="fixed" type="radio" id="a2" />
+                                <input class="with-gap" name="fixed" value="10.0" type="radio" id="a2" />
                                 <label for="a2">10AED</label>
                             </div>
                             <div class="input-field col s3">
-                                <input class="with-gap" name="fixed" type="radio" id="a3" />
+                                <input class="with-gap" name="fixed" value="20.0" type="radio" id="a3" />
                                 <label for="a3">20AED</label>
                             </div>
                             <div class="input-field col s2">
@@ -194,9 +221,9 @@
                     <br>
                     <span class="title">Where your donation goes</span>
                     <div class="carousel">
-                        {% for charity in interface.get_charities() %}
-                        <a class="carousel-item" style="width: 120px"><img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}">{{charity.name}}</a>
-                        {% endfor %}
+                        {%- for charity in interface.get_charities() %}
+                        <a class="carousel-item"><img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}">{{charity.name}}</a>
+                        {%- endfor %}
                     </div>
                     <div class="modal-footer">
                         <button id="hide-it" value="false" class="waves-effect waves-light red lighten-1 btn tooltipped left z-depth-0"

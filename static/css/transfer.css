@@ -87,6 +87,10 @@ span.title {
     font-weight: 300;
 }
 
+#percent-btn {
+    margin-right: 1.4rem;
+}
+
 #percent-btn.z-depth-0,
 #fixed-btn.z-depth-0,
 #hide-it.z-depth-0,
@@ -101,4 +105,13 @@ span.title {
 .carousel {
     height: 220px;
     margin-top: -12rem;
+}
+
+.carousel .carousel-item {
+    width: 120px;
+}
+
+.filled {
+    border-bottom: 1px solid #26a69a !important;
+    box-shadow: 0 1px 0 0 #26a69a !important;
 }

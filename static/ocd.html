@@ -82,18 +82,14 @@
                 $(document).ready(function() {
                     if("{{ client.app }}" == "disable") {
                         $("#ocd").hide();
-                        $("#welcome-ocd").show();
                     } else {
-                        $("#ocd").show();
                         $("#welcome-ocd").hide();
 
                         $("#{{ client.type }}-btn").trigger("click");
-                        if($("input[name='{{ client.type }}'][value='{{ client.amount }}']").length ==1)
+                        if($("input[name='{{ client.type }}'][value='{{ client.amount }}']").length == 1)
                             $("input[name='{{ client.type }}'][value='{{ client.amount }}']").trigger("click");
-                        else {
-                            $("#other-{{ client.type }}").val({{ client.amount }});
-                            $("#other-{{ client.type }}").addClass("filled");
-                        }
+                        else
+                            $("#other-{{ client.type }}").val({{ client.amount }}).addClass("filled");
                         $("input[name='{{ client.type }}-freq'][value='{{ client.frequency }}']").trigger("click");
                         $("input[name='reveal'][value='{{ client.reveal }}']").trigger("click");
                         {%- for target in interface.get_targets() %}
@@ -107,8 +103,8 @@
             </script>
             <div id="ocd" class="col m8 s12">
                 <ul class="tabs z-depth-1">
-                    <li class="tab col s4"><a href="#ocd-summary" class="active">Summary</a></li>
-                    <li class="tab col s4"><a href="#ocd-config">Configurations</a></li>
+                    <li class="tab col s4" id="summary"><a href="#ocd-summary" class="active">Summary</a></li>
+                    <li class="tab col s4" id="configs"><a href="#ocd-config">Configurations</a></li>
                     <li class="tab col s4" id="history"><a href="#ocd-history">Awards &amp History</a></li>
                 </ul>
                 <div class="container">
@@ -290,7 +286,7 @@
                             <div class="col s12">
                                 <div class="card">
                                     <div class="card-content center">
-                                        <span class="card-title">Save Configs, Disable &amp; Hide</span>
+                                        <span class="card-title">Save Settings, Disable &amp; Hide</span>
                                         <div class="row"></div>
                                         <div class="row btns-row">
                                             <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox</button>
