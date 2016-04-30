@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 # import needed libraries
+from __future__ import division
 import os, sqlalchemy
 from flask import Flask, render_template, session, flash, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from interface import Interface
 from functools import wraps
+from datetime import datetime
 
 # initialize with template folder in /static
 app = Flask(__name__, template_folder="static")
@@ -35,13 +37,43 @@ def dashboard():
     return render_template("dashboard.html", interface=interface)
 
 
-@app.route("/transfer/")
+@app.route("/transfer/", methods=["GET", "POST"])
 @defaults
 def transfer():
+    if request.method == "POST":
+        client = Client.query.get(session["username"])
+        try:
+            money = float(request.form["money"])
+        except ValueError:
+            money = None
+        donation = 0
+        if request.form["ocd"] == "true":
+            try:
+                donation = float(request.form["amount"])
+            except ValueError:
+                donation = None
+            if request.form["type"] == "percent":
+                donation *= money / 100
+            db.session.add(Donation(session["username"], datetime.now(), donation))
+            flash("You donated " + str(donation))
+        flash("While doing a transaction of " + str(money))
+        client.balance -= money + donation
+        flash("You're left with " + str(client.balance))
+        if request.form["hide"] == "true":
+            client.checkbox = "hide"
+            client.app = "disable"
+            flash("EVERYTHING IS HIDDEN")
+        elif request.form["enabled"] == "true":
+            client.app = "enable"
+            flash("ENABLE OCD SOFTWARE")
+        db.session.commit()
+        flash("Your Transaction Has Been Sent")
+        return redirect(url_for("dashboard"))
     return render_template("transfer.html", interface=interface)
 
 
 @app.route("/ocd/", methods=["GET", "POST"])
+@defaults
 def ocd():
     if request.method == "POST":
         client = Client.query.get(session["username"])

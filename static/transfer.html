@@ -31,7 +31,8 @@
                     if("{{ client.checkbox }}" == "hide") {
                         $("#ocd-title, #ocd-button").hide();
                     } else {
-                        $("#checkbox-input").val({{ client.amount }});
+                        if("{{ client.amount }}" != "None")
+                            $("#checkbox-input").val({{ client.amount }});
                         var checkboxValue = $("#checkbox-input").val();
 
                         $("#checkbox-input").click(function() {
@@ -41,13 +42,21 @@
                         $("#checkbox-input").blur(function() {
                             if($("#checkbox-input").val() == "")
                                 $("#checkbox-input").val(checkboxValue);
+
+                            if($("#fixed-btn").hasClass("z-depth-0")) {
+                                $("#other-percent").val($(this).val()).trigger("blur").addClass("filled");
+                                $("#other-percent").parent().find("label").addClass("active");
+                            } else if($("#percent-btn").hasClass("z-depth-0")) {
+                                $("#other-fixed").val($(this).val()).trigger("blur").addClass("filled");
+                                $("#other-fixed").parent().find("label").addClass("active");
+                            }
                         })
 
-                        if("{{ client.type }}" == "fixed") $("#currency").text("AED");
                         $("#{{ client.type }}-btn").trigger("click");
+                        if("{{ client.type }}" == "fixed") $("#currency").text("AED");
                         if($("input[name='{{ client.type }}'][value='{{ client.amount }}']").length == 1)
                             $("input[name='{{ client.type }}'][value='{{ client.amount }}']").trigger("click");
-                        else
+                        else if("{{ client.amount }}" != "None")
                             $("#other-{{ client.type }}").val({{ client.amount }}).addClass("filled");
                         if("{{ client.app }}" == "enable")
                             $("#hide-it, #regular").hide();
@@ -132,13 +141,13 @@
                     </div>
                     <div class="valign-wrapper top">
                         <p class="col m3"><i>*</i> Transaction Amount</p>
-                        <input type="text" class="col m3">
+                        <input id="money" type="number" class="col m3">
                         <span class="col m1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
                         <div class="col m5"></div>
                     </div>
                     <div class="row valign-wrapper">
                         <p class="col m3"><i>*</i> Remittance Currency</p>
-                        <select class="col m3 browser-default">
+                        <select id="currency-select" class="col m3 browser-default">
                             <option>Please Select</option>
                             <option>EUR</option>
                             <option>GBP</option>
@@ -154,7 +163,7 @@
                     <div id="ocd-button" class="row">
                         <div class="col m6">
                             <input type="checkbox" id="tick"/>
-                            <label for="tick" class="grey-text text-darken-2">Donate with <input id="checkbox-input" type="text" value="2.5"><span id="currency">%</span> of your transaction</label>
+                            <label for="tick" class="grey-text text-darken-2">Donate with <input id="checkbox-input" type="text" class="validate" value="2.5"><span id="currency">%</span> of your transaction</label>
                         </div>
                         <div class="col m3">
                             <a id="customize" class="waves-effect waves-light btn modal-trigger" href="#ocd-modal">Customize</a>
@@ -164,8 +173,8 @@
                         message content you are providing under the "Payment Details" once the request is automatically processed.</p>
                     <div class="row">
                         <div class="col m3 offset-m5">
-                            <img src="{{ url_for('static', filename='img/btn/go-back.png') }}">
-                            <img src="{{ url_for('static', filename='img/btn/transfer.png') }}">
+                            <a href="{{ url_for('dashboard') }}"><img src="{{ url_for('static', filename='img/btn/go-back.png') }}"></a>
+                            <a id="transfer-btn"><img src="{{ url_for('static', filename='img/btn/transfer.png') }}"></a>
                         </div>
                     </div>
                 </div>

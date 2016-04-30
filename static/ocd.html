@@ -88,7 +88,7 @@
                         $("#{{ client.type }}-btn").trigger("click");
                         if($("input[name='{{ client.type }}'][value='{{ client.amount }}']").length == 1)
                             $("input[name='{{ client.type }}'][value='{{ client.amount }}']").trigger("click");
-                        else
+                        else if("{{ client.amount }}" != "None")
                             $("#other-{{ client.type }}").val({{ client.amount }}).addClass("filled");
                         $("input[name='{{ client.type }}-freq'][value='{{ client.frequency }}']").trigger("click");
                         $("input[name='reveal'][value='{{ client.reveal }}']").trigger("click");
