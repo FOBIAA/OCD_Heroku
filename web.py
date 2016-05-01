@@ -55,19 +55,18 @@ def transfer():
             if request.form["type"] == "percent":
                 donation *= money / 100
             db.session.add(Donation(session["username"], datetime.now(), donation))
-            flash("You donated " + str(donation))
-        flash("While doing a transaction of " + str(money))
+            client.score += donation
+            interface.donations = None
+            flash("You donated " + str(donation) + "AED, Thanks")
         client.balance -= money + donation
-        flash("You're left with " + str(client.balance))
         if request.form["hide"] == "true":
             client.checkbox = "hide"
             client.app = "disable"
-            flash("EVERYTHING IS HIDDEN")
         elif request.form["enabled"] == "true":
             client.app = "enable"
-            flash("ENABLE OCD SOFTWARE")
         db.session.commit()
         flash("Your Transaction Has Been Sent")
+        interface.check_awards()
         return redirect(url_for("dashboard"))
     return render_template("transfer.html", interface=interface)
 
