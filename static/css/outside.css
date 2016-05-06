@@ -26,6 +26,10 @@ a, img, footer p {
     margin-top: -16px;
 }
 
+#logo-img img {
+    width: 215px;
+}
+
 #logo-bar span {
     margin-left: calc(215px + 1rem);
     font-size: 17px;

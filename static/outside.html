@@ -36,13 +36,13 @@
             </div>
             <div id="logo-bar" class="nbd-yellow">
                 <div class="container nbd-blue-text">
-                    <a id="logo-img" href="http://fobiaa.tk"><img width="215" src="{{ url_for('static', filename='img/fobiaademo.png') }}"></a>
+                    <a id="logo-img" href="http://fobiaa.tk"><img src="{{ url_for('static', filename='img/fobiaademo.png') }}"></a>
                     <span>Online Banking</span>
-                    {% if "username" in session %}
+                    {%- if "username" in session %}
                     <a class="log-btn" href="{{ url_for('logout') }}"><img src="{{ url_for('static', filename='img/btn/logout.jpg') }}"></a>
-                    {% else %}
+                    {%- else %}
                     <a class="log-btn" href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='img/btn/login.jpg') }}"></a>
-                    {% endif %}
+                    {%- endif %}
                 </div>
             </div>
             <div id="nav-bar" class="nbd-indigo">

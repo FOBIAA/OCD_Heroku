@@ -104,6 +104,6 @@ h4.text-lighten-1 {
 .btns-row {
     margin: 0 0 20px 0 !important;
 }
-#awards-modal {
+#awards-modal, #leaderboard-modal {
     width: 35%;
 }

@@ -39,7 +39,7 @@ class Client(db.Model):
 
     # Print class as < username >
     def __repr__(self):
-        return "< " + self.username + " >"
+        return "<" + self.username + ">"
 
 
 class DonatesTo(db.Model):
@@ -74,7 +74,7 @@ class Charity(db.Model):
         self.description = description
         self.investment = investment
 
-    # Print class as < name >
+    # Print class as <name>
     def __repr__(self):
         return "<" + self.name + ">"
 
@@ -109,7 +109,7 @@ class Award(db.Model):
         self.image = image
         self.description = description
 
-    # Print class as < name >
+    # Print class as <name>
     def __repr__(self):
         return "<" + self.name + ">"
 
@@ -130,6 +130,6 @@ class Donation(db.Model):
         self.amount = amount
         self.client = client
 
-    # Print class as < username, Date: date >
+    # Print class as <username, Date: dd/mm/yy, Amount: amount>
     def __repr__(self):
-        return "< " + self.client + ", Date: " + self.date.ctime() + " >"
+        return "<" + self.client + ", Date: " + self.date.strftime("%d/%m/%y") + ", Amount: " + str(self.amount) + ">"

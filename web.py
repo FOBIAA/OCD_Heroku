@@ -20,7 +20,7 @@ interface = Interface()
 from models import *
 
 
-def defaults(f):
+def default_login(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if "username" not in session:
@@ -32,13 +32,13 @@ def defaults(f):
 # handle url requests
 @app.route("/")
 @app.route("/dashboard/")
-@defaults
+@default_login
 def dashboard():
     return render_template("dashboard.html", interface=interface)
 
 
 @app.route("/transfer/", methods=["GET", "POST"])
-@defaults
+@default_login
 def transfer():
     if request.method == "POST":
         client = Client.query.get(session["username"])
@@ -72,7 +72,7 @@ def transfer():
 
 
 @app.route("/ocd/", methods=["GET", "POST"])
-@defaults
+@default_login
 def ocd():
     if request.method == "POST":
         client = Client.query.get(session["username"])
@@ -103,6 +103,7 @@ def login():
             if client.password == request.form["password"]:
                 interface.refresh()
                 session["username"] = request.form["username"]
+                interface.check_awards()
                 flash("Welcome to Your Bank " + session["username"])
                 return redirect(url_for("dashboard"))
             else:

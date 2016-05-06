@@ -34,7 +34,7 @@
                     vAxis: { title: "Money", format: "# AED", titleTextStyle: { fontName: "Roboto", fontSize: 22, bold: false, italic: false, color: "#333" }, minValue: 0 },
                     legend: "none",
                     colors: ["#15A0C8"],
-                    chartArea: { left: 200 },
+                    chartArea: { left: 200, top: 30, bottom: 70 },
                     lineWidth: 3,
                     pointSize: 8,
                     pointShape: "circle",
@@ -42,17 +42,18 @@
                     height: 500
                 };
 
-                $("#history").click(function() {
-                    options.width = $("#space").width() -62;
-                    options.height = ($("#space").width() -62) / 2;
+                function drawChart() {
+                    var space = $("#space").width() -62;
+                    options.width = space;
+                    options.height = space / 3;
+                    options.chartArea.left = space / 6;
+                    options.chartArea.top = space / 42;
+                    options.chartArea.bottom = space / 10;
                     chart.draw(data, options);
-                });
-
-                $(window).resize(function(){
-                    options.width = $("#space").width() -62;
-                    options.height = ($("#space").width() -62) / 2;
-                    chart.draw(data, options);
-                });
+                }
+                
+                $(window).resize(drawChart);
+                drawChart();
             }
         </script>
 {%- endblock %}
@@ -81,6 +82,8 @@
             {%- set charities = interface.get_charities() -%}
             {%- set client = interface.get_client() -%}
             {%- set awards = interface.get_awards() -%}
+            {%- set colors = ["teal", "orange", "purple", "blue"] %}
+            {%- set rank = interface.get_rank() -%}
             <script type="text/javascript">
                 $(document).ready(function() {
                     if("{{ client.app }}" == "disable") {
@@ -280,7 +283,7 @@
                                     <div class="card-content center">
                                         <span class="card-title">Where your donation goes</span>
                                         <div class="row" id="target">
-                                            <h4 class="grey-text text-lighten-1">You Haven't Choosing any Charity Yet!</h4>
+                                            <h4 class="grey-text text-lighten-1">You Haven't Chosen any Charity Yet!</h4>
                                             {%- for charity in charities %}
                                             <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="charity-img hide">
                                             {%- endfor %}
@@ -310,14 +313,14 @@
                             <div class="modal-content">
                                 <h4 class="grey-text text-darken-1">Supported Charities</h4>
                                 <ul class="collection">
-                                    {% for charity in charities %}
+                                    {%- for charity in charities %}
                                     <li class="collection-item avatar">
                                         <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="circle">
                                         <span class="title">{{ charity.name }}</span>
                                         <p class="charity">{{ charity.description|safe }}</p>
                                         <a class="secondary-content"><input type="checkbox" id="{{ charity.image }}"><label for="{{ charity.image }}"></label></a>
                                     </li>
-                                    {% endfor %}
+                                    {%- endfor %}
                                 </ul>
                                 <a class="waves-effect waves-light btn modal-trigger" href="#request-modal">Request A Charity</a>
                                 <a id="done" class="waves-effect waves-light btn right">Done</a>
@@ -376,31 +379,77 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Charity Modal Structure -->
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="center">
+                                            <span class="card-title">Your Position in the Leaderboard</span>
+                                        </div>
+                                        <ul class="collection">
+                                        {%- for client in interface.get_leaderboard_snippet() %}
+                                            <li class="collection-item avatar {% if client.username == session['username'] -%}grey lighten-2{%- endif -%}">
+                                                <img class="circle {{ colors[loop.index0] }}" src="{{ url_for('static', filename='img/avatar.png') }}">
+                                                <span class="title">{{ client.username }}</span>
+                                                <p>{{ client.score }}AED</p>
+                                                <p class="secondary-content">{{ rank }}</p>
+                                            </li>
+                                            {%- set rank = rank + 1 -%}
+                                        {%- endfor %}
+                                        </ul>
+                                        <div class="row center">
+                                            <a class="waves-effect btn modal-trigger center" href="#leaderboard-modal">View Full Leaderboard</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Award Modal Structure -->
                         <div id="awards-modal" class="modal">
                             <div class="modal-content">
                                 <h4 class="grey-text text-darken-1">LeaderBoard Position Awards</h4>
                                 <ul class="collection">
-                                {% for award in awards %}
-                                    {% if loop.index == 4 %}
+                                {%- for award in awards %}
+                                    {%- if loop.index == 4 %}
                                 </ul>
                                 <h4 class="grey-text text-darken-1">Number of Donations Awards</h4>
                                 <ul class="collection">
-                                    {% elif loop.index == 7 %}
+                                    {%- elif loop.index == 7 %}
                                 </ul>
                                 <h4 class="grey-text text-darken-1">Period of Donating Awards</h4>
                                 <ul class="collection">
-                                    {% elif loop.index == 10 %}
+                                    {%- elif loop.index == 10 %}
                                 </ul>
                                 <h4 class="grey-text text-darken-1">Total Amount Awards</h4>
                                 <ul class="collection">
-                                    {% endif %}
+                                    {%- endif %}
                                     <li class="collection-item avatar">
                                         <img src="{{ url_for('static', filename='img/award/' + award.image + '.png') }}" class="circle">
                                         <span class="title">{{ award.name }}</span>
                                         <p class="award">{{ award.description }}</p>
                                     </li>
-                                {% endfor %}
+                                {%- endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Leaderboard Modal Structure -->
+                        <div id="leaderboard-modal" class="modal">
+                            <div class="modal-content">
+                                <h4 class="grey-text text-darken-1">The LeaderBoard</h4>
+                                <ul class="collection">
+                                {%- for client in interface.get_full_leaderboard() %}
+                                    <li class="collection-item avatar {% if client.username == session['username'] -%}grey lighten-2{%- endif -%}">
+                                        <img src="{{ url_for('static', filename='img/avatar.png') }}"
+                                            {%- if loop.index >= rank and loop.index < rank + 4 -%}
+                                            class="circle {{ colors[loop.index - rank] }}">
+                                            {%- else -%}
+                                            class="circle" style="background-color: rgba({{ range(255)|random }}, {{ range(255)|random }}, {{ range(255)|random }}, 1)">
+                                            {%- endif %}
+                                        <span class="title">{{ client.username }}</span>
+                                        <p>{{ client.score }}AED</p>
+                                        <p class="secondary-content black-text">{{ loop.index }}</p>
+                                    </li>
+                                {%- endfor %}
                                 </ul>
                             </div>
                         </div>
