@@ -1,11 +1,9 @@
 #!/usr/bin/env python
-
+from __future__ import division
 from flask import session
-from sqlalchemy import desc
 
 
 class Interface:
-    # Initialize basic class variables
     def __init__(self):
         self.client = None
         self.charities = None
@@ -41,16 +39,21 @@ class Interface:
         return self.targets
 
     def get_donations(self):
+        from models import Donation
         if self.donations is None:
-            from models import Donation
-            self.donations = Donation.query.filter_by(client=session["username"]).order_by(desc(Donation.date))
-        return self.donations
+            self.donations = Donation.query.filter_by(client=session["username"])
+        return self.donations.order_by(Donation.date.desc())
 
     def get_awards(self):
         if self.awards is None:
             from models import Award
             self.awards = Award.query
         return self.awards
+
+    @staticmethod
+    def get_awards_by_image(image):
+        from models import Award
+        return Award.query.filter_by(image=image).first().name
 
     def get_achievements(self):
         if self.achievements is None:
@@ -61,78 +64,77 @@ class Interface:
     def get_leaderboard_snippet(self):
         if self.snippet is None:
             from models import Client
-            leaderboard = Client.query.order_by(desc(Client.score)).all()
+            leaderboard = Client.query.order_by(Client.score.desc()).all()
             self.snippet = []
-            self.rank = 0
+            self.rank = [0, 0]
             for client in leaderboard:
                 if client.username == session["username"]:
                     break
-                self.rank += 1
+                self.rank[0] += 1
+            self.rank[1] = self.rank[0] + 1
 
-            if self.rank + 1 == len(leaderboard):
-                self.rank -= 3
-            elif self.rank >= 2:
-                self.rank -= 2
-            elif self.rank == 1:
-                self.rank -= 1
+            if self.rank[0] + 1 == len(leaderboard):
+                self.rank[0] -= 3
+            elif self.rank[0] >= 2:
+                self.rank[0] -= 2
+            elif self.rank[0] == 1:
+                self.rank[0] -= 1
 
             for i in range(4):
-                self.snippet.append(leaderboard[self.rank])
-                self.rank += 1
+                self.snippet.append(leaderboard[self.rank[0]])
+                self.rank[0] += 1
         return self.snippet
 
     def get_full_leaderboard(self):
         if self.leaderboard is None:
             from models import Client
-            self.leaderboard = Client.query.order_by(desc(Client.score))
+            self.leaderboard = Client.query.order_by(Client.score.desc())
         return self.leaderboard
 
     def get_rank(self):
         if self.rank is None:
             self.get_leaderboard_snippet()
-        return self.rank - 3
+        return [self.rank[0] - 3, self.rank[1]]
 
-    @staticmethod
-    def check_awards():
+    def check_awards(self):
         from web import db
-        from models import Achieved, Donation, Client
-        client = Client.query.get(session["username"])
-        awards = Achieved.query.filter_by(client=session["username"])
-        # Conditions for Awards by Number of Donations
-        if awards.filter_by(award="donor").first() is None:
-            if Donation.query.filter_by(client=session["username"]).first() is not None:
-                db.session.add(Achieved(session["username"], "donor"))
-        if awards.filter_by(award="contributor").first() is None:
-            if Donation.query.filter_by(client=session["username"]).count() > 10:
-                db.session.add(Achieved(session["username"], "contributor"))
-        if awards.filter_by(award="keeper").first() is None:
-            if Donation.query.filter_by(client=session["username"]).count() > 50:
-                db.session.add(Achieved(session["username"], "keeper"))
-        # Conditions for Awards by LeaderBoard Position
-        top = Client.query.order_by(desc(Client.score)).limit(3).all()
-        if awards.filter_by(award="3rd").first() is None and (top[2] == client or top[1] == client or top[0] == client):
-            db.session.add(Achieved(session["username"], "3rd"))
-        if awards.filter_by(award="2nd").first() is None and (top[1] == client or top[0] == client):
-            db.session.add(Achieved(session["username"], "2nd"))
-        if awards.filter_by(award="1st").first() is None and top[0] == client:
-            db.session.add(Achieved(session["username"], "1st"))
-        # Conditions for Awards by Donating Period
-        time = Donation.query.filter_by(client=session["username"]).order_by(desc(Donation.date)).first().date - \
-            Donation.query.filter_by(client=session["username"]).order_by(Donation.date).first().date
-        if awards.filter_by(award="appreciated").first() is None and time.days > 7:
-            db.session.add(Achieved(session["username"], "appreciated"))
-        if awards.filter_by(award="noble").first() is None and time.days > 30:
-            db.session.add(Achieved(session["username"], "noble"))
-        if awards.filter_by(award="dedicated").first() is None and time.days > 365:
-            db.session.add(Achieved(session["username"], "dedicated"))
-        # Conditions for Awards by Total Donation Amount
-        if awards.filter_by(award="generous").first() is None and client.score > 250:
-            db.session.add(Achieved(session["username"], "generous"))
-        if awards.filter_by(award="master").first() is None and client.score > 500:
-            db.session.add(Achieved(session["username"], "master"))
-        if awards.filter_by(award="king").first() is None and client.score > 2000:
-            db.session.add(Achieved(session["username"], "king"))
+        from models import Achieved, Donation
+        self.get_donations()
+        donations = self.donations
+        client = self.get_client()
+        rank = self.get_rank()[1]
+        time = donations.order_by(Donation.date.desc()).first().date - \
+            donations.order_by(Donation.date).first().date
+        rules = {"donor": donations.first() is not None, "contributor": donations.count() > 10,
+                 "keeper": donations.count() > 50, "3rd": rank <= 3, "2nd": rank <= 2, "1st": rank == 1,
+                 "appreciated": time.days > 7, "noble": time.days > 30, "dedicated": time.days > 365,
+                 "generous": client.score > 250, "master": client.score > 500, "king": client.score > 2000}
+        for award, condition in rules.items():
+            if self.get_achievements().filter_by(award=award).first() is None and condition:
+                db.session.add(Achieved(client.username, award))
         db.session.commit()
+
+    def get_progress(self):
+        from models import Donation
+        self.get_donations()
+        donations = self.donations
+        score = self.get_client().score
+        count = self.get_full_leaderboard().count()
+        rank = count - self.get_rank()[1] + 1
+        time = donations.order_by(Donation.date.desc()).first().date - \
+            donations.order_by(Donation.date).first().date
+        measures = [[("donor", 0), ("contributor", donations.count() / 10), ("keeper", donations.count() / 50)],
+                    [("3rd", rank / (count - 2)), ("2nd", rank / (count - 1)), ("1st", rank / count)],
+                    [("appreciated", time.days / 7), ("noble", time.days / 30), ("dedicated", time.days / 365)],
+                    [("generous", score / 250), ("master", score / 500), ("king", score / 2000)]]
+        progress = {}
+
+        for measure in measures:
+            for award, exp in measure:
+                if self.get_achievements().filter_by(award=award).first() is None:
+                    progress[award] = int(exp * 100)
+                    break
+        return progress
 
     def refresh(self):
         self.client = None

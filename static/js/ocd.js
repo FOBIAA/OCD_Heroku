@@ -77,4 +77,5 @@ $(document).ready(function() {
     });
 
     $(".modal-trigger").leanModal({opacity: .3});
+    $('.collapsible').collapsible();
 });

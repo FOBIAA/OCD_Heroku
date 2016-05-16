@@ -62,7 +62,7 @@
 
 {% block dashboard %}class="active"{% endblock %}
 
-{% block welcome %}Good Evening FOBIAA{% endblock %}
+{% block welcome %}Good Evening {{ session["username"] }}{% endblock %}
 
 {% block sidebar -%}
                     <li><a href="{{ url_for('dashboard') }}">Financial Summary</a></li>
@@ -79,11 +79,14 @@
 {%- endblock %}
 
 {% block main -%}
-            {%- set charities = interface.get_charities() -%}
+            {%- set rank = interface.get_rank() -%}
             {%- set client = interface.get_client() -%}
             {%- set awards = interface.get_awards() -%}
+            {%- set charities = interface.get_charities() -%}
+            {%- set achievements = interface.get_achievements() -%}
             {%- set colors = ["teal", "orange", "purple", "blue"] %}
-            {%- set rank = interface.get_rank() -%}
+            {%- set progresses = interface.get_progress().items() -%}
+            {% macro exp(rank) %}{%- if rank % 10 == 1 %}st{% elif rank % 10 == 2 %}nd{% elif rank % 10 == 3 %}rd{% else %}th{% endif %}{%- endmacro %}
             <script type="text/javascript">
                 $(document).ready(function() {
                     if("{{ client.app }}" == "disable") {
@@ -104,7 +107,7 @@
                         {%- endfor %}
                         if($("#target img.hide").length != 10)
                             $("#target h4").hide();
-                        {%- for achievement in interface.get_achievements() %}
+                        {%- for achievement in achievements %}
                         $("#awards img[src='{{ url_for('static', filename='img/award/' + achievement.award + '.png') }}']").removeClass("hide");
                         {%- endfor %}
                         if($("#awards img.hide").length != 12)
@@ -114,60 +117,91 @@
             </script>
             <div id="ocd" class="col m8 s12">
                 <ul class="tabs z-depth-1">
-                    <li class="tab col s4" id="summary"><a href="#ocd-summary" class="active">Summary</a></li>
-                    <li class="tab col s4" id="configs"><a href="#ocd-config">Configurations</a></li>
-                    <li class="tab col s4" id="history"><a href="#ocd-history">Awards &amp History</a></li>
+                    <li class="tab col s4" id="summary"><a href="#ocd-summary" class="active"><i class="fa fa-tachometer" aria-hidden="true"></i> Summary</a></li>
+                    <li class="tab col s4" id="configs"><a href="#ocd-config"><i class="fa fa-cog" aria-hidden="true"></i> Configurations</a></li>
+                    <li class="tab col s4" id="history"><a href="#ocd-history"><i class="fa fa-area-chart" aria-hidden="true"></i> Awards &amp History</a></li>
                 </ul>
                 <div class="container">
                     <div class="row" id="space"></div>
                     <div id="ocd-summary" class="col s12">
                         <div class="row">
                             <div class="col s12">
+                                <ul class="collapsible popout" data-collapsible="accordion">
+                                    <li>
+                                        <span>
+                                            <div class="collapsible-header">Basic Summary</div>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="fa fa-money fa-fw" aria-hidden="true"></i>
+                                            My Donations<div>AED {{ client.score }}</div>
+                                            <i class="fa fa-caret-down fa-fw right" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
+                                            My Configurations
+                                            <div>
+                                                {% if client.amount %}
+                                                    {{ client.amount }}
+                                                    {%- if client.type == "percent" -%}
+                                                        % Every {% if client.frequency == "two" %}Two Transactions{% else %}Transaction{% endif %}
+                                                    {% else %}
+                                                        AED every {{ client.frequency }}
+                                                    {% endif %}
+                                                {% else %}
+                                                    Nothing!
+                                                {% endif %}
+                                            </div>
+                                            <i class="fa fa-caret-down fa-fw right" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="fa fa-trophy fa-fw" aria-hidden="true"></i>
+                                            My Recent Award<div>{{ interface.get_awards_by_image(achievements[-1].award) }}</div>
+                                            <i class="fa fa-caret-down fa-fw right" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p>
+                                            <img src="{{ url_for('static', filename='img/award/' + achievements[-1].award + '.png') }}" class="award-micro-img"></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header">
+                                            <i class="fa fa-list-ol fa-fw" aria-hidden="true"></i>
+                                            Leaderboard Position<div>The {{ rank[1] }}<sup>{{ exp(rank[1]) }}</sup></div>
+                                            <i class="fa fa-caret-down fa-fw right" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
                                 <div class="card">
                                     <div class="card-content center">
-                                        <span class="card-title">You're currently donating <b>10AED</b> every month!<br>WE TRULY APPRECIATE IT</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card silver">
-                                    <div class="card-content center">
-                                        <span class="card-title">Your cumiliative donations so far are around<br><b>2000AED</b></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card gold">
-                                    <div class="card-content center">
-                                        <span class="card-title">You have achived the <b>Golden medal</b><br>For your great contribution in charity</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card bronze">
-                                    <div class="card-content center">
-                                        <span class="card-title">You have claimed the <b>3rd</b> place<br>in the leaderboard of donators</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card">
-                                    <div class="card-content center">
-                                        <span class="card-title">You're more than half way through reaching the next award!</span><br><br><br>
+                                        <span class="card-title">Your Progress Towards the Next Award</span><br><br>
+                                        {%- if progresses != [] %}
+                                            {%- for image, progress in progresses %}
                                         <div class="row">
-                                            <div class="progress col s8 offset-s2">
-                                                <div class="determinate"></div>
+                                            <div class="col s1 offset-s1">
+                                                <p>{{ progress }}%</p>
+                                            </div>
+                                            <div class="progress col s7">
+                                                <div class="determinate" style="width: {{ progress }}%"></div>
+                                            </div>
+                                            <div class="col s3">
+                                                <img src="{{ url_for('static', filename='img/award/' + image + '.png') }}" class="award-small-img">
                                             </div>
                                         </div>
-                                        <span class="card-title">Just what is it gonna be...</span>
+                                            {%- endfor %}
+                                        {%- else %}
+                                        <h4 class="grey-text">Wow, You Have Achieved All Awards!<br><br>You Are Awesome :)</h4>
+                                        {%- endif %}
                                     </div>
                                 </div>
                             </div>
@@ -180,8 +214,8 @@
                                     <div class="card-content center">
                                         <span class="card-title">Choose the way you like to donate</span><br><br>
                                         <div class="row">
-                                            <a id="percent-btn" class="waves-effect waves-teal btn">Percentage</a>
-                                            <a id="fixed-btn" class="waves-effect waves-teal btn">Fixed Amount</a>
+                                            <a id="percent-btn" class="waves-effect waves-teal btn">Percentage <i class="fa fa-percent right" aria-hidden="true"></i></a>
+                                            <a id="fixed-btn" class="waves-effect waves-teal btn">Fixed Amount <i class="fa fa-anchor right" aria-hidden="true"></i></a>
                                         </div>
                                         <div id="percent">
                                             <br><span class="card-subtitle">Percentage to be Dontated with Transactions</span>
@@ -288,7 +322,7 @@
                                             <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="charity-img hide">
                                             {%- endfor %}
                                         </div>
-                                        <a class="waves-effect btn modal-trigger" href="#charity-modal">Choose Charities</a>
+                                        <a class="waves-effect btn modal-trigger" href="#charity-modal">Choose Charities <i class="fa fa-check-square-o right" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -300,10 +334,10 @@
                                         <span class="card-title">Save Settings, Disable &amp; Hide</span>
                                         <div class="row"></div>
                                         <div class="row btns-row">
-                                            <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox</button>
-                                            <button value="enable" class="disable-ocd waves-effect waves-light red lighten-1 btn z-depth-0 left">Disable This Application</button>
+                                            <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox <i class="fa fa-minus right" aria-hidden="true"></i></button>
+                                            <button value="enable" class="disable-ocd waves-effect waves-light red lighten-1 btn z-depth-0 left">Disable This Application <i class="fa fa-times right" aria-hidden="true"></i></button>
                                         </div>
-                                        <a class="save waves-effect btn">Save Settings</a>
+                                        <a class="save waves-effect btn">Save Settings <i class="fa fa-caret-right right" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -373,7 +407,7 @@
                                             <img src="{{ url_for('static', filename='img/award/' + award.image + '.png') }}" class="award-img hide">
                                             {%- endfor %}
                                         </div>
-                                        <a class="waves-effect btn modal-trigger" href="#awards-modal">View All Awards</a>
+                                        <a class="waves-effect btn modal-trigger" href="#awards-modal">View All Awards <i class="fa fa-expand right" aria-hidden="true"></i></a>
                                         <div class="row"></div>
                                     </div>
                                 </div>
@@ -392,13 +426,13 @@
                                                 <img class="circle {{ colors[loop.index0] }}" src="{{ url_for('static', filename='img/avatar.png') }}">
                                                 <span class="title">{{ client.username }}</span>
                                                 <p>{{ client.score }}AED</p>
-                                                <p class="secondary-content">{{ rank }}</p>
+                                                <p class="secondary-content">{{ rank[0] }}<sup>{{ exp(rank[0]) }}</sup></p>
                                             </li>
-                                            {%- set rank = rank + 1 -%}
+                                            {%- set rank = [rank[0] + 1, rank[1]] -%}
                                         {%- endfor %}
                                         </ul>
                                         <div class="row center">
-                                            <a class="waves-effect btn modal-trigger center" href="#leaderboard-modal">View Full Leaderboard</a>
+                                            <a class="waves-effect btn modal-trigger center" href="#leaderboard-modal">View Full Leaderboard <i class="fa fa-expand right" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -440,14 +474,14 @@
                                 {%- for client in interface.get_full_leaderboard() %}
                                     <li class="collection-item avatar {% if client.username == session['username'] -%}grey lighten-2{%- endif -%}">
                                         <img src="{{ url_for('static', filename='img/avatar.png') }}"
-                                            {%- if loop.index >= rank and loop.index < rank + 4 -%}
-                                            class="circle {{ colors[loop.index - rank] }}">
+                                            {%- if loop.index >= rank[0] and loop.index < rank[0] + 4 -%}
+                                            class="circle {{ colors[loop.index - rank[0]] }}">
                                             {%- else -%}
                                             class="circle" style="background-color: rgba({{ range(255)|random }}, {{ range(255)|random }}, {{ range(255)|random }}, 1)">
                                             {%- endif %}
                                         <span class="title">{{ client.username }}</span>
                                         <p>{{ client.score }}AED</p>
-                                        <p class="secondary-content black-text">{{ loop.index }}</p>
+                                        <p class="secondary-content black-text">{{ loop.index }}<sup>{{ exp(loop.index) }}</sup></p>
                                     </li>
                                 {%- endfor %}
                                 </ul>
