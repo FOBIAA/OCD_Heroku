@@ -30,7 +30,7 @@ class Client(db.Model):
         self.email = email
         self.balance = balance
         self.score = 0
-        self.reveal = None
+        self.reveal = "false"
         self.type = "percent"
         self.amount = None
         self.frequency = None

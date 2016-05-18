@@ -31,6 +31,8 @@
                     if("{{ client.checkbox }}" == "hide") {
                         $("#ocd-title, #ocd-button").hide();
                     } else {
+                        if("{{ client.frequency }}" == "all" || "{{ client.frequency }}" == "odd")
+                            $("#tick").attr('checked', true);
                         if("{{ client.amount }}" != "None")
                             $("#checkbox-input").val({{ client.amount }});
                         var checkboxValue = $("#checkbox-input").val();

@@ -1,3 +1,7 @@
+#welcome-ocd {
+    margin-top: 0.5rem;
+}
+
 #ocd, #welcome-ocd {
     font-family: "Roboto";
 }
@@ -21,18 +25,6 @@
 .filled {
     border-bottom: 1px solid #26a69a !important;
     box-shadow: 0 1px 0 0 #26a69a !important;
-}
-
-.gold {
-    background-color: #ffd700;
-}
-
-.silver {
-    background-color: #c0c0c0;
-}
-
-.bronze {
-    background-color: #cd7f32;
 }
 
 p.charity {
@@ -66,6 +58,11 @@ p.award {
     height: 3rem;
     margin-bottom: -1rem;
     margin-left: 0.5rem;
+}
+
+.charity-small-img {
+    width: 7rem;
+    height: 7rem;
 }
 
 .card .card-subtitle {
@@ -156,4 +153,18 @@ li > .collapsible-header div {
     float: right;
     left: 56%;
     font-weight: 400;
+}
+
+li > .collapsible-body p {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.fa-fw {
+    color: #0a2964;
+}
+
+.hoverable:hover {
+  transition: box-shadow .25s;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
 }

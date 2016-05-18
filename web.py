@@ -58,15 +58,20 @@ def transfer():
             client.score += donation
             interface.donations = None
             flash("You donated " + str(donation) + "AED, Thanks")
-        client.balance -= money + donation
+        if client.frequency == "odd":
+            client.frequency = "even"
+        elif client.frequency == "even":
+            client.frequency = "odd"
         if request.form["hide"] == "true":
             client.checkbox = "hide"
             client.app = "disable"
         elif request.form["enabled"] == "true":
             client.app = "enable"
+        client.balance -= money + donation
         db.session.commit()
         flash("Your Transaction Has Been Sent")
         interface.check_awards()
+        interface.refresh()
         return redirect(url_for("dashboard"))
     return render_template("transfer.html", interface=interface)
 
@@ -89,7 +94,7 @@ def ocd():
         client.checkbox = request.form["checkbox"]
         client.app = request.form["app"]
         db.session.commit()
-        interface.charities = None
+        interface.refresh()
         flash("Your Settings Were Saved")
         return redirect(url_for("ocd"))
     return render_template("ocd.html", interface=interface)

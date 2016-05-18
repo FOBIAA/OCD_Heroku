@@ -29,10 +29,10 @@ $(document).ready(function() {
         form.append($("<input/>").prop({ name: "type", value: type }));
         form.append($("<input/>").prop({ name: "amount", value: amount }));
         form.append($("<input/>").prop({ name: "frequency", value: frequency }));
-        form.append($("<input/>").prop({ name: "reveal", value: $("input[name='reveal']:checked").val() }));
+        form.append($("<input/>").prop({ name: "reveal", value: $("input[name='reveal']:checked").val() == "true" ? "true" : "false" }));
         form.append($("<input/>").prop({ name: "charity", value: charities }));
-        form.append($("<input/>").prop({ name: "checkbox", value: $(".hide-ocd").val() }));
-        form.append($("<input/>").prop({ name: "app", value: $(".disable-ocd").val() }));
+        form.append($("<input/>").prop({ name: "checkbox", value: $(".hide-ocd:visible").val() }));
+        form.append($("<input/>").prop({ name: "app", value: $(".disable-ocd:visible").val() }));
 
         $(document.body).append(form);
         form.submit();
@@ -55,11 +55,18 @@ $(document).ready(function() {
     });
 
     //Disable app logic
-    $(".disable-ocd").click(function() {
+    $("#ocd .disable-ocd").click(function() {
         if($(this).val() == "enable")
             $(this).removeClass("z-depth-0").val("disable");
         else if($(this).val() == "disable")
             $(this).addClass("z-depth-0").val("enable");
+    });
+
+    $("#welcome-ocd .disable-ocd").click(function() {
+        if($(this).val() == "disable")
+            $(this).removeClass("z-depth-0").val("enable");
+        else if($(this).val() == "enable")
+            $(this).addClass("z-depth-0").val("disable");
     });
 
     $("#charity-modal input").click(function() {

@@ -80,12 +80,16 @@
 
 {% block main -%}
             {%- set rank = interface.get_rank() -%}
+            {%- set snippet_index = rank - 3 if rank > 2 else 0 -%}
             {%- set client = interface.get_client() -%}
             {%- set awards = interface.get_awards() -%}
             {%- set charities = interface.get_charities() -%}
             {%- set achievements = interface.get_achievements() -%}
             {%- set colors = ["teal", "orange", "purple", "blue"] %}
             {%- set progresses = interface.get_progress().items() -%}
+            {%- if achievements.first() -%}
+                {%- set recentAward = interface.get_awards_by_image(achievements[-1].award) -%}
+            {%- endif -%}
             {% macro exp(rank) %}{%- if rank % 10 == 1 %}st{% elif rank % 10 == 2 %}nd{% elif rank % 10 == 3 %}rd{% else %}th{% endif %}{%- endmacro %}
             <script type="text/javascript">
                 $(document).ready(function() {
@@ -113,6 +117,9 @@
                         if($("#awards img.hide").length != 12)
                             $("#awards h4").hide();
                     }
+                    if("{{ client.checkbox }}" == "hide") {
+                        $(".hide-ocd:visible").html("Show Donation Checkbox <i class='fa fa-plus right' aria-hidden='true'></i>").click();
+                    }
                 });
             </script>
             <div id="ocd" class="col m8 s12">
@@ -136,9 +143,16 @@
                                         <div class="collapsible-header">
                                             <i class="fa fa-money fa-fw" aria-hidden="true"></i>
                                             My Donations<div>AED {{ client.score }}</div>
-                                            <i class="fa fa-caret-down fa-fw right" aria-hidden="true"></i>
+                                            <i class="fa fa-caret-down right" aria-hidden="true"></i>
                                         </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                        <div class="collapsible-body"><p>
+                                            {% if client.score != 0 %}
+                                                Your total donations so far are <strong>AED{{ client.score }}</strong>, and that was within <strong>{{ interface.get_time().days }} days</strong>.<br><br>
+                                                For more information about your donations, you can check the history and awards tab.
+                                            {% else %}
+                                                You haven't donated yet, why not start now?
+                                            {% endif %}
+                                            </p></div>
                                     </li>
                                     <li>
                                         <div class="collapsible-header">
@@ -150,32 +164,52 @@
                                                     {%- if client.type == "percent" -%}
                                                         % Every {% if client.frequency == "two" %}Two Transactions{% else %}Transaction{% endif %}
                                                     {% else %}
-                                                        AED every {{ client.frequency }}
+                                                        AED Every {{ client.frequency }}
                                                     {% endif %}
                                                 {% else %}
                                                     Nothing!
                                                 {% endif %}
                                             </div>
-                                            <i class="fa fa-caret-down fa-fw right" aria-hidden="true"></i>
+                                            <i class="fa fa-caret-down right" aria-hidden="true"></i>
                                         </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                        <div class="collapsible-body"><p>The current configuration of your donations is to donate <strong>
+                                                {% if client.amount %}
+                                                    {{ client.amount }}
+                                                    {%- if client.type == "percent" -%}
+                                                        % Every {% if client.frequency == "two" %}Two Transactions{% else %}Transaction{% endif %}
+                                                    {% else %}
+                                                        AED Every {{ client.frequency }}
+                                                    {% endif %}
+                                                {% else %}
+                                                    Nothing!
+                                                {% endif %}
+                                            </strong><br><br>
+                                            You can always modify them by going to the configurations tab.</p></div>
                                     </li>
                                     <li>
                                         <div class="collapsible-header">
                                             <i class="fa fa-trophy fa-fw" aria-hidden="true"></i>
-                                            My Recent Award<div>{{ interface.get_awards_by_image(achievements[-1].award) }}</div>
-                                            <i class="fa fa-caret-down fa-fw right" aria-hidden="true"></i>
+                                            My Recent Award
+                                            <div>{% if recentAward %}{{ recentAward.name }}{% else %}None Yet!{% endif %}</div>
+                                            <i class="fa fa-caret-down right" aria-hidden="true"></i>
                                         </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p>
-                                            <img src="{{ url_for('static', filename='img/award/' + achievements[-1].award + '.png') }}" class="award-micro-img"></div>
+                                        <div class="collapsible-body"><p>
+                                            {% if recentAward %}
+                                                You have recently achieved an award, so now you're <strong>{{ recentAward.name }}</strong>
+                                                <img src="{{ url_for('static', filename='img/award/' + achievements[-1].award + '.png') }}" class="award-micro-img"><br><br>
+                                                The task you completed to earn it was to {{ recentAward.description }}</p></div>
+                                            {% else %}
+                                                You haven't achieved any awards yet, check the history and awards tab to know how to get them.
+                                            {% endif %}
                                     </li>
                                     <li>
                                         <div class="collapsible-header">
                                             <i class="fa fa-list-ol fa-fw" aria-hidden="true"></i>
-                                            Leaderboard Position<div>The {{ rank[1] }}<sup>{{ exp(rank[1]) }}</sup></div>
-                                            <i class="fa fa-caret-down fa-fw right" aria-hidden="true"></i>
+                                            Leaderboard Position<div>{% if rank > 0 %}The {{ rank }}<sup>{{ exp(rank) }}</sup>{% else %}{{rank}}Not in Leaderboard!{% endif %}</div>
+                                            <i class="fa fa-caret-down right" aria-hidden="true"></i>
                                         </div>
-                                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                        <div class="collapsible-body"><p>{% if rank > 0 %}You have claimed <strong>The {{ rank }}<sup>{{ exp(rank) }}</sup></strong> position in the leaderboard of the donors.<br><br>
+                                            To check other donors in the leaderboard, head over to history and awards tab.{% else %}Not in Leaderboard!{% endif %}</p></div>
                                     </li>
                                 </ul>
                             </div>
@@ -183,25 +217,54 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
-                                    <div class="card-content center">
+                                    <div class="card-content center hoverable">
                                         <span class="card-title">Your Progress Towards the Next Award</span><br><br>
-                                        {%- if progresses != [] %}
-                                            {%- for image, progress in progresses %}
-                                        <div class="row">
-                                            <div class="col s1 offset-s1">
-                                                <p>{{ progress }}%</p>
+                                        <h4 id="no-next-award" class="grey-text">Wow, You Have Achieved All Awards!<br><br>You Are Awesome :)</h4>
+                                        {%- for image, progress in progresses %}
+                                        <div class="row valign-wrapper">
+                                            <div class="col s2">
+                                                <img src="{{ url_for('static', filename='img/award/' + image + '.png') }}" class="award-small-img left">
                                             </div>
-                                            <div class="progress col s7">
+                                            <div class="progress col s9">
                                                 <div class="determinate" style="width: {{ progress }}%"></div>
                                             </div>
-                                            <div class="col s3">
-                                                <img src="{{ url_for('static', filename='img/award/' + image + '.png') }}" class="award-small-img">
+                                            <div class="col s1">
+                                                <p>{{ progress }}%</p>
                                             </div>
                                         </div>
-                                            {%- endfor %}
-                                        {%- else %}
-                                        <h4 class="grey-text">Wow, You Have Achieved All Awards!<br><br>You Are Awesome :)</h4>
-                                        {%- endif %}
+                                            {%- if loop.first %}
+                                        <script type="text/javascript">$("#no-next-award").hide()</script>
+                                            {%- endif %}
+                                        {%- endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card">
+                                    <div class="card-content hoverable">
+                                        <div class="row center">
+                                            <span class="card-title">What Charities Are Doing With Your Donations</span>
+                                        </div>
+                                        <div id="no-target" class="row center card-title grey-text text-darken-1">
+                                            <b>You Haven't Chosen any Target Charity</b><br>
+                                            You can choose charities from the configurations tab
+                                        </div>
+                                        {%- for target in interface.get_targets() %}
+                                            {% set charity = interface.get_charity_by_image(target.charity) %}
+                                        <div class="row valign-wrapper">
+                                            <div class="col s2">
+                                                <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="charity-small-img">
+                                            </div>
+                                            <div class="col s10">
+                                                <b>{{ charity.name }}</b> {{ charity.investment|safe }}
+                                            </div>
+                                        </div>
+                                            {%- if loop.first %}
+                                        <script type="text/javascript">$("#no-target").hide()</script>
+                                            {%- endif %}
+                                        {%- endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -211,7 +274,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
-                                    <div class="card-content center">
+                                    <div class="card-content center hoverable">
                                         <span class="card-title">Choose the way you like to donate</span><br><br>
                                         <div class="row">
                                             <a id="percent-btn" class="waves-effect waves-teal btn">Percentage <i class="fa fa-percent right" aria-hidden="true"></i></a>
@@ -244,7 +307,7 @@
                                                     <label for="f1">Every Transaction</label>
                                                 </div>
                                                 <div class="input-field col s4">
-                                                    <input class="with-gap" name="percent-freq" value="two" type="radio" id="f2" />
+                                                    <input class="with-gap" name="percent-freq" value="odd" type="radio" id="f2" />
                                                     <label for="f2">Every two Transactions</label>
                                                 </div>
                                             </div>
@@ -293,7 +356,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
-                                    <div class="card-content center">
+                                    <div class="card-content center hoverable">
                                         <span class="card-title">Reveal the hero?</span>
                                         <div class="row">
                                             <div class="input-field col s8 offset-s2">
@@ -314,7 +377,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
-                                    <div class="card-content center">
+                                    <div class="card-content center hoverable">
                                         <span class="card-title">Where your donation goes</span>
                                         <div class="row" id="target">
                                             <h4 class="grey-text text-lighten-1">You Haven't Chosen any Charity Yet!</h4>
@@ -330,7 +393,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
-                                    <div class="card-content center">
+                                    <div class="card-content center hoverable">
                                         <span class="card-title">Save Settings, Disable &amp; Hide</span>
                                         <div class="row"></div>
                                         <div class="row btns-row">
@@ -389,7 +452,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
-                                    <div class="card-content center">
+                                    <div class="card-content center hoverable">
                                         <span class="card-title">Donation History Chart</span>
                                         <div id="chart"></div>
                                     </div>
@@ -399,7 +462,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
-                                    <div class="card-content center">
+                                    <div class="card-content center hoverable">
                                         <span class="card-title">Awards You Achieved</span>
                                         <div class="row" id="awards">
                                             <h4 class="grey-text text-lighten-1">You Haven't Achieved any Award Yet!</h4>
@@ -416,21 +479,29 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
-                                    <div class="card-content">
+                                    <div class="card-content hoverable">
                                         <div class="center">
                                             <span class="card-title">Your Position in the Leaderboard</span>
                                         </div>
+                                        {% if client.reveal == "true" %}
+                                            {% set count = snippet_index + 1 %}
                                         <ul class="collection">
-                                        {%- for client in interface.get_leaderboard_snippet() %}
+                                        {%- for client in interface.get_leaderboard_snippet(snippet_index) %}
                                             <li class="collection-item avatar {% if client.username == session['username'] -%}grey lighten-2{%- endif -%}">
                                                 <img class="circle {{ colors[loop.index0] }}" src="{{ url_for('static', filename='img/avatar.png') }}">
                                                 <span class="title">{{ client.username }}</span>
                                                 <p>{{ client.score }}AED</p>
-                                                <p class="secondary-content">{{ rank[0] }}<sup>{{ exp(rank[0]) }}</sup></p>
+                                                <p class="secondary-content">{{ count }}<sup>{{ exp(count) }}</sup></p>
                                             </li>
-                                            {%- set rank = [rank[0] + 1, rank[1]] -%}
+                                            {%- set count = count + 1 -%}
                                         {%- endfor %}
                                         </ul>
+                                        {% else %}<br>
+                                        <div class="row center card-title grey-text text-darken-1">
+                                            <b>You Have Chosen to Stay Anonymous</b><br>
+                                            Though, you can choose to enter the leaderboard from the configurations tab.
+                                        </div>
+                                        {% endif %}
                                         <div class="row center">
                                             <a class="waves-effect btn modal-trigger center" href="#leaderboard-modal">View Full Leaderboard <i class="fa fa-expand right" aria-hidden="true"></i></a>
                                         </div>
@@ -474,8 +545,8 @@
                                 {%- for client in interface.get_full_leaderboard() %}
                                     <li class="collection-item avatar {% if client.username == session['username'] -%}grey lighten-2{%- endif -%}">
                                         <img src="{{ url_for('static', filename='img/avatar.png') }}"
-                                            {%- if loop.index >= rank[0] and loop.index < rank[0] + 4 -%}
-                                            class="circle {{ colors[loop.index - rank[0]] }}">
+                                            {%- if loop.index0 >= snippet_index and loop.index0 < snippet_index + 4 -%}
+                                            class="circle {{ colors[loop.index0 - snippet_index] }}">
                                             {%- else -%}
                                             class="circle" style="background-color: rgba({{ range(255)|random }}, {{ range(255)|random }}, {{ range(255)|random }}, 1)">
                                             {%- endif %}
@@ -493,13 +564,22 @@
             <div id="welcome-ocd" class="col m8 s12">
                 <div class="row">
                     <div class="col s12">
-                        <div class="card">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="{{ url_for('static', filename='img/welcome.png') }}" style="padding: 3rem 5rem 2rem 5rem">
+                            </div>
                             <div class="card-content center">
-                                <span class="card-title">Welcome to Once Click Donation Application</span>
+                                <span class="card-title"><h4>Welcome to Once Click Donation Application</h4><br>
+                                This is a simple application to manage and configure your donations.<br>
+                                If you're interested in Doing charity and donating for the poor, then this is the way to go!<br><br>
+                                So what are waiting for, enable the app and start your donation adventure.</span>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="row"></div>
                                 <div class="row"></div>
                                 <div class="row btns-row">
-                                    <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox</button>
-                                    <button value="disable" class="disable-ocd waves-effect waves-light green lighten-1 btn left">Enable This Application</button>
+                                    <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox <i class="fa fa-minus right" aria-hidden="true"></i></button>
+                                    <button value="disable" class="disable-ocd waves-effect waves-light green lighten-1 btn z-depth-0 left">Enable This Application <i class="fa fa-check right" aria-hidden="true"></i></button>
                                 </div>
                                 <a class="save waves-effect btn">Save Settings</a>
                             </div>
