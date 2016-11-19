@@ -14,7 +14,7 @@
 
 {% block sidebar -%}
                     <li class="nbd-yellow"><a href="{{ url_for('dashboard') }}">Financial Summary</a></li>
-                    <li><a>My e-Statements/Advices</a></li>
+                    <li><a>My e-Statements / Advices</a></li>
                     <li><a>My E-Mails</a></li>
                     <li><a>My Profile</a></li>
                     <li><a>My Services</a></li>
@@ -28,7 +28,7 @@
 
 {% block main -%}
             {%- set client = interface.get_client() -%}
-            <div id="dashboard" class="col m8 s12">
+            <div id="dashboard" class="col l8 s12">
                 <div id="status-bars" class="row bold">
                     <p id="status-title">Financial Summary</p>
                     <div class="row valign-wrapper">

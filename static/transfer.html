@@ -65,7 +65,7 @@
                     }
                 });
             </script>
-            <div id="transfer" class="col m8 s12 transfer">
+            <div id="transfer" class="col l8 s12 transfer">
                 <div class="row">
                     <div class="row">
                         <img src="{{ url_for('static', filename='img/enter-details.png') }}">
@@ -78,103 +78,100 @@
                     <div class="row">
                         <h6 class="bold">From Debit Account</h6>
                     </div>
-                    <div class="row valign-wrapper top">
-                        <p class="col m3">From Account</p>
-                        <select class="col m3 browser-default">
+                    <div class="row valign-wrapper-pro top">
+                        <p class="col m3 s12">From Account</p>
+                        <select class="col m3 s12 browser-default">
                             <option>1014980276401-AED</option>
                             <option>0384980276402-AED</option>
                         </select>
-                        <p id="red-box" class="col m4 offset-m2"><span>Available Balance: <b>AED {{ (client.balance) | round(2) }}</b></span></p>
+                        <p id="red-box" class="col l4 offset-l2 m5 offset-m1 s12"><span>Available Balance: <b>AED {{ (client.balance) | round(2) }}</b></span></p>
                     </div>
                     <div class="row">
                         <h6 class="bold">Beneficiary Details</h6>
                     </div>
-                    <div class="valign-wrapper top">
-                        <p class="col m3"><i>*</i> Remittance Country</p>
-                        <select class="col m3 browser-default">
+                    <div class="valign-wrapper-pro top">
+                        <p class="col m3 s12"><i>*</i> Remittance Country</p>
+                        <select class="col m3 s11 browser-default">
                             <option>UNITED ARAB EMIRATES</option>
                         </select>
-                        <span class="col m1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
-                        <div class="col m5"></div>
+                        <span class="col m6 s1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
                     </div>
-                    <div class="valign-wrapper">
-                        <p class="col m3"><i>*</i> Name</p>
-                        <input type="text" class="col m5">
-                        <div class="col m4"><img class="right" src="{{ url_for('static', filename='img/btn/frequentbeneficiary.png') }}"></div>
+                    <div class="valign-wrapper-pro">
+                        <p class="col m3 s12"><i>*</i> Name</p>
+                        <input type="text" class="col m5 s12">
+                        <div class="col m4 s12"><img class="right" src="{{ url_for('static', filename='img/btn/frequentbeneficiary.png') }}"></div>
                     </div>
-                    <div class="valign-wrapper">
-                        <p class="col m3"><i>*</i> IBAN Number</p>
-                        <input type="text" class="col m4">
-                        <div class="col m5"><a><u>Clear Field</u></a></div>
+                    <div class="valign-wrapper-pro">
+                        <p class="col m3 s12"><i>*</i> IBAN Number</p>
+                        <input type="text" class="col m4 s12">
+                        <div class="col m5 s12"><a><u>Clear Field</u></a></div>
                     </div>
-                    <div class="valign-wrapper">
-                        <p class="col m3"><i>*</i> Address</p>
-                        <input type="text" class="col m5">
-                        <span class="col m1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
-                        <div class="col m3"></div>
+                    <div class="valign-wrapper-pro">
+                        <p class="col m3 s12"><i>*</i> Address</p>
+                        <input type="text" class="col m5 s11">
+                        <span class="col m4 s1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
                     </div>
-                    <div class="valign-wrapper">
-                        <p class="col m3">&nbsp;&nbsp;E-mail</p>
-                        <input type="text" class="col m5">
-                        <div class="col m4"></div>
+                    <div class="valign-wrapper-pro">
+                        <p class="col m3 s12">&nbsp;&nbsp;E-mail</p>
+                        <input type="text" class="col m5 s11">
+                        <div class="col m4 s1"></div>
                     </div>
-                    <div class="valign-wrapper">
-                        <p class="col m3">&nbsp;&nbsp;Telephone Number</p>
-                        <input type="text" class="col m3">
-                        <div class="col m6"></div>
+                    <div class="valign-wrapper-pro">
+                        <p class="col m3 s12">&nbsp;&nbsp;Telephone Number</p>
+                        <input type="text" class="col m3 s11">
+                        <div class="col m6 s1"></div>
                     </div>
-                    <div class="valign-wrapper">
-                        <p class="col m3"><i>*</i> Bank Name</p>
-                        <input type="text" class="col m5">
-                        <div class="col m4"><img class="right" src="{{ url_for('static', filename='img/btn/banklookup.png') }}"></div>
+                    <div class="valign-wrapper-pro">
+                        <p class="col m3 s12"><i>*</i> Bank Name</p>
+                        <input type="text" class="col m5 s12">
+                        <div class="col m4 s12"><img class="right" src="{{ url_for('static', filename='img/btn/banklookup.png') }}"></div>
                     </div>
-                    <div class="valign-wrapper">
-                        <p class="col m3"><i>*</i> Bank Address</p>
-                        <input type="text" class="col m5">
-                        <div class="col m4"></div>
+                    <div class="valign-wrapper-pro">
+                        <p class="col m3 s12"><i>*</i> Bank Address</p>
+                        <input type="text" class="col m5 s11">
+                        <div class="col m4 s1"></div>
                     </div>
-                    <div class="row valign-wrapper">
-                        <p class="col m3"><i>*</i> Swift Code</p>
-                        <input type="text" class="col m3">
-                        <div class="col m6"></div>
+                    <div class="row valign-wrapper-pro">
+                        <p class="col m3 s12"><i>*</i> Swift Code</p>
+                        <input type="text" class="col m3 s11">
+                        <div class="col m6 s1"></div>
                     </div>
                     <div class="row">
                         <h6 class="bold">Transfer Details.</h6>
                     </div>
-                    <div class="valign-wrapper top">
-                        <p class="col m3"><i>*</i> Transaction Amount</p>
-                        <input id="money" type="number" class="col m3">
-                        <span class="col m1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
-                        <div class="col m5"></div>
+                    <div class="valign-wrapper-pro top">
+                        <p class="col m3 s12"><i>*</i> Transaction Amount</p>
+                        <input id="money" type="number" class="col m3 s11">
+                        <span class="col m6 s1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
                     </div>
-                    <div class="row valign-wrapper">
-                        <p class="col m3"><i>*</i> Remittance Currency</p>
-                        <select id="currency-select" class="col m3 browser-default">
+                    <div class="row valign-wrapper-pro">
+                        <p class="col m3 s12"><i>*</i> Remittance Currency</p>
+                        <select id="currency-select" class="col m3 s11 browser-default">
                             <option>Please Select</option>
                             <option>EUR</option>
                             <option>GBP</option>
                             <option>AED</option>
                             <option>USD</option>
                         </select>
-                        <span class="col m1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
-                        <div class="col m5"></div>
+                        <span class="col m6 s1"><img width="24px" src="{{ url_for('static', filename='img/helpicon.png') }}"></span>
                     </div><br>
                     <div id="ocd-title" class="row">
                         <h6 class="bold">We Help Charity Around The World, But There's Always Room For More!</h6>
                     </div>
                     <div id="ocd-button" class="row">
-                        <div class="col m6">
+                        <div class="col l6 m8 s12">
                             <input type="checkbox" id="tick"/>
                             <label for="tick" class="grey-text text-darken-2">Donate with <input id="checkbox-input" type="text" class="validate" value="2.5"><span id="currency">%</span> of your transaction</label>
                         </div>
-                        <div class="col m3">
+                        <div class="row hide-on-med-and-up"></div>
+                        <div class="col m3 s12">
                             <a id="customize" class="waves-effect waves-light btn modal-trigger" href="#ocd-modal">Customize <i class="fa fa-cogs right" aria-hidden="true"></i></a>
                         </div>
                     </div><br><br>
                     <p>Please note that your telex transfer message to be sent to beneficiary will consist of the <span class="red-text">"exact"</span>
                         message content you are providing under the "Payment Details" once the request is automatically processed.</p>
                     <div class="row">
-                        <div class="col m3 offset-m5">
+                        <div class="col l3 offset-l5 m4 offset-m4 s12">
                             <a href="{{ url_for('dashboard') }}"><img src="{{ url_for('static', filename='img/btn/go-back.png') }}"></a>
                             <a id="transfer-btn"><img src="{{ url_for('static', filename='img/btn/transfer.png') }}"></a>
                         </div>
@@ -185,25 +182,27 @@
             <div id="ocd-modal" class="modal">
                 <div class="modal-content center">
                     <span class="title">Choose the way you like to donate</span><br><br>
-                    <a id="percent-btn" class="waves-effect waves-teal btn tooltipped" data-position="left"
-                       data-delay="200" data-tooltip="Of this transaction">Percentage <i class="fa fa-percent right" aria-hidden="true"></i></a>
-                    <a id="fixed-btn" class="waves-effect waves-teal btn tooltipped" data-position="right"
-                       data-delay="200" data-tooltip="With this transaction">Fixed Amount <i class="fa fa-anchor right" aria-hidden="true"></i></a><br><br>
+                    <a id="percent-btn" class="col m3 offset-m3 s12 waves-effect waves-teal btn tooltipped" data-position="left" data-delay="200"
+                        data-tooltip="Of this transaction">Percentage <i class="fa fa-percent right" aria-hidden="true"></i></a>
+                    <div class="row hide-on-med-and-up"></div>
+                    <a id="fixed-btn" class="col m3 s12 waves-effect waves-teal btn tooltipped" data-position="right" data-delay="200"
+                           data-tooltip="With this transaction">Fixed Amount <i class="fa fa-anchor right" aria-hidden="true"></i></a><br><br>
                     <div id="percent" class="col s12">
                         <div class="row">
-                            <div class="input-field col s2 offset-s2">
+                            <div class="input-field col m2 offset-m2 s4">
                                 <input class="with-gap" name="percent" value="2.5" type="radio" id="p1" />
                                 <label for="p1">2.5%</label>
                             </div>
-                            <div class="input-field col s1">
+                            <div class="input-field col m1 s4">
                                 <input class="with-gap" name="percent" value="5.0" type="radio" id="p2" />
                                 <label for="p2">5.0%</label>
                             </div>
-                            <div class="input-field col s3">
+                            <div class="input-field col m3 s4">
                                 <input class="with-gap" name="percent" value="10.0" type="radio" id="p3" />
                                 <label for="p3">10.0%</label>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="row hide-on-med-and-up"></div>
+                            <div class="input-field col m2 s12">
                                 <input id="other-percent" type="number">
                                 <label for="other-percent">Other: (%)</label>
                             </div>
@@ -211,19 +210,20 @@
                     </div>
                     <div id="fixed" class="col s12">
                         <div class="row">
-                            <div class="input-field col s2 offset-s2">
+                            <div class="input-field col m2 offset-m2 s4">
                                 <input class="with-gap" name="fixed" value="5.0" type="radio" id="a1" />
                                 <label for="a1">5AED</label>
                             </div>
-                            <div class="input-field col s1">
+                            <div class="input-field col m1 s4">
                                 <input class="with-gap" name="fixed" value="10.0" type="radio" id="a2" />
                                 <label for="a2">10AED</label>
                             </div>
-                            <div class="input-field col s3">
+                            <div class="input-field col m3 s4">
                                 <input class="with-gap" name="fixed" value="20.0" type="radio" id="a3" />
                                 <label for="a3">20AED</label>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="row hide-on-med-and-up"></div>
+                            <div class="input-field col m2 s12">
                                 <input id="other-fixed" type="number">
                                 <label for="other-fixed">Other: (AED)</label>
                             </div>

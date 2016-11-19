@@ -118,15 +118,15 @@
                             $("#awards h4").hide();
                     }
                     if("{{ client.checkbox }}" == "hide") {
-                        $(".hide-ocd:visible").html("Show Donation Checkbox <i class='fa fa-plus right' aria-hidden='true'></i>").click();
+                        $(".hide-ocd").html("Show Donation Checkbox <i class='fa fa-plus right' aria-hidden='true'></i>").click();
                     }
                 });
             </script>
-            <div id="ocd" class="col m8 s12">
+            <div id="ocd" class="col l8 s12">
                 <ul class="tabs z-depth-1">
-                    <li class="tab col s4" id="summary"><a href="#ocd-summary" class="active"><i class="fa fa-tachometer" aria-hidden="true"></i> Summary</a></li>
-                    <li class="tab col s4" id="configs"><a href="#ocd-config"><i class="fa fa-cog" aria-hidden="true"></i> Configurations</a></li>
-                    <li class="tab col s4" id="history"><a href="#ocd-history"><i class="fa fa-area-chart" aria-hidden="true"></i> Awards &amp History</a></li>
+                    <li class="tab col s4" id="summary"><a href="#ocd-summary" class="active"><i class="fa fa-tachometer hide-on-small-only" aria-hidden="true"></i> Summary</a></li>
+                    <li class="tab col s4" id="configs"><a href="#ocd-config"><i class="fa fa-cog hide-on-small-only" aria-hidden="true"></i> Configurations</a></li>
+                    <li class="tab col s4" id="history"><a href="#ocd-history"><i class="fa fa-area-chart hide-on-small-only" aria-hidden="true"></i> Awards &amp History</a></li>
                 </ul>
                 <div class="container">
                     <div class="row" id="space"></div>
@@ -142,8 +142,8 @@
                                     <li>
                                         <div class="collapsible-header">
                                             <i class="fa fa-money fa-fw" aria-hidden="true"></i>
-                                            My Donations<div>AED {{ client.score }}</div>
-                                            <i class="fa fa-caret-down right" aria-hidden="true"></i>
+                                            My Donations<div class="hide-on-small-only">AED {{ client.score }}</div>
+                                            <i class="fa fa-caret-down right " aria-hidden="true"></i>
                                         </div>
                                         <div class="collapsible-body"><p>
                                             {% if client.score != 0 %}
@@ -158,7 +158,7 @@
                                         <div class="collapsible-header">
                                             <i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
                                             My Configurations
-                                            <div>
+                                            <div class="hide-on-small-only">
                                                 {% if client.amount %}
                                                     {{ client.amount }}
                                                     {%- if client.type == "percent" -%}
@@ -190,7 +190,7 @@
                                         <div class="collapsible-header">
                                             <i class="fa fa-trophy fa-fw" aria-hidden="true"></i>
                                             My Recent Award
-                                            <div>{% if recentAward %}{{ recentAward.name }}{% else %}None Yet!{% endif %}</div>
+                                            <div class="hide-on-small-only">{% if recentAward %}{{ recentAward.name }}{% else %}None Yet!{% endif %}</div>
                                             <i class="fa fa-caret-down right" aria-hidden="true"></i>
                                         </div>
                                         <div class="collapsible-body"><p>
@@ -205,7 +205,7 @@
                                     <li>
                                         <div class="collapsible-header">
                                             <i class="fa fa-list-ol fa-fw" aria-hidden="true"></i>
-                                            Leaderboard Position<div>{% if rank > 0 %}The {{ rank }}<sup>{{ exp(rank) }}</sup>{% else %}{{rank}}Not in Leaderboard!{% endif %}</div>
+                                            Leaderboard Position<div class="hide-on-small-only">{% if rank > 0 %}The {{ rank }}<sup>{{ exp(rank) }}</sup>{% else %}{{rank}}Not in Leaderboard!{% endif %}</div>
                                             <i class="fa fa-caret-down right" aria-hidden="true"></i>
                                         </div>
                                         <div class="collapsible-body"><p>{% if rank > 0 %}You have claimed <strong>The {{ rank }}<sup>{{ exp(rank) }}</sup></strong> position in the leaderboard of the donors.<br><br>
@@ -253,11 +253,11 @@
                                         </div>
                                         {%- for target in interface.get_targets() %}
                                             {% set charity = interface.get_charity_by_image(target.charity) %}
-                                        <div class="row valign-wrapper">
-                                            <div class="col s2">
+                                        <div class="row valign-wrapper-pro">
+                                            <div class="col m2 s8 offset-s4">
                                                 <img src="{{ url_for('static', filename='img/charity/' + charity.image + '.jpg') }}" class="charity-small-img">
                                             </div>
-                                            <div class="col s10">
+                                            <div class="col m10 s12">
                                                 <b>{{ charity.name }}</b> {{ charity.investment|safe }}
                                             </div>
                                         </div>
@@ -277,36 +277,38 @@
                                     <div class="card-content center hoverable">
                                         <span class="card-title">Choose the way you like to donate</span><br><br>
                                         <div class="row">
-                                            <a id="percent-btn" class="waves-effect waves-teal btn">Percentage <i class="fa fa-percent right" aria-hidden="true"></i></a>
-                                            <a id="fixed-btn" class="waves-effect waves-teal btn">Fixed Amount <i class="fa fa-anchor right" aria-hidden="true"></i></a>
+                                            <a id="percent-btn" class="col m3 offset-m3 s12 waves-effect waves-teal btn">Percentage <i class="fa fa-percent right" aria-hidden="true"></i></a>
+                                            <div class="row hide-on-med-and-up"></div>
+                                            <a id="fixed-btn" class="col m3 s12 waves-effect waves-teal btn">Fixed Amount <i class="fa fa-anchor right" aria-hidden="true"></i></a>
                                         </div>
                                         <div id="percent">
                                             <br><span class="card-subtitle">Percentage to be Dontated with Transactions</span>
                                             <div class="row">
-                                                <div class="input-field col s2 offset-s2">
+                                                <div class="input-field col m2 offset-m2 s4">
                                                     <input class="with-gap" name="percent" value="2.5" type="radio" id="p1" />
                                                     <label for="p1">2.5%</label>
                                                 </div>
-                                                <div class="input-field col s1">
+                                                <div class="input-field col m1 s4">
                                                     <input class="with-gap" name="percent" value="5.0" type="radio" id="p2" />
                                                     <label for="p2">5.0%</label>
                                                 </div>
-                                                <div class="input-field col s3">
+                                                <div class="input-field col m3 s4">
                                                     <input class="with-gap" name="percent" value="10.0" type="radio" id="p3" />
                                                     <label for="p3">10.0%</label>
                                                 </div>
-                                                <div class="input-field col s2">
+                                                <div class="row hide-on-med-and-up"></div>
+                                                <div class="input-field col m2 s12">
                                                     <input id="other-percent" type="number">
                                                     <label for="other-percent">Other: (%)</label>
                                                 </div>
                                             </div>
                                             <span class="card-subtitle">Frequency of Donating</span>
                                             <div class="row">
-                                                <div class="input-field col s3 offset-s3">
+                                                <div class="input-field col m3 offset-m3 s12">
                                                     <input class="with-gap" name="percent-freq" value="all" type="radio" id="f1" />
                                                     <label for="f1">Every Transaction</label>
                                                 </div>
-                                                <div class="input-field col s4">
+                                                <div class="input-field col m4 s12">
                                                     <input class="with-gap" name="percent-freq" value="odd" type="radio" id="f2" />
                                                     <label for="f2">Every two Transactions</label>
                                                 </div>
@@ -315,34 +317,35 @@
                                         <div id="fixed">
                                             <br><span class="card-subtitle">Fixed Amount to be Regularly Donated</span>
                                             <div class="row">
-                                                <div class="input-field col s2 offset-s2">
+                                                <div class="input-field col m2 offset-m2 s4">
                                                     <input class="with-gap" name="fixed" value="5.0" type="radio" id="a1" />
                                                     <label for="a1">5AED</label>
                                                 </div>
-                                                <div class="input-field col s1">
+                                                <div class="input-field col m1 s4">
                                                     <input class="with-gap" name="fixed" value="10.0" type="radio" id="a2" />
                                                     <label for="a2">10AED</label>
                                                 </div>
-                                                <div class="input-field col s3">
+                                                <div class="input-field col m3 s4">
                                                     <input class="with-gap" name="fixed" value="20.0" type="radio" id="a3" />
                                                     <label for="a3">20AED</label>
                                                 </div>
-                                                <div class="input-field col s2">
+                                                <div class="row hide-on-med-and-up"></div>
+                                                <div class="input-field col m2 s12">
                                                     <input id="other-fixed" type="number">
                                                     <label for="other-fixed">Other: (AED)</label>
                                                 </div>
                                             </div>
                                             <span class="card-subtitle">Frequency of Donating</span>
                                             <div class="row">
-                                                <div class="input-field col s2 offset-s3">
+                                                <div class="input-field col m2 offset-m3 s4">
                                                     <input class="with-gap" name="fixed-freq" value="week" type="radio" id="d1" />
                                                     <label for="d1">Weekly</label>
                                                 </div>
-                                                <div class="input-field col s1">
+                                                <div class="input-field col m1 s4">
                                                     <input class="with-gap" name="fixed-freq" value="month" type="radio" id="d2" />
                                                     <label for="d2">Monthly</label>
                                                 </div>
-                                                <div class="input-field col s3">
+                                                <div class="input-field col m3 s4">
                                                     <input class="with-gap" name="fixed-freq" value="year" type="radio" id="d3" />
                                                     <label for="d3">Annually</label>
                                                 </div>
@@ -359,13 +362,13 @@
                                     <div class="card-content center hoverable">
                                         <span class="card-title">Reveal the hero?</span>
                                         <div class="row">
-                                            <div class="input-field col s8 offset-s2">
+                                            <div class="input-field col m8 offset-m2 s12">
                                                 <input class="with-gap" name="reveal" value="false" type="radio" id="r1" />
                                                 <label for="r1">Keep my information and donations anonymous</label>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="input-field col s8 offset-s2">
+                                            <div class="input-field col m8 offset-m2 s12">
                                                 <input class="with-gap" name="reveal" value="true" type="radio" id="r2" />
                                                 <label for="r2">Show my details and enter the leaderboard</label>
                                             </div>
@@ -398,6 +401,7 @@
                                         <div class="row"></div>
                                         <div class="row btns-row">
                                             <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox <i class="fa fa-minus right" aria-hidden="true"></i></button>
+                                            <div class="row hide-on-med-and-up"></div>
                                             <button value="enable" class="disable-ocd waves-effect waves-light red lighten-1 btn z-depth-0 left">Disable This Application <i class="fa fa-times right" aria-hidden="true"></i></button>
                                         </div>
                                         <a class="save waves-effect btn">Save Settings <i class="fa fa-caret-right right" aria-hidden="true"></i></a>
@@ -561,7 +565,7 @@
                     </div>
                 </div>
             </div>
-            <div id="welcome-ocd" class="col m8 s12">
+            <div id="welcome-ocd" class="col l8 s12">
                 <div class="row">
                     <div class="col s12">
                         <div class="card hoverable">
@@ -579,6 +583,7 @@
                                 <div class="row"></div>
                                 <div class="row btns-row">
                                     <button value="show" class="hide-ocd waves-effect waves-light orange lighten-2 btn z-depth-0 right">Hide Donation Checkbox <i class="fa fa-minus right" aria-hidden="true"></i></button>
+                                    <div class="row hide-on-med-and-up"></div>
                                     <button value="disable" class="disable-ocd waves-effect waves-light green lighten-1 btn z-depth-0 left">Enable This Application <i class="fa fa-check right" aria-hidden="true"></i></button>
                                 </div>
                                 <a class="save waves-effect btn">Save Settings</a>

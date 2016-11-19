@@ -83,3 +83,14 @@ nav ul li:hover {
     padding: 12px;
     margin-top: 10px;
 }
+
+@media only screen and (min-width: 601px) {
+    .valign-wrapper-pro {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+            -webkit-align-items: center;
+                -ms-flex-align: center;
+                    align-items: center;
+    }
+}
