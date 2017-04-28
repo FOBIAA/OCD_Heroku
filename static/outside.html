@@ -18,7 +18,7 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!--Set other details of the website-->
-        <meta name="description" content="A demo of FOBIAA team idea for EmiratesNBD bank">
+        <meta name="description" content="A demo of FOBIAA team idea as a university course project">
         <meta name="keywords" content="FOBIAA, One Click Donation">
         <meta name="author" content="Omar Einea">
         <meta charset="utf-8">
@@ -49,9 +49,9 @@
                 {% block navbar %}<div class="row hide-on-med-and-down"></div>{% endblock %}
             </div>
         </div>
-        
+
         {% block body %}{% endblock %}
-        
+
         <!--Flash messages logic start-->
         {%- for message in get_flashed_messages() %}
             <script>Materialize.toast({{ message|tojson }}, 5000)</script>
@@ -63,7 +63,7 @@
             {%- endif %}
         {%- endfor %}
         <!--Flash messages logic end-->
-        
+
         <footer class="page-footer nbd-indigo white-text">
             <div class="row"></div>
             <div class="row">
@@ -71,7 +71,7 @@
                     <img src="{{ url_for('static', filename='img/careers.png') }}">
                 </div>
                 <div class="col l4 s8">
-                    <p><br>Take a next step in your career<br><b>Work with Emirates NBD</b></p>
+                    <p><br>Take a next step in your career<br><b>Work with Our Bank</b></p>
                 </div>
                 <div class="row hide-on-large-only"></div>
                 <div class="row hide-on-large-only"></div>
@@ -79,7 +79,7 @@
                     <img src="{{ url_for('static', filename='img/mobile-app.png') }}">
                 </div>
                 <div class="col l4 s8">
-                    <p>Download the<br><b>Emirates NBD</b><br>Mobile Banking App</p>
+                    <p>Download the<br><b>Bank's</b><br>Mobile App</p>
                 </div>
             </div>
             <div class="row"></div>

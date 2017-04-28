@@ -1,7 +1,6 @@
 FOBIAA - One Click Donation
 ---
 
-Final software for EmiratesNBD bank
 
 The website can be accessed through the following URLs:
 > - [FOBIAA.TK](http://fobiaa.tk)
@@ -16,6 +15,6 @@ The website can be accessed through the following URLs:
 
 ####License
 
-Copyright (C) 2016 by FOBIAA.
+Copyright (C) 2017 by FOBIAA.
 
 This website is licensed under MIT License. A copy of the license can be found [here](https://github.com/FOBIAA/OCD_Heroku/blob/master/LICENSE.md).
