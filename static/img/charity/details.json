@@ -1,0 +1,42 @@
+{
+  "awqaf": {
+    "name": "Awqaf & Minors Affairs Foundation",
+    "desc": "Government body dedicated to the legal supervision over the Awqaf, its care & investment; based in Dubai; also takes care of procedures to protect the funds of minors, disqualified & lost persons, & take care of their affairs"
+  },
+  "cares": {
+    "name": "Dubai Cares",
+    "desc": "Charitable establishment launched in 2007 by His Highness Sheikh Mohammed Bin Rashid Al Maktoum; aims to improve children's access to primary education in developing countries; offers aid in the areas of teacher training, health etc"
+  },
+  "darber": {
+    "name": "Dar Al Ber Society",
+    "desc": "One of the first charities to be established in the UAE, Dar Al Ber was established in 1979, and since then the charity has carried out several charitable and development programmes around the world and locally."
+  },
+  "dfwac": {
+    "name": "Dubai Foundation",
+    "desc": "Established in 2007, it works to prevent violence against women and children, and is also the first licensed shelter in the UAE for female and children victims of violence."
+  },
+  "khair": {
+    "name": "Beit Al Khair Society",
+    "desc": "Founded in 1989 with a mandate of helping Emirati citizens. The charitable organisation has Wa number of programmes to help widows, orphans, hospital patients, families of prisoners, debtors, and special needs people."
+  },
+  "noor": {
+    "name": "Noor Dubai",
+    "desc": "Established by Shaikh Mohammad Bin Rashid in 2007, the group currently has projects in 45 countries. Volunteers are welcomed to assist with its worldwide projects."
+  },
+  "red": {
+    "name": "Red Crescent for UAE",
+    "desc": "The UAERC is a national, humanitarian and voluntary authority that provides aid and assistance to the vulnerable without discrimination as in nationality, race, gender, colour, religious, political or ideological beliefs"
+  },
+  "school": {
+    "name": "The National Charity Schools",
+    "desc": "A series of schools located in the UAE aimed at providing education for children of poor families."
+  },
+  "senses": {
+    "name": "Dubai Center for Special Needs",
+    "desc": "Charitable, non-profit-making organisation set up to provide the best possible education to children with special needs; site has info about facilities, activities, curriculum, education & training, therapy sessions etc"
+  },
+  "zakat": {
+    "name": "Zakat Fund",
+    "desc": "The Zakat Fund was created in 2003 by Shaikh Zayed and is a public body that officially collects Zakat donations in the UAE. It’s charitable projects provide for widows, orphans, unemployed persons, the elderly, and the disabled."
+  }
+}
