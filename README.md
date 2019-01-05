@@ -14,6 +14,6 @@ The website can be accessed through the following URLs:
 
 ### License
 
-Copyright (C) 2018 by FOBIAA.
+Copyright (C) 2019 by FOBIAA.
 
-This website is licensed under MIT License. A copy of the license can be found [here](https://github.com/FOBIAA/OCD_Heroku/blob/master/LICENSE.md).
+This website is licensed under MIT License. A copy of the license can be found [here](./LICENSE.md).

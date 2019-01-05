@@ -12,7 +12,7 @@ from datetime import datetime
 # initialize with template folder in /static
 app = Flask(__name__, template_folder="static")
 # configure app from object of current environment
-app.config.from_object(os.environ['APP_SETTINGS'])
+app.config.from_object(os.environ.get("APP_SETTINGS", "config.Base"))
 # Initialize SQLAlchemy database
 db = SQLAlchemy(app)
 # Instantiate an info object
@@ -145,4 +145,4 @@ def logout():
 # finalize configurations and run the app
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host="0.0.0.0", port=port)

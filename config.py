@@ -9,7 +9,7 @@ class Base(object):
     # Disable debugger
     DEBUG = False
     # Define a randomly generated secret key for flask session
-    SECRET_KEY = os.environ["SECRET_KEY"]
+    SECRET_KEY = os.environ.get("SECRET_KEY", "d52cc2d545109")
     # Define database url according to the current environment
     SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
     # Disable SQLAlchemy track modifications to avoid warning
