@@ -5,12 +5,13 @@ from os import listdir
 script = open('script.py', 'w+')
 print = lambda string: script.write(string + '\n')
 add = 'db.session.add({})'.format
+names_url = 'https://raw.githubusercontent.com/dominictarr/random-name/master/first-names.txt'
 __names = []
 
 
 def __get_names(count):
     if not __names:
-        __names.extend(get('https://raw.githubusercontent.com/dominictarr/random-name/master/first-names.txt').text.split())
+        __names.extend(filter(lambda n: len(n) < 12, get(names_url).text.split()))
     seed(0)
     return sample(__names, k=count)
 
