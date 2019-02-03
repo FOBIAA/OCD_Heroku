@@ -63,3 +63,22 @@
 hr {
     border-color: #ffc000;
 }
+
+.direct.card {
+    width: 100%;
+    color: #112655;
+    margin-top: 10px;
+    position: absolute;
+    left: 0;
+}
+
+.direct.card .carrot-up {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #ffca28;
+    position: absolute;
+    bottom: 100%;
+    left: 48%;
+    width: 0;
+    height: 0;
+}

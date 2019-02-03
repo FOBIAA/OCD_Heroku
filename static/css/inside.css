@@ -37,6 +37,10 @@ nav ul li:hover {
     background: linear-gradient(#e5b504, #e29600);
 }
 
+#nav-transfer.active > div {
+    display: none;
+}
+
 #welcome-bar {
     color: #063887;
     padding: 5px 0 10px 0;
