@@ -23,7 +23,14 @@
                     <li><a>SMS Banking</a></li>
                     <li><a>Rates</a></li>
                     <li><a>Social Banking</a></li>
-                    <li><a href="{{ url_for('ocd') }}">My Donations</a></li>
+                    <li style="position: relative">
+                        <a href="{{ url_for('ocd') }}">My Donations
+                            <div style="padding: 8px 12px" class="direct card amber lighten-1">
+                                <div style="carrot-up"></div>
+                                View OCD Dashboard
+                            </div>
+                        </a>
+                    </li>
 {%- endblock %}
 
 {% block main -%}

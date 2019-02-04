@@ -495,9 +495,8 @@
                                                 <img class="circle {{ colors[loop.index0] }}" src="{{ url_for('static', filename='img/avatar.png') }}">
                                                 <span class="title">{{ client.username }}</span>
                                                 <p>{{ client.score }}AED</p>
-                                                <p class="secondary-content">{{ count }}<sup>{{ exp(count) }}</sup></p>
+                                                <p class="secondary-content">{{ count + loop.index0 }}<sup>{{ exp(count + loop.index0) }}</sup></p>
                                             </li>
-                                            {%- set count = count + 1 -%}
                                         {%- endfor %}
                                         </ul>
                                         {% else %}<br>
