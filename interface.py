@@ -80,7 +80,10 @@ class Interface:
     def get_rank(self):
         if self.rank is None:
             if self.get_client().reveal == "true":
-                self.rank = self.get_full_leaderboard().all().index(self.get_client()) + 1
+                try: self.rank = self.get_full_leaderboard().all().index(self.get_client()) + 1
+                except:
+                    print('ERROR: out of index while getting rank, list:', str(self.get_full_leaderboard().all()))
+                    self.rank = 1
             else:
                 self.rank = -1
         return self.rank
