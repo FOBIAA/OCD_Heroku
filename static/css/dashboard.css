@@ -64,6 +64,10 @@ hr {
     border-color: #ffc000;
 }
 
+#nav-transfer > div {
+    display: block !important;
+}
+
 .direct.card {
     width: 100%;
     color: #112655;
